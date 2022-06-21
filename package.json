@@ -1,32 +1,47 @@
 {
+  "type": "commonjs",
   "name": "vuetailwindhw",
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "proxy": "export https_proxy=http://127.0.0.1:7890",
+    "emu": "export https_proxy=http://127.0.0.1:7890 && firebase emulators:start --import=./emulator.txt --export-on-exit",
+    "deploy": "export https_proxy=http://127.0.0.1:7890 && firebase deploy --only hosting"
   },
   "dependencies": {
-    "vue": "^3.2.25",
+    "@kyvg/vue3-notification": "^2.3.4",
+    "@tiptap/extension-character-count": "^2.0.0-beta.26",
+    "@tiptap/extension-history": "^2.0.0-beta.24",
+    "@tiptap/extension-placeholder": "^2.0.0-beta.48",
+    "@tiptap/starter-kit": "^2.0.0-beta.184",
+    "@tiptap/vue-3": "^2.0.0-beta.91",
+    "axios": "^0.27.2",
+    "firebase": "^9.8.3",
+    "scss-loader": "^0.0.1",
     "uid": "^2.0.0",
+    "vue": "^3.2.25",
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.0-0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.2.0",
-    "autoprefixer": "^10.4.4",
-    "postcss": "^8.4.12",
-    "tailwindcss": "^3.0.23",
-    "vite": "^2.8.0",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-plugin-vuex": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "@vue/compiler-sfc": "^3.0.0",
+    "autoprefixer": "^10.4.4",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^7.0.0"
+    "eslint-plugin-vue": "^7.0.0",
+    "postcss": "^8.4.12",
+    "sass": "^1.52.2",
+    "sass-loader": "^13.0.0",
+    "tailwindcss": "^3.0.23",
+    "vite": "^2.8.0"
   }
 }

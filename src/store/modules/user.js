@@ -1,6 +1,12 @@
 export default {
-    state: () => ({}),
-    getters: {},
-    mutations: {},
-    actions: {},
+    state () {
+        return {
+            
+        }
+    },
+    mutations: {
+        
+    },
+    actions: {
+    },
 }
