@@ -26,3 +26,6 @@ temp
 
 # firebase config files
 firebase/config.js
+.firebase
+.ipynb_checkpoints
+.vscode
