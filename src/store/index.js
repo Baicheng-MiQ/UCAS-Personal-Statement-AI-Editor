@@ -37,7 +37,7 @@ export default createStore({
                 // },
                 // "createdAt": "1648882484841",
                 // "lastLoginAt": "1654969003312",
-                // "apiKey": "AIzaSyCKvuKUiZgn0OHmD0SezmAb1j0ndpK6F-E",
+                // "apiKey": "A***********",
                 // "appName": "[DEFAULT]"
                 // }
             
