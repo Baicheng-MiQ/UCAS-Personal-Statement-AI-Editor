@@ -54,10 +54,16 @@ export default {
 
       onUpdate: () => {
         // HTML
-        this.$emit('update:modelValue', this.editor.getHTML())
+        // this.$emit('update:modelValue', this.editor.getHTML())
 
         // JSON
         // this.$emit('update:modelValue', this.editor.getJSON())
+
+        // JSON, get old and new value
+        const oldValue = this.modelValue
+        const newValue = this.editor.getJSON()
+        this.$emit('input', newValue, oldValue)
+
       }
     })
   },
@@ -66,8 +72,9 @@ export default {
 
   props: {
     modelValue: {
-      type: String,
-      default: '',
+      // string or object
+      type: Object,
+      default: {},
     },
   },
 
@@ -77,10 +84,10 @@ export default {
   watch: {
     modelValue(value) {
       // HTML
-      const isSame = this.editor.getHTML() === value
+      // const isSame = this.editor.getHTML() === value
 
       // JSON
-      // const isSame = JSON.stringify(this.editor.getJSON()) === JSON.stringify(value)
+      const isSame = JSON.stringify(this.editor.getJSON()) === JSON.stringify(value)
 
       if (isSame) {
         return

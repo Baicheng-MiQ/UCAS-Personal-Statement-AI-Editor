@@ -76,11 +76,37 @@ export default createStore({
         
             contentID: null,
             major: [],
-            content: " ",
+            content: {
+                "type": "doc",
+                "content": [
+                    {
+                        "type": "paragraph"
+                    }
+                    ]
+                },
             appReady: false,            
             }
         },
-
+    getters: {
+        pureContent: (state) => {
+            var content = state.content;
+            try {
+            // grab array in content field
+            var contentArray = content.content
+            // iterate the content field of the array
+            var pureContent = '';
+            for (var i=0; i<contentArray.length; i++) {
+                // if the content is a string, add it to the pure content
+                pureContent += "\n";
+                if (typeof contentArray[i].content === 'object') {
+                    pureContent += contentArray[i].content[0].text;
+                }
+            }
+            return pureContent.trim();} catch (e) {
+                return '';
+            }
+        },
+    },
 
 
     mutations: {

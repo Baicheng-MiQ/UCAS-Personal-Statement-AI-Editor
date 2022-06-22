@@ -79,12 +79,12 @@ export default {
                     { type: 'error', title: 'Major', message: 'Please enter your a major' });
                 return;
             }
-            if (extractPureContent(this.$store.state.content).length < 2000) {
+            if (this.$store.getters.pureContent.length < 2000) {
                 this.$store.commit('notify',
                     { type: 'error', title: 'Too Short', message: 'Your Personal Statement is too short to be analysed, please enter at least 2000 characters' });
                 return;
             }
-            if (extractPureContent(this.$store.state.content).length > 4000) {
+            if (this.$store.getters.pureContent.length > 4000) {
                 this.$store.commit('notify',
                     { type: 'error', title: 'Too Long', message: 'The limit given by UCAS is 4000 characters, please shorten your Personal Statement' });
                 return;
@@ -111,7 +111,7 @@ export default {
 
             // construct request
             const major = this.$store.state.major.join(", ");
-            const statement = extractPureContent(this.$store.state.content);
+            const statement = this.$store.getters.pureContent;
             const payload = {
                 major: major,
                 statement: statement,
@@ -139,19 +139,6 @@ export default {
     },
 
 }
-
-// utils
-function extractPureContent (content) {
-    return content
-        .replace(/<\/p>/g, '\n')
-        .replace(/<[^>]*>?/gm, '')
-        .replace(/&apos;/g, "'")
-        .replace(/&quot;/g, '"')
-        .replace(/&gt;/g, '>')
-        .replace(/&lt;/g, '<')
-        .replace(/&amp;/g, '&')
-        .replace(/&nbsp;/g, ' ')
-};
 </script>
 
 <style>

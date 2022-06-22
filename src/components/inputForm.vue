@@ -12,7 +12,7 @@
         :class="{ 'lg:h-[81.0vh]': underFullscreen }">
             <majorInputC v-show="!underFullscreen"/>
 
-            <RichTextC v-model="content" class="mr-4"
+            <RichTextC v-model="content" class="mr-4" @input="onInput"
             :class="{ 'ml-10 mr-32 mt-11': underFullscreen }"/>
         </div>
 
@@ -80,21 +80,18 @@ export default {
                 this.$store.commit('setContent', value);
             }
         },
-        contentForWatch() {
-            return this.$store.state.content;
-        },
 
 
         pureContent () {
-            return extractPureContent(this.content)
+            return this.$store.getters.pureContent;
         },
         charCount() {
             // only count the characters in this HTML (No tags)
-            return this.pureContent.length-1;
+            return this.pureContent.length;
         },
         lineCount() {
             const ps = this.pureContent;
-            if (ps=='\n') {
+            if (ps==='') {
                 return 0;
             }
             var pars = ps.split('\n');
@@ -105,7 +102,7 @@ export default {
                 var line_char = 0;
                 var words = pars[i].split(' ');
                 for (var j=0; j<words.length; j++) {
-                    if (line_char + words[j].length + 1 > 95) {
+                    if (line_char + words[j].length > 93) {
                         line_char = words[j].length;
                         par_line += 1;
                     } else {
@@ -114,18 +111,16 @@ export default {
                 }
                 total_lines += par_line;
             }
-            return total_lines-1;
+            return total_lines;
         }
     },
-    watch:{
-        contentForWatch: {
-            handler(...args) {
-                this.saveStatus = '';
-                this.debouncedWatch(...args);
-            }
-        },
-    },
     methods: {
+        onInput(newValue, oldValue) {
+            this.saveStatus = '';
+            this.content = newValue;
+            this.debouncedWatch(newValue, oldValue);
+        },
+
         toggleFullscreen() {
             this.$emit('toggleFullscreen');
         },
@@ -158,16 +153,23 @@ export default {
 }
 
 
+
 function extractPureContent (content) {
-    return content
-        .replace(/<\/p>/g, '\n')
-        .replace(/<[^>]*>?/gm, '')
-        .replace(/&apos;/g, "'")
-        .replace(/&quot;/g, '"')
-        .replace(/&gt;/g, '>')
-        .replace(/&lt;/g, '<')
-        .replace(/&amp;/g, '&')
-        .replace(/&nbsp;/g, ' ')
+    try {
+    // grab array in content field
+    var contentArray = content.content
+    // iterate the content field of the array
+    var pureContent = '';
+    for (var i=0; i<contentArray.length; i++) {
+        // if the content is a string, add it to the pure content
+        pureContent += "\n";
+        if (typeof contentArray[i].content === 'object') {
+            pureContent += contentArray[i].content[0].text;
+        }
+    }
+    return pureContent.trim();} catch (e) {
+        return '';
+    }
 };
 
 
