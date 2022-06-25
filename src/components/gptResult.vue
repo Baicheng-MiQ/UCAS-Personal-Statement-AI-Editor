@@ -113,27 +113,28 @@ export default {
             const major = this.$store.state.major.join(", ");
             const statement = this.$store.getters.pureContent;
             const payload = {
-                major: major,
-                statement: statement,
-                userToken: this.$store.state.userIDtoken
-            }
+                proEngine: "Curie",
+                conEngine: "Davinci",
+                commEngine: "Davinci",
+                statement:{
+                    major: major,
+                    statement: statement,
+                    userToken: this.$store.state.userIDtoken
+                }
+            };
             console.log(payload);
             // call GPT
             // 1. Curie; 2. Davinci
             axios.post('https://ps-htbbh2ws5a-uc.a.run.app/GPT-comment', payload)
-            // axios.post('https://ps-davinci-htbbh2ws5a-uc.a.run.app/GPT-comment', payload)
+            // axios.post('http://localhost:8000/GPT-comment', payload)
             .then(response => 
                 {this.waitingResult = false;
                 this.result = response.data;
                 console.log(response.data);})
             .catch(error =>
                 {this.waitingResult = false; 
-                this.result = error;})
+                alert(error);})
 
-            // update gpt quota
-            this.$store.dispatch('dbUpdateUserStatus', {
-                "status.usage.gptLeft": this.$store.state.userStatus["status"]["usage"]["gptLeft"] - 1
-            });
         },
 
     },
