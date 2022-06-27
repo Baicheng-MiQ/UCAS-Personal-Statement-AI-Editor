@@ -19,6 +19,7 @@
     "@tiptap/starter-kit": "^2.0.0-beta.184",
     "@tiptap/vue-3": "^2.0.0-beta.91",
     "axios": "^0.27.2",
+    "daisyui": "^2.17.0",
     "firebase": "^9.8.3",
     "scss-loader": "^0.0.1",
     "uid": "^2.0.0",

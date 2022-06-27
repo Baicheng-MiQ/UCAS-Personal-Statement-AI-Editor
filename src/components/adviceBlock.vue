@@ -3,10 +3,10 @@
     <ul>
         <li v-for="(advice, index) in adviceContent" :key="index">
             <div class="bg-gray-50 m-4 mx-0 p-2 px-5 rounded-lg shadow-sm
-                            hover:bg-green-50">
+                            hover:bg-indigo-50 ">
                 <span class="font-serif text-base leading-8">{{ advice }}</span>
 
-                <div class="flex flex-row justify-end ">
+                <div class="flex flex-row justify-between items-baseline my-2 ">
                     <!-- copy botton -->
                     <!-- when clicked, activate an animation -->
                     <button class="py-1 px-1 mx-2 hover:bg-green-200 hover:rounded-full"
@@ -16,21 +16,14 @@
                         </svg>
                     </button>
 
-                    <!-- thumb up botton -->
-                    <button class="py-1 px-1 mx-2"
-                            @click="thumbUp(advice)">
-                        <svg class="w-5 h-5" fill="#888" viewBox="0 0 24 24">
-                            <path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"></path>
-                        </svg>
-                    </button>
-
-                    <!-- thumb down botton -->
-                    <button class="py-1 px-1 mx-2 rotate-180"
-                            @click="thumbDown(advice)">
-                        <svg class="w-5 h-5 " fill="#888" viewBox="0 0 24 24">
-                            <path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"></path>
-                        </svg>
-                    </button>
+                    <div class="rating rating-sm flex flex-row">
+                        <p class="relative text-sm text-slate-400">Feedback: </p>
+                        <input type="radio" name="rating-1" class="mask mask-star-2 bg-slate-300" />
+                        <input type="radio" name="rating-1" class="mask mask-star-2 bg-slate-300" />
+                        <input type="radio" name="rating-1" class="mask mask-star-2 bg-slate-300" />
+                        <input type="radio" name="rating-1" class="mask mask-star-2 bg-slate-300" />
+                        <input type="radio" name="rating-1" class="mask mask-star-2 bg-slate-300" checked/>
+                    </div>
                 </div>
             </div>
 

@@ -1,13 +1,17 @@
 <template>
     <div class="flex flex-col m-0 mt-8 lg:m-3 lg:mb-0 lg:w-1/2">
-        <div class="flex flex-row mx-7 ml-auto">
+        <div class="flex flex-row mx-7 justify-between items-center">
 
-            <p class="my-auto mx-3 text-gray-600">
-                {{ gptQuota + " left "}}
-            </p>
+            <div class="my-auto mx-3 stats shadow">
+                <div class="stat p-3">  
+                    <div class="stat-title text-sm">AI Usage</div>
+                    <div class="stat-value text-lg">{{ gptQuota }}</div>
+                    <div class="stat-desc text-sm">left</div>
+                </div>
+            </div>
 
-            <button class="bg-indigo-500 rounded-md font-mono shadow-sm
-            text-white font-bold p-2 px-5
+            <button class="btn btn-primary rounded-md font-mono shadow-sm
+            text-white font-bold p-1 px-5
             hover:bg-indigo-600-600 hover:shadow-lg" @click="callAI">
                 <p> Call AI </p>
             </button>

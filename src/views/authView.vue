@@ -6,7 +6,7 @@
     <h1 class="text-4xl font-bold">
         Welcome!
     </h1>
-    <button class="flex flex-row my-20 top-20 bg-blue-500 hover:bg-blue-700 text-white 
+    <button class="btn flex flex-row my-20 top-20 bg-blue-500 hover:bg-blue-700 text-white 
                     font-bold mx-auto py-2 px-4 rounded-full shadow-md
                     focus:shadow-outline"
         @click="signIn">

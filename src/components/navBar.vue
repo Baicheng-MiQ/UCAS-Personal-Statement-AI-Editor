@@ -6,9 +6,7 @@
     <img src="/src/assets/psai_logo.png" alt="logo" width=140  class="my-auto lg:ml-32">
 
     <!-- a material design Sign in with Google button -->
-    <button class="mr-0 flex flex-row ml-auto bg-blue-500 hover:bg-blue-700 text-white 
-                    font-bold py-2 px-4 rounded-full shadow-md lg:mr-32
-                    focus:shadow-outline"
+    <button class="btn mr-3 flex flex-row ml-auto rounded-full bg-blue-500 hover:bg-blue-700"
         @click="signIn" v-show="!user">
         <!-- give this image a white background rounded -->
         <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" class="rounded-full bg-white p-1 my-auto" alt="">
@@ -16,11 +14,11 @@
     </button>
 
     <!-- a material design gray Sign out button -->
-    <div class="userInfo flex flex-row ml-auto mr-0 lg:mr-32" v-show="user">
+    <div class="userInfo flex flex-row ml-auto mr-0 lg:mr-24" v-show="user">
         <img :src="userImage" alt="user" width="50" height="50"
             class="mx-3" v-show="user"/>
 
-        <button class="my-auto bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-5 rounded-full focus:outline-none focus:shadow-outline"
+        <button class="my-auto btn rounded-full"
             @click="signOut" >
             Sign out
         </button>
