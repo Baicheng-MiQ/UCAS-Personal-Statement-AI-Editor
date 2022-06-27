@@ -1,8 +1,9 @@
 <template>
-    <div class="flex flex-col m-0 mt-8 lg:m-3 lg:mb-0 lg:w-1/2">
-        <div class="flex flex-row mx-7 justify-between items-center">
+<div class="">
+    <div class="flex flex-col m-0 mt-8 lg:m-3 lg:mb-0">
+        <div class="flex flex-row justify-between items-center">
 
-            <div class="my-auto mx-3 stats shadow">
+            <div class="my-auto stats shadow">
                 <div class="stat p-3">  
                     <div class="stat-title text-sm">AI Usage</div>
                     <div class="stat-value text-lg">{{ gptQuota }}</div>
@@ -27,7 +28,7 @@
             </div>
 
             <!-- wait result -->
-            <div v-show="waitingResult" class="lg:mx-2 lg:mt-60 my-auto">
+            <div v-show="waitingResult" class="lg:mx-2 lg:mt-60 lg:w-full my-auto">
                 <img src="/src/assets/loading.gif" alt="" width="50" height="50" class="mx-auto my-5">
                 <h2 class="text-gray-500 font-bold text-center text-lg pb-40">
                     I'm thinking... this may take a while.
@@ -35,11 +36,12 @@
             </div>
 
             <!-- result -->
-            <div v-show="result.comm" class="m-0 lg:mx-2 p-8 border-gray-100 rounded-lg">
+            <div v-show="result.comm" class="m-0 border-gray-100 rounded-lg">
                 <gptResultParseC :result="result" />
             </div>
         </div>
     </div>
+</div>
 </template>
 
 <script>
@@ -118,8 +120,8 @@ export default {
             const statement = this.$store.getters.pureContent;
             const payload = {
                 proEngine: "Curie",
-                conEngine: "Davinci",
-                commEngine: "Davinci",
+                conEngine: "Curie",
+                commEngine: "Curie",
                 statement:{
                     major: major,
                     statement: statement,
