@@ -17,17 +17,15 @@
         <!-- ====================== -->
 
         <div class="z-20 flex flex-col space-y-2 2xl:space-y-0 2xl:flex-row-reverse justify-between px-2 lg:w-2/5 ">
-            <div class="navbar shadow-xl rounded-lg flex flex-row space-x-2 
+            <div class="navbar shadow-lg shadow-indigo-200 rounded-lg flex flex-row space-x-2 
                 2xl:w-fit 2xl:flex-col 2xl:space-x-0 2xl:space-y-2">
                 <a class="btn btn-ghost bg-slate-50 shadow-sm normal-case text-base"
                     @click="goGrammar">Grammar</a>
                 <a class="btn btn-ghost bg-slate-50 shadow-sm normal-case text-base"
                     @click="goGPT">AI Expert</a>
             </div>
-            <keep-alive include="GPTResultC" class="2xl:w-min-4/5 2xl:w-full overflow-visible 
-                lg:min-h-fit lg:h-full lg:overflow-scroll lg:max-h-[81vh] 2xl:max-h-[88.1vh]">
-                <router-view />
-            </keep-alive>
+            <router-view class="2xl:w-min-4/5 2xl:w-full overflow-visible 
+            lg:min-h-fit lg:h-full lg:overflow-scroll lg:max-h-[81vh] 2xl:max-h-[88.1vh]" />
         </div>
 
 
