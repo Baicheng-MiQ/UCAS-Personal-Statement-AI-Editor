@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col px-4 border-2 border-gray-100 shadow-md rounded-md
-                focus-within:shadow-xl" :class="{ 'absolute top-20': underFullscreen }">
+                focus-within:shadow-xl" :class="{ 'absolute translate-x-10 top-20': underFullscreen }">
 
         <div class="px-3 pt-4 mb-1 border-b-2 text-gray-600 font-bold sticky top-0 z-10 bg-white backdrop-filter backdrop-blur-sm bg-opacity-40"
         v-show="!underFullscreen"> 
@@ -151,28 +151,6 @@ export default {
     },
 
 }
-
-
-
-function extractPureContent (content) {
-    try {
-    // grab array in content field
-    var contentArray = content.content
-    // iterate the content field of the array
-    var pureContent = '';
-    for (var i=0; i<contentArray.length; i++) {
-        // if the content is a string, add it to the pure content
-        pureContent += "\n";
-        if (typeof contentArray[i].content === 'object') {
-            pureContent += contentArray[i].content[0].text;
-        }
-    }
-    return pureContent.trim();} catch (e) {
-        return '';
-    }
-};
-
-
 </script>
 
 <style>

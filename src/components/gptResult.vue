@@ -1,7 +1,7 @@
 <template>
 <div class="">
-    <div class="flex flex-col m-0 mt-8 lg:m-3 lg:mb-0">
-        <div class="flex flex-row justify-between items-center">
+    <div class="flex flex-col m-0 mt-8 lg:m-3 lg:mt-6 lg:mb-0">
+        <div class="flex flex-row justify-between items-end">
 
             <div class="my-auto stats shadow">
                 <div class="stat p-3">  
