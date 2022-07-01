@@ -1,8 +1,8 @@
 <template>
-    <div class="flex flex-col px-4 border-2 border-gray-50 shadow-md rounded-md
+    <div class="flex flex-col px-4 border-r-2 border-gray-100 
                 focus-within:shadow-md">
 
-        <div class="px-3 pt-4 mb-1 border-b-2 text-gray-600 font-bold sticky top-0 z-10 bg-white backdrop-filter backdrop-blur-sm bg-opacity-40"> 
+        <div class="px-3 pt-4 mb-1 border-b-2 text-gray-800 font-bold sticky top-0 z-10 bg-white backdrop-filter backdrop-blur-sm bg-opacity-40"> 
             <a class="text-xl">UC<a class="text-red-600">A</a>S</a>  Personal Statement 
         </div>
 
@@ -110,7 +110,7 @@ export default {
                 this.$store.dispatch('dbUpdateUserStatement');
                 this.saveStatus = 'Saved.';
                 }
-            }, 3000);
+            }, 1000);
         },
 
     beforeUnmount() {

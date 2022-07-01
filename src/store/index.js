@@ -88,6 +88,9 @@ export default createStore({
             }
         },
     getters: {
+        // content: (state) => {
+        //     this
+        // },
         pureContent: (state) => {
             var content = state.content;
             try {
@@ -146,7 +149,6 @@ export default createStore({
                 state.contentID = null;
                 state.appReady = false;
                 this.unsubUserStatus();
-                this.unsubUserStatement();
             })
             .catch((error) => {
                 console.log(error);
@@ -266,18 +268,19 @@ export default createStore({
         },
 
         async dbGetUserStatement (state) {
-            this.unsubUserStatement = onSnapshot(doc(db, `user/${state.state.userDetail.uid}/statements/0001`),
-                async (statement) => {
-                    if (statement.exists && typeof statement.data() !== 'undefined') {
-                        state.commit('setContent', statement.data().content);
-                        state.commit('setContentID', statement.id)
-                    } else {
-                        // new user: create new user statement
-                        const docRef = doc(db, 'user/0/statements/0001');
-                        const docSnap = await getDoc(docRef);
-                        setDoc(doc(db, "user", state.state.userDetail.uid, "statements", "0001"), docSnap.data());
-                    }
-                });
+            var statement = await getDoc(doc(db, `user/${state.state.userDetail.uid}/statements/0001`));
+            if (statement.exists && typeof statement.data() !== 'undefined') {
+                state.commit('setContent', statement.data().content);
+                state.commit('setContentID', statement.id)
+            } else {
+                // new user: create new user statement
+                const docRef = doc(db, 'user/0/statements/0001');
+                const docSnap = await getDoc(docRef);
+                setDoc(doc(db, "user", state.state.userDetail.uid, "statements", "0001"), docSnap.data());
+                state.commit('setContent', statement.data().content);
+                state.commit('setContentID', statement.id)
+            }
+
         },
 
         async dbUpdateUserStatement (state) {
