@@ -14,8 +14,12 @@
                 <a class="btn btn-ghost bg-indigo-50 hover:bg-indigo-100 shadow-md shadow-indigo-100 normal-case text-base"
                     @click="goGPT">AI Expert</a>
             </div>
-                <router-view class="2xl:w-min-4/5 2xl:w-full overflow-visible 
-                lg:min-h-fit lg:overflow-scroll lg:h-[calc(100vh-10.3rem)] 2xl:h-[calc(100vh-5.3rem)]"/> 
+            <router-view class="2xl:w-min-4/5 2xl:w-full overflow-visible 
+            lg:min-h-fit lg:overflow-scroll lg:h-[calc(100vh-10.3rem)] 2xl:h-[calc(100vh-5.3rem)]" v-slot="{ Component }"> 
+                <Transition enter-active-class="animate__animated animate__fadeInLeft" leave-active-class="animate__animated animate__fadeOutRight animate__faster">
+                    <component :is="Component" />
+                </Transition>
+            </router-view>
         </div>
 
 

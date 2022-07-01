@@ -3,9 +3,9 @@
     <div class="flex flex-row justify-between items-start">
       <div class="stats stats-vertical lg:stats-horizontal shadow mb-2">
           <div class="stat">
-            <div class="stat-title">Found</div>
+            <div class="stat-title text-slate-800">Found</div>
             <div class="stat-value text-success">{{numOfIssue}}</div>
-            <div class="stat-desc">issues</div>
+            <div class="stat-desc text-slate-800">issues</div>
           </div>
       </div>
       <button class="btn btn-success ml-auto mr-3 my-4 shadow-lg" @click="checkGrammar">check grammar</button>
@@ -33,9 +33,11 @@
       </div>
       <div v-show="grammarResult.length">
       <div v-for="(para, index) in grammarResult" :key="index" v-show="(para && para.length)" class="m-2 p-2 shadow-md shadow-indigo-100 rounded-lg flex flex-col space-y-4">
-        <h1 class="text-gray-500 translate-y-1 font-bold"> Paragraph {{ index + 1 }}</h1>
+        <h1 class="text-gray-800 translate-y-1 font-bold"> Paragraph {{ index + 1 }}</h1>
         <div v-for="(note, subindex) in para" :key="subindex" >
+          <Transition appear-active-class="animate__animated animate__fadeIn" leave-active-class="animate__animated animate__fadeOut">
             <GrammarBlock :note="note" />
+          </Transition>
         </div>
       </div>
       </div>
