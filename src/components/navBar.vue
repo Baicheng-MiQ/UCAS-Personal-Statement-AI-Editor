@@ -1,27 +1,30 @@
 <template>
-<div class="flex p-2 shadow-sm border-b-2 border-gray-200
+<div class="flex p-1 shadow-sm border-b-2 border-gray-200 h-16 items-center
             bg-gradient-to-br from-pink-50 via-indigo-50 to-blue-50 opacity-90">
 
     <!-- logo -->
-    <img src="/src/assets/psai_logo.png" alt="logo" width=140  class="my-auto lg:ml-32">
-
-    <!-- a material design Sign in with Google button -->
-    <button class="btn mr-3 flex flex-row ml-auto rounded-full bg-blue-500 hover:bg-blue-700"
-        @click="signIn" v-show="!user">
-        <!-- give this image a white background rounded -->
-        <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" class="rounded-full bg-white p-1 my-auto" alt="">
-        <p class="my-auto ml-2">Sign in with Google</p>
-    </button>
+    <img src="/src/assets/psai_logo.png" alt="logo" width=150  class="my-auto lg:ml-32">
 
     <!-- a material design gray Sign out button -->
     <div class="userInfo flex flex-row ml-auto mr-0 lg:mr-24" v-show="user">
-        <img :src="userImage" alt="user" width="50" height="50"
-            class="mx-3" v-show="user"/>
-
-        <button class="my-auto btn rounded-full"
-            @click="signOut" >
-            Sign out
-        </button>
+        <div class="dropdown dropdown-end">
+            <label tabindex="0" class="btn btn-ghost flex h-fit w-fit p-0">
+                <img :src="userImage" alt="user" width="50"
+                class="" v-show="user"/>
+                <!-- an svg elegent down arrow -->
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </label>
+            <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                <li>
+                <button
+                    @click="signOut" >
+                    Sign out
+                </button>
+                </li>
+            </ul>
+        </div> 
     </div> 
 
 </div>

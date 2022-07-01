@@ -1,30 +1,21 @@
 <template>
-<div class="mx-4 flex-1 my-5 focus:shadow-md lg:max-w-full lg:mx-2 2xl:mx-5 ">
-    <div class="flex flex-col space-y-5 lg:space-y-0
-                                lg:flex-row ">
-        
-        <InputFormC class="z-20 lg:w-3/5 lg:mx-4" 
-        @toggleFullscreen="fullEditor = !fullEditor" v-show="!fullEditor"/>
-            <div class="z-20 lg:w-3/5 lg:mx-4 w-full lg:h-[88vh]" v-show="fullEditor"></div>
-            <div class="background inset-0 z-30 absolute bg-black opacity-50 backdrop-filter backdrop-blur-md blur-md"
-            v-show="fullEditor"
-            @click="fullEditor = false"></div>
-            <InputFormC class="background z-40 w-3/4 absolute bg-white mx-32 rounded-xl shadow-2xl"
-            v-show="fullEditor" :underFullscreen="true"
-            @toggleFullscreen="fullEditor = !fullEditor"/>
+<div class="mx-4 flex-1 my-2 focus:shadow-md lg:max-w-full lg:mx-2 2xl:mx-5 ">
+    <div class="flex flex-col space-y-5 lg:space-y-0 lg:flex-row ">
+
+        <InputFormC class="z-30 lg:w-3/5 lg:mx-4 lg:h-[calc(100vh-5.6rem)]"/>
         
         <!-- ====================== -->
 
-        <div class="z-20 flex flex-col space-y-2 2xl:space-y-0 2xl:flex-row-reverse justify-between px-2 lg:w-2/5 ">
-            <div class="navbar shadow-md mb-2 2xl:mb-0 shadow-gray-300 border-t-2 rounded-lg flex flex-row space-x-2 
+        <div class="z-20 flex flex-col space-y-2 2xl:space-y-0 2xl:flex-row-reverse justify-start px-2 lg:w-2/5 ">
+            <div class="navbar z-20 shadow-md mb-2 2xl:mb-0 shadow-gray-300 border-t-2 rounded-lg flex flex-row space-x-2 
                 2xl:w-fit 2xl:flex-col 2xl:space-x-0 2xl:space-y-2">
-                <a class="btn btn-ghost bg-green-50 hover:bg-emerald-100 shadow-md shadow-green-100 normal-case text-base"
+                <a class="btn btn-ghost z-20 bg-green-50 hover:bg-emerald-100 shadow-md shadow-green-100 normal-case text-base"
                     @click="goGrammar">Grammar</a>
                 <a class="btn btn-ghost bg-indigo-50 hover:bg-indigo-100 shadow-md shadow-indigo-100 normal-case text-base"
                     @click="goGPT">AI Expert</a>
             </div>
                 <router-view class="2xl:w-min-4/5 2xl:w-full overflow-visible 
-                lg:min-h-fit lg:h-full lg:overflow-scroll lg:max-h-[80.6vh] 2xl:max-h-[88.1vh]"/> 
+                lg:min-h-fit lg:overflow-scroll lg:h-[calc(100vh-10.3rem)] 2xl:h-[calc(100vh-5.3rem)]"/> 
         </div>
 
 
@@ -46,7 +37,6 @@ export default {
     },
     data() {
         return {
-            fullEditor: false,
         }
     },
     methods: {

@@ -21,8 +21,8 @@
 <!-- ========================================== -->
         <div>
             <!-- pending -->
-            <div v-show="noSubmission" class="flex flex-col mr-4">
-                <h2 class="my-10 lg:top-64 relative text-gray-500 font-bold text-center text-lg pb-40">
+            <div v-show="noSubmission" class="flex flex-col mr-4 items-center">
+                <h2 class="my-10 top-20 relative text-gray-500 font-bold text-center text-lg pb-40">
                     Write your statement and click 'Call AI' to get the result.
                 </h2>
             </div>

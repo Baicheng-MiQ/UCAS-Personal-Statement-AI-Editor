@@ -1,39 +1,29 @@
 <template>
-    <div class="flex flex-col px-4 border-2 border-gray-100 shadow-md rounded-md
-                focus-within:shadow-xl" :class="{ 'absolute translate-x-10 top-20': underFullscreen }">
+    <div class="flex flex-col px-4 border-2 border-gray-50 shadow-md rounded-md
+                focus-within:shadow-md">
 
-        <div class="px-3 pt-4 mb-1 border-b-2 text-gray-600 font-bold sticky top-0 z-10 bg-white backdrop-filter backdrop-blur-sm bg-opacity-40"
-        v-show="!underFullscreen"> 
+        <div class="px-3 pt-4 mb-1 border-b-2 text-gray-600 font-bold sticky top-0 z-10 bg-white backdrop-filter backdrop-blur-sm bg-opacity-40"> 
             <a class="text-xl">UC<a class="text-red-600">A</a>S</a>  Personal Statement 
         </div>
 
-        
-        <div class="lg:overflow-auto lg:h-[76vh]"
-        :class="{ 'lg:h-[81.0vh]': underFullscreen }">
-            <majorInputC v-show="!underFullscreen"/>
-
-            <RichTextC v-model="content" class="mr-4" @input="onInput"
-            :class="{ 'ml-10 mr-32 mt-11': underFullscreen }"/>
+        <div class="lg:overflow-auto lg:h-full">
+            <majorInputC/>
+            <RichTextC v-model="content" class="mr-4" @input="onInput"/>
         </div>
 
         <!-- ================================ -->
 
-        <div class="relative bottom-0 flex flex-row justify-between p-2">
-            <div>
-                <button class="rounded-full p-1 bg-slate-100 hover:bg-slate-200"
-                @click="toggleFullscreen" v-show="this.showFullscreenButton">
-                    <!-- concise fullscreen icon-->
-                    <svg style="height: 20px; width: 20px; color: rgb(0, 0, 255);" width="45" height="45" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" fill="white" fill-opacity="0.01"></rect><path d="M30 6H42V18" stroke="#333" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path><path d="M18 6H6V18" stroke="#333" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path><path d="M30 42H42V30" stroke="#333" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path><path d="M18 42H6V30" stroke="#333" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path><path d="M42 6L29 19" stroke="#333" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path><path d="M19 29L6 42" stroke="#333" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                </button>
+        <div class="relative bottom-0 p-1 h-fit">
+            <TextInfoBar :saveStatus="saveStatus" :showFullscreenButton="showFullscreenButton" @toggleFullscreen="toggleFullscreen"/>
+        </div>
+
+        <div class="fullscreen z-50 fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-60" v-show="underFullscreen && showFullscreenButton" >
+            <div class="fixed top-0 left-0 w-screen h-screen" @click="closeFullScreen"></div>
+            <div class="bg-white rounded-2xl p-16 pb-2 shadow-2xl mx-24 fixed top-16 bottom-3 my-6 z-50 overflow-scroll">
+                <RichTextC v-model="content" class="min-h-full" @input="onInput" @keydown.esc="closeFullScreen"/>
+                <TextInfoBar :saveStatus="saveStatus" :showFullscreenButton="showFullscreenButton" @toggleFullscreen="toggleFullscreen"/>
             </div>
-            <div class="flex flex-row">
-                <p class="my-auto mx-2">{{saveStatus}}</p>
-                <div class="py-1 px-2 my-auto bg-gray-100 text-sm rounded-full text-gray-800">
-                    <span :class="{'text-red-500 font-black text-lg': lineCount>47}">{{lineCount}} of 47 UCAS Lines</span>
-                    <span class="text-gray-500"> | </span>
-                    <span :class="{'text-red-500 font-black text-lg': charCount>4000}">{{charCount}} of 4000 characters</span>
-                </div>
-            </div>
+
         </div>
 
     </div>
@@ -44,27 +34,27 @@
 import RichTextC from "../components/richText.vue";
 import MajorInputC from "../components/majorInput.vue";
 import debounce from "lodash.debounce";
+import TextInfoBar from "./textInfoBar.vue";
 
 
 export default {
     name: 'InputFormC',
     components: {
-        RichTextC,
-        MajorInputC,
-    }, 
+    RichTextC,
+    MajorInputC,
+    TextInfoBar
+}, 
     data() {
         return {
             width: window.innerWidth, 
             height: window.innerHeight,
-            saveStatus: 'Saved.'
+            saveStatus: 'Saved.',
+            underFullscreen: false,
             
         }
     },
     props: {
-        underFullscreen : {
-            type: Boolean,
-            default: false,
-        },
+        
     },
     computed: {
         showFullscreenButton() {
@@ -85,34 +75,7 @@ export default {
         pureContent () {
             return this.$store.getters.pureContent;
         },
-        charCount() {
-            // only count the characters in this HTML (No tags)
-            return this.pureContent.length;
-        },
-        lineCount() {
-            const ps = this.pureContent;
-            if (ps==='') {
-                return 0;
-            }
-            var pars = ps.split('\n');
-
-            var total_lines = 0;
-            for (var i=0; i<pars.length; i++) {
-                var par_line = 1;
-                var line_char = 0;
-                var words = pars[i].split(' ');
-                for (var j=0; j<words.length; j++) {
-                    if (line_char + words[j].length > 93) {
-                        line_char = words[j].length;
-                        par_line += 1;
-                    } else {
-                        line_char = line_char + words[j].length + 1;
-                    }
-                }
-                total_lines += par_line;
-            }
-            return total_lines;
-        }
+        
     },
     methods: {
         onInput(newValue, oldValue) {
@@ -122,13 +85,19 @@ export default {
         },
 
         toggleFullscreen() {
-            this.$emit('toggleFullscreen');
+            this.underFullscreen = !this.underFullscreen;
         },
+
+        closeFullScreen() {
+            this.underFullscreen = false;
+        },
+
         onResize(e) {
             this.width = window.innerWidth;
             this.height = window.innerHeight;
         },
     },
+    
     created() {
         window.addEventListener("resize", this.onResize);
 
