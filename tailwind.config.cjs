@@ -9,7 +9,7 @@ module.exports = {
   plugins: [
     require("daisyui"),
     require('tailwindcss-animatecss')({
-      classes: ['animate__animated', 'animate__fadeIn', 'animate__fadeOut', 'animate__fadeInLeft', 'animate__fadeOutRight', 'animate__faster'],
+      // classes: ['animate__animated', 'animate__fadeIn', 'animate__fadeOut', 'animate__fadeInLeft', 'animate__fadeOutRight', 'animate__faster'],
       settings: {
         animatedSpeed: 1000,
         heartBeatSpeed: 1000,
