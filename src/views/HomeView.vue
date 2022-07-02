@@ -2,7 +2,7 @@
 <div class="mx-4 flex-1 my-2 focus:shadow-md lg:max-w-full lg:mx-2 2xl:mx-5 ">
     <div class="flex flex-col space-y-5 lg:space-y-0 lg:flex-row ">
 
-        <InputFormC class="z-30 lg:w-3/5 lg:mx-4 lg:h-[calc(100vh-5.6rem)]"/>
+        <InputFormC class="z-30 border-r-2 lg:w-3/5 lg:mx-4 lg:h-[calc(100vh-5.6rem)]"/>
         
         <!-- ====================== -->
 

@@ -36,9 +36,11 @@
             </div>
 
             <!-- result -->
+        <Transition enter-active-class="animate__animated animate__fadeInDown animate__faster">
             <div v-show="result.comm" class="m-0 border-gray-100 rounded-lg">
                 <gptResultParseC :result="result" />
             </div>
+        </Transition>
         </div>
     </div>
 </div>

@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col px-4 border-r-2 border-gray-100 
+    <div class="flex flex-col px-4
                 focus-within:shadow-md">
 
         <div class="px-3 pt-4 mb-1 border-b-2 text-gray-800 font-bold sticky top-0 z-10 bg-white backdrop-filter backdrop-blur-sm bg-opacity-40"> 

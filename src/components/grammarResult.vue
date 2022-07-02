@@ -31,6 +31,8 @@
       <!-- \----------------------/ -->
       
       </div>
+
+      <Transition enter-active-class="animate__animated animate__fadeInDown animate__faster">
       <div v-show="grammarResult.length">
       <div v-for="(para, index) in grammarResult" :key="index" v-show="(para && para.length)" class="m-2 p-2 shadow-md shadow-indigo-100 rounded-lg flex flex-col space-y-4">
         <h1 class="text-gray-800 translate-y-1 font-bold"> Paragraph {{ index + 1 }}</h1>
@@ -41,6 +43,7 @@
         </div>
       </div>
       </div>
+      </Transition>
       
     </div>
   </div>

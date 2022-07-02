@@ -1,10 +1,15 @@
 <template>
 <div class="flex flex-row justify-between">
-  <div>
+  <div class="flex flex-row space-x-4">
     <button class="rounded-full p-1 bg-slate-100 hover:bg-slate-200"
     @click="toggleFullscreen" v-show="showFullscreenButton">
-        <!-- concise fullscreen icon-->
         <svg style="height: 20px; width: 20px; color: rgb(0, 0, 255);" width="45" height="45" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" fill="white" fill-opacity="0.01"></rect><path d="M30 6H42V18" stroke="#333" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path><path d="M18 6H6V18" stroke="#333" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path><path d="M30 42H42V30" stroke="#333" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path><path d="M18 42H6V30" stroke="#333" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path><path d="M42 6L29 19" stroke="#333" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path><path d="M19 29L6 42" stroke="#333" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    </button>
+    <button class="rounded-full p-1 bg-slate-100 hover:bg-slate-200"
+    @click="copyStatement">
+        <svg class="w-5 h-5" viewBox="0 0 24 24">
+                                <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path>
+        </svg>
     </button>
   </div>
 <div class="flex flex-row">
@@ -35,6 +40,13 @@ export default {
     methods: {
         toggleFullscreen() {
             this.$emit('toggleFullscreen');
+        },
+        copyStatement() {
+            navigator.clipboard.writeText(this.$store.getters.pureContent);
+            this.$store.commit('notify', {
+                type: 'success',
+                message: 'Copied to clipboard.',
+            });
         },
     },
     computed: {
