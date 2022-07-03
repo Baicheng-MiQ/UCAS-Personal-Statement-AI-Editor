@@ -15,7 +15,7 @@
       <GrammarBlock :note="null" v-show="waitingResult" class="mb-3"/>
 
       <!-- /------No issue-------\ -->
-      <div v-show="!waitingResult && !noSubmission && grammarResult.length==contentArray.length && numOfIssue==0">
+      <div v-show="!waitingResult && !noSubmission && numOfIssue==0">
         <div class="card w-fit mx-auto bg-base-100 shadow-xl border-2">
           <div class="card-body">
             <h2 class="card-title">Well done!</h2>
@@ -63,6 +63,7 @@ export default {
     };
   },
   computed: {
+    // likely deprecated
     contentArray() {
       var content = this.$store.state.content.content;
       var paras = [];
@@ -84,45 +85,44 @@ export default {
     }
   },
   methods: {
-    async strCheckGrammar(i, para, total) {
+    async strCheckGrammar() {
       const payload = {
-        language: "en-GB",
-        text: para,
+        userToken: "this.$store.state.userIDtoken",
+        major: this.$store.state.major.join(","),
+        statement: this.$store.getters.pureContent,
+        statement_obj: this.$store.state.content,
       };
+      console.log(payload);
       axios
-        .post("https://ps-htbbh2ws5a-uc.a.run.app/grammar", payload)
+        .post("https://ps-htbbh2ws5a-uc.a.run.app/grammar_v2", payload)
         .then((response) => {
           var pureRes = response.data;
-          if (!pureRes.length) {
-            this.grammarResult[i] = [];
-          } else {
-          for (var j = 0; j < pureRes.length; j++) {
+          for (var i = 0; i < pureRes.length; i++) {
+            for (var j = 0; j < pureRes[i].length; j++) {
+              if (pureRes[i][j].length){
+              pureRes[i][j].context.left = pureRes[i][j].context.text.substring(
+                0,
+                pureRes[i][j].context.offset
+              );
 
-            pureRes[j].context.left = pureRes[j].context.text.substring(
-              0,
-              pureRes[j].context.offset
-            );
+              pureRes[i][j].context.wrong = pureRes[i][j].context.text.substring(
+                pureRes[i][j].context.offset,
+                pureRes[i][j].context.offset + pureRes[i][j].context.length
+              );
 
-            pureRes[j].context.wrong = pureRes[j].context.text.substring(
-              pureRes[j].context.offset,
-              pureRes[j].context.offset + pureRes[j].context.length
-            );
+              pureRes[i][j].context.right = pureRes[i][j].context.text.substring(
+                pureRes[i][j].context.offset + pureRes[i][j].context.length,
+                pureRes[i][j].context.text.length
+              );}
 
-            pureRes[j].context.right = pureRes[j].context.text.substring(
-              pureRes[j].context.offset + pureRes[j].context.length,
-              pureRes[j].context.text.length
-            );
-
-            this.grammarResult[i] = pureRes;
-
-            }
           }
-          if (this.grammarResult.length==total){
-            this.waitingResult = false;
-          };
-        })
+          }
+          this.grammarResult = pureRes;
+          this.waitingResult = false;
+          })
+
         .catch((error) => {
-          alert(error);
+        this.$store.commit("notify", {type:"error", titile:"Connection Error", message:`Please check your internet connection (${error})`});
         });
     },
 
@@ -133,16 +133,14 @@ export default {
       }
       this.waitingResult = true;
       this.noSubmission = false;
-      var paras = this.contentArray;
-      var results = [];
-      for (var i = 0; i < paras.length; i++) {
-        this.strCheckGrammar(i, paras[i], paras.length);
-      }
-      this.grammarResult = results;
+      this.grammarResult = [];
+      
+      this.strCheckGrammar();
     },
   },
   mounted() {
     this.checkGrammar();
+    console.log(this.$store.state.content)
   },
 };
 </script>
