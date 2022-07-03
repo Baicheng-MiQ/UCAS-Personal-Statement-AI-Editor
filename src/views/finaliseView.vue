@@ -34,7 +34,7 @@ import InputFormC from "../components/inputForm.vue";
 import GPTResultC from "../components/gptResult.vue";
 
 export default {
-    name: 'Home',
+    name: 'FinaliseView',
     components: {
         InputFormC,
         GPTResultC,
@@ -45,10 +45,10 @@ export default {
     },
     methods: {
         goGrammar() {
-            this.$router.push('/home/grammar');
+            this.$router.push('/finalise/grammar');
         },
         goGPT() {
-            this.$router.push('/home/');
+            this.$router.push('/finalise/');
         },
     },
 

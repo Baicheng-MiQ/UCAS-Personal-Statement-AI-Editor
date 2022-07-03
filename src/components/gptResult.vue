@@ -141,7 +141,8 @@ export default {
                 console.log(response.data);})
             .catch(error =>
                 {this.waitingResult = false; 
-                alert(error);})
+                this.$store.commit('notify',
+                    { type: 'error', title: 'Error', message: `Something went wrong, please try again. (${error})`});})
 
         },
 

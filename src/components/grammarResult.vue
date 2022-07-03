@@ -22,7 +22,7 @@
             <p>We have found no garmmar issues in your Personal Statement!</p>
             <div class="card-actions justify-end">
               <button class="btn btn-success bg-emerald-200 border-0 text-black" 
-              @click="this.$router.push('/home/');">
+              @click="this.$router.push('/finalise/');">
                 Go AI Expert
               </button>
             </div>

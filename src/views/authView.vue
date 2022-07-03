@@ -38,7 +38,7 @@ export default {
     watch: {
         user() {
             if (this.user) {
-                this.$router.push('/home');
+                this.$router.push('/finalise');
             }
         },
     },

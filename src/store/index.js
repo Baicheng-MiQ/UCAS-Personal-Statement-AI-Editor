@@ -134,7 +134,11 @@ export default createStore({
                 const user = result.user;
                 state.userDetail = user;
             }).catch((error) => {
-                alert(error.message);
+                this.commit('notify', {
+                    type: 'error',
+                    title: 'Something went wrong',
+                    message: error.message
+                });
             });
         },
 
@@ -220,7 +224,11 @@ export default createStore({
                 state.userDetail = user;
                 console.log(state.userDetail.uid);
             }).catch((error) => {
-                alert(error.message);
+                this.commit('notify', {
+                    type: 'error',
+                    title: 'Something went wrong',
+                    message: error.message
+                });
             });
         }
 
@@ -236,7 +244,11 @@ export default createStore({
                 console.log(idToken);
             })
             .catch((error) => {
-                alert(error.message);
+                this.commit('notify', {
+                    type: 'error',
+                    title: 'Something went wrong',
+                    message: error.message
+                });;
             });
             
         },
@@ -263,7 +275,11 @@ export default createStore({
             try {
                 const updateContent = await updateDoc(contentSnapshot, updateDetail)
             } catch(error) {
-                alert(error)
+                this.commit('notify', {
+                    type: 'error',
+                    title: 'Something went wrong',
+                    message: error.message
+                });
             }
         },
 

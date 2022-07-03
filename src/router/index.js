@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "/src/views/HomeView.vue";
+import FinaliseView from "/src/views/FinaliseView.vue";
 import AuthView from "/src/views/authView.vue";
 import gptResult from "/src/components/gptResult.vue";
 import grammarResult from "/src/components/grammarResult.vue";
@@ -12,8 +12,8 @@ const routes = [
         
     },
     {
-        path: "/home",
-        component: HomeView,
+        path: "/finalise",
+        component: FinaliseView,
         children: [
             {
                 path: "",
