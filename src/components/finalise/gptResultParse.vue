@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import adviceBlockC from "../components/adviceBlock.vue";
+import adviceBlockC from "./adviceBlock.vue";
 export default {
     name: 'gptResultParseC',
     components: {

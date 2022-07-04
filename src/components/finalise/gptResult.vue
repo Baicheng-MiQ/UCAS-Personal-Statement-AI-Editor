@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import gptResultParseC from "../components/gptResultParse.vue";
+import gptResultParseC from "./gptResultParse.vue";
 import axios from 'axios';
 
 export default {

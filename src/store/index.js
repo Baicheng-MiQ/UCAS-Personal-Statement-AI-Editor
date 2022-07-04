@@ -11,6 +11,7 @@ const provider = new GoogleAuthProvider();
 export default createStore({
     state () {
         return {
+            activeTab: 'researchView',
         // === Auth
             userDetail: null,
                 // Sample {
@@ -120,6 +121,10 @@ export default createStore({
                 title: title,
                 text: message,
               });
+        },
+
+        switchTab (state, tab) {
+            state.activeTab = tab;
         },
 
 

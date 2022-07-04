@@ -33,8 +33,8 @@
 </template>
 
 <script>
-import RichTextC from "../components/richText.vue";
-import MajorInputC from "../components/majorInput.vue";
+import RichTextC from "./richText.vue";
+import MajorInputC from "./majorInput.vue";
 import debounce from "lodash.debounce";
 import TextInfoBar from "./textInfoBar.vue";
 

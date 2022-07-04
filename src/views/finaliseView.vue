@@ -30,8 +30,8 @@
 
 <script>
 
-import InputFormC from "../components/inputForm.vue";
-import GPTResultC from "../components/gptResult.vue";
+import InputFormC from "../components/editor/inputForm.vueorm.vue";
+import GPTResultC from "../components/finalise/gptResult.vue";
 
 export default {
     name: 'FinaliseView',

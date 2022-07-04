@@ -1,8 +1,11 @@
 import { createRouter, createWebHistory } from "vue-router";
-import FinaliseView from "/src/views/FinaliseView.vue";
 import AuthView from "/src/views/authView.vue";
-import gptResult from "/src/components/gptResult.vue";
-import grammarResult from "/src/components/grammarResult.vue";
+import ResearchView from "/src/views/researchView.vue";
+import BrainstormView from "/src/views/brainstormView.vue";
+import ConstructView from "/src/views/constructView.vue";
+import FinaliseView from "/src/views/FinaliseView.vue";
+import gptResult from "/src/components/finalise/gptResult.vue";
+import grammarResult from "/src/components/finalise/grammarResult.vue";
 import store from '../store/index.js';
 
 const routes = [
@@ -10,6 +13,42 @@ const routes = [
         path: "/",
         component: AuthView,
         
+    },
+    {
+        path: "/research",
+        component: ResearchView,
+        beforeEnter: (to, from, next) => {
+            if (!store.state.userDetail) {
+                next("/");
+            } else {
+                store.commit("switchTab", "researchView");
+                next();
+            }
+        }
+    },
+    {
+        path: "/brainstorm",
+        component: BrainstormView,
+        beforeEnter: (to, from, next) => {
+            if (!store.state.userDetail) {
+                next("/");
+            } else {
+                store.commit("switchTab", "brainstormView");
+                next();
+            }
+        }
+    },
+    {
+        path: "/construct",
+        component: ConstructView,
+        beforeEnter: (to, from, next) => {
+            if (!store.state.userDetail) {
+                next("/");
+            } else {
+                store.commit("switchTab", "constructView");
+                next();
+            }
+        }
     },
     {
         path: "/finalise",
@@ -30,6 +69,7 @@ const routes = [
             if (!store.state.userDetail) {
                 next("/");
             } else {
+                store.commit("switchTab", "finaliseView");
                 next();
             }
         }

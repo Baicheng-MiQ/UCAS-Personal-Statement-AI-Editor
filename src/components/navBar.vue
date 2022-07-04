@@ -1,12 +1,33 @@
 <template>
-<div class="flex p-1 shadow-sm border-b-2 border-gray-200 h-16 items-center
+<div class="flex flex-row p-1 lg:px-24 shadow-sm border-b-2 border-gray-200 h-16 items-center justify-between
             bg-gradient-to-br from-pink-50 via-indigo-50 to-blue-50 opacity-90">
 
     <!-- logo -->
-    <img src="/src/assets/psai_logo.png" alt="logo" width=150  class="my-auto lg:ml-32">
+    <img src="/src/assets/psai_logo.png" alt="logo" width=150  class="">
+
+    <div class="tabSwitch" v-show="user">
+        <div class="tabs tabs-boxed">
+        <a class="tab" :class="{'tab-active': this.$store.state.activeTab==='researchView'}"
+            @click="this.$store.state.activeTab='researchView';
+                    this.$router.push('/research');">
+            1. Research </a> 
+        <a class="tab" :class="{'tab-active': this.$store.state.activeTab==='brainstormView'}" 
+            @click="this.$store.state.activeTab='brainstormView';
+                    this.$router.push('/brainstorm')">
+            2. Brainstorm </a> 
+        <a class="tab" :class="{'tab-active': this.$store.state.activeTab==='constructView'}"
+            @click="this.$store.state.activeTab='constructView';
+                    this.$router.push('/construct')">
+            3. Construct </a>
+        <a class="tab" :class="{'tab-active': this.$store.state.activeTab==='finaliseView'}"
+            @click="this.$store.state.activeTab='finaliseView';
+                    this.$router.push('/finalise')">
+            4. Finalise </a>
+        </div>
+    </div>
 
     <!-- a material design gray Sign out button -->
-    <div class="userInfo flex flex-row ml-auto mr-0 lg:mr-24" v-show="user">
+    <div class="userInfo flex flex-row" v-show="user">
         <div class="dropdown dropdown-end">
             <label tabindex="0" class="btn btn-ghost flex h-fit w-fit p-0">
                 <img :src="userImage" alt="user" width="50"
