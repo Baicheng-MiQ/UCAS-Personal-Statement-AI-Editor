@@ -45,33 +45,37 @@ export default createStore({
             userIDtoken: null,
             userStatus: null,
                 // Sample {
-        //     "personalInfo": {
-        //         "gapYear": true,
-        //         "workExp": true,
-        //         "international": true
-        //     },
-        //     "status": {
-        //         "plan": "admin",
-        //         "usage": {
-        //             "gptToken": 0,
-        //             "gptLeft": 999
-        //         }
-        //     },
-        //     "application": {
-        //         "round": "2022 Fall Entry",
-        //         "majors": [
-        //             "Computer Science",
-        //             "Data Science"
-        //         ],
-        //         "fiveChoices": [
-        //             "University College London (UCL)",
-        //             "King's College London (KCL)",
-        //             "University of Bristol",
-        //             "University of Manchester",
-        //             "Imperial College London"
-        //         ]
-        //     }
-        //  }
+                //     "status": {
+                //         "usage": {
+                //             "gptLeft": 146,
+                //             "gptToken": 0
+                //         },
+                //         "plan": "admin"
+                //     },
+                //     "application": {
+                //         "round": "2022 Fall Entry",
+                //         "majors": [
+                //             "Art and Design"
+                //         ],
+                //         "fiveChoices": [
+                //             {
+                //                 "notes": "This is a test note",
+                //                 "links": {
+                //                     "uniPS": "https://www.ucl.ac.uk/prospective-students/writing-personal-statement",
+                //                     "majPS": "https://www.ucas.com/undergraduate/applying-university/personal-statement-advice-computer-science",
+                //                     "uniMainSite": "https://www.ucl.ac.uk/"
+                //                 },
+                //                 "major": "Computer Science",
+                //                 "uniName": "University College London"
+                //             }
+                //         ]
+                //     },
+                //     "personalInfo": {
+                //         "gapYear": true,
+                //         "international": true,
+                //         "workExp": true
+                //     }
+                // }
 
         // statement content
         
