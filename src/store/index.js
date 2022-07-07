@@ -12,6 +12,7 @@ export default createStore({
     state () {
         return {
             activeTab: 'researchView',
+            uniList: null,
         // === Auth
             userDetail: null,
                 // Sample {
@@ -282,7 +283,12 @@ export default createStore({
         async dbUpdateUserStatus (state, updateDetail) {
             const contentSnapshot = doc(db, 'user', state.state.userDetail.uid)
             try {
-                const updateContent = await updateDoc(contentSnapshot, updateDetail)
+                const updateContent = await updateDoc(contentSnapshot, updateDetail);
+                // this.commit('notify', {
+                //     type: 'success',
+                //     title: 'Success',
+                //     message: 'Your status has been updated'
+                // });
             } catch(error) {
                 this.commit('notify', {
                     type: 'error',
@@ -322,6 +328,11 @@ export default createStore({
             } else {
                 console.log('no user or content');
             }
+        },
+
+        async getUniList(state){
+            const docRefs = await getDoc(doc(db, `unis/all`));
+            state.state.uniList = docRefs.data().uniNames;
         },
 
 

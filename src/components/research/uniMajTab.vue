@@ -1,13 +1,13 @@
 <template>
     <div class="flex flex-row min-w-12 h-24 rounded-lg  items-center justify-between p-4
-                bg-gradient-to-br from-gray-100/95 to-white/50 backdrop-filter
+                bg-gradient-to-br from-slate-50 to-white backdrop-filter shadow-sm border-2 border-black-500
                 motion-safe:hover:scale-105 motion-safe:transition hover:cursor-pointer">
 
         <div class="flex flex-col w-11/12" v-if="choice.uniName">
             <h2 class="text-2xl font-bold truncate text-gray-800">
                 {{choice.uniName.replace('University', 'Uni').replace('university', 'uni')}} 
             </h2>
-            <h3>{{choice.major}}</h3>
+            <!-- <h3>{{choice.major}}</h3> -->
         </div>
 
         <div class="flex flex-col w-11/12" v-else>
