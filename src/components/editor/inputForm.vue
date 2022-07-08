@@ -56,11 +56,14 @@ export default {
         }
     },
     props: {
-        
+        showFullScreenButtonHandle: {
+        type: Boolean,
+        default: true,
+        },
     },
     computed: {
         showFullscreenButton() {
-            return this.width > 1024;
+            return this.width > 1024 && this.showFullScreenButtonHandle;
         },
         // Binding with Vuex
 

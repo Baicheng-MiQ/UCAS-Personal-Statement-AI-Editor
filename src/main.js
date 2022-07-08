@@ -7,6 +7,7 @@ import Notifications from '@kyvg/vue3-notification'
 // icons: https://carbon-elements.netlify.app/icons/examples/preview/
 import { CarbonIconsVue } from '@carbon/icons-vue'
 import Play from '@carbon/icons-vue/es/play--outline/20'
+import EditorIcon from '@carbon/icons-vue/es/watson-health/text-annotation-toggle/32.js'
 
 // require styles
 import './index.css'
@@ -14,5 +15,6 @@ import './index.css'
 createApp(App).use(router).use(store).use(Notifications).use(CarbonIconsVue, {
     components: {
         Play,
+        EditorIcon
     }
 }).mount('#app')
