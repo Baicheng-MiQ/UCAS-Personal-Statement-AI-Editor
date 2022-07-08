@@ -281,8 +281,8 @@ export default createStore({
         },
 
         async dbUpdateUserStatus (state, updateDetail) {
-            const contentSnapshot = doc(db, 'user', state.state.userDetail.uid)
             try {
+                const contentSnapshot = doc(db, 'user', state.state.userDetail.uid)
                 const updateContent = await updateDoc(contentSnapshot, updateDetail);
                 // this.commit('notify', {
                 //     type: 'success',
@@ -307,9 +307,19 @@ export default createStore({
                 // new user: create new user statement
                 const docRef = doc(db, 'user/0/statements/0001');
                 const docSnap = await getDoc(docRef);
-                setDoc(doc(db, "user", state.state.userDetail.uid, "statements", "0001"), docSnap.data());
-                state.commit('setContent', statement.data().content);
-                state.commit('setContentID', statement.id)
+                await setDoc(doc(db, "user", state.state.userDetail.uid, "statements", "0001"), docSnap.data());
+                // and retry
+                statement = await getDoc(doc(db, `user/${state.state.userDetail.uid}/statements/0001`));
+                if (statement.exists && typeof statement.data() !== 'undefined') {
+                    state.commit('setContent', statement.data().content);
+                    state.commit('setContentID', statement.id)
+                } else {
+                    state.commit('notify', {
+                        type: 'error',
+                        title: 'We are sorry!',
+                        message: 'Please contact us for further assistance (store.320)'
+                    });
+                }
             }
 
         },

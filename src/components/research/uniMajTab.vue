@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-row min-w-12 h-24 rounded-lg  items-center justify-between p-4
-                bg-gradient-to-br from-slate-50 to-white backdrop-filter shadow-sm border-2 border-black-500
+                bg-white backdrop-filter shadow-lg border-l-4 border-black
                 motion-safe:hover:scale-105 motion-safe:transition hover:cursor-pointer">
 
         <div class="flex flex-col w-11/12" v-if="choice.uniName">

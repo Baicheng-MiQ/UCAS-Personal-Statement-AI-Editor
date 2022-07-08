@@ -1,20 +1,20 @@
 <template>
-    <div class="flex flex-col rounded-2xl h-full w-full bg-gray-50/50 border-2 shadow-xl overflow-scroll">
+    <div class="flex flex-col rounded-2xl h-full w-full bg-white/50 border-2 shadow-xl overflow-scroll">
         <div class="uniAndMajor m-5 flex flex-col space-y-5 relative">
             
             <p class="text-gray-700">Your Choice:</p>
 
             <div @focusin="autoComplete=true" class="min-w-full overflow-visible" @focusout="sleep(300).then(()=>(autoComplete=false))">
 
-                <input type="text" v-model="choice.uniName" placeholder="Name of University"
-                class="bg-transparent border-0 text-5xl font-black w-full" @input="inputFlag=true" >
+                <input type="text" v-model="choice.uniName" placeholder="Name of University"  @keydown.esc="autoComplete=false"
+                class="bg-transparent border-0 text-5xl font-black w-full" @input="inputFlag=true; autoComplete=true">
 
                         <ul v-show="autoComplete && searchResults.length"
                             class="z-50 absolute top-28 -left-2 bg-white rounded-lg border-2 shadow-sm divide-y">
                             <li v-for="(item, index) in searchResults" :key="index"
                                 class="text-2xl px-4 py-3 
                                     hover:bg-gray-200 hover:cursor-pointer"
-                                @click="this.choice.uniName=item; inputFlag=true; autoComplete=false">
+                                @click="this.choice.uniName=item; inputFlag=true; autoComplete=false; this.$emit('saveChoice')">
                                 {{item}}
                             </li>
                         </ul>
@@ -25,14 +25,16 @@
 
 
             <div class="flex flex-col lg:flex-row lg:space-x-4 justify-start">
-                <button class="btn btn-ghost border-2 bg-gradient-to-r from-blue-100 to-green-100 border-blue-600 shadow-xl capitalize text-xl max-w-xs w-fit h-fit p-2 " 
+                <button class="btn btn-primary border-2 bg-gradient-to-r from-blue-600 to-blue-800 border-blue-600 shadow-xl capitalize text-xl max-w-xs w-fit h-fit p-2 " 
                 @click="openPSlink" v-if=" choice.uniName && isOneOfUnis(choice.uniName)" :class="{'loading': psLinkLoading}">
-                    <p class=""><span class="font-light">Official Advice from</span> <br> {{choice.uniName}}</p>
+                    <p class="text-white"><span class="font-light">Official Advice from</span> <br> {{choice.uniName}}</p>
                 </button>
 
-                <button class="btn btn-ghost border-2 bg-gradient-to-r from-blue-50 to-green-50 border-blue-600 shadow-xl capitalize text-xl max-w-xs w-fit h-fit p-2 " 
+                <button class="btn btn-ghost border-2 bg-gradient-to-r from-blue-50 to-blue-100 border-red-600 shadow-xl capitalize text-xl max-w-xs w-fit h-fit p-2 " 
                 v-else disabled>
-                    <p class=""><span class="font-light">Official Advice from</span><br>{{choice.uniName}}</p>
+                    <p class=""><span class="font-light">Official Advice from</span>
+                    <br>this university</p>
+                    <br> <span class="font-light">not available</span>
                 </button>
 
                 <button class="btn btn-ghost border-2 border-gray-200 capitalize text-xl max-w-xs h-fit p-2 hidden" 
@@ -41,7 +43,7 @@
                 </button>
             </div>
 
-            <textarea v-model="choice.notes" rows="10" placeholder="This university is looking for..."
+            <textarea v-model="choice.notes" rows="10" placeholder="Notes: "
                 class="p-5 text-lg border-black border-2" @input="inputFlag=true"/>
 
                 <button class="btn w-fit px-5" @click="saveChoice">

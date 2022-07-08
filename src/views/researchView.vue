@@ -10,12 +10,33 @@
                     Know what unis are looking for.
                 </h1>
 
+                <!-- The button to open modal -->
+                <label for="my-modal" class="btn mt-4 w-full btn-ghost text-base text-blue-800 underline modal-button">
+                    <Play/> <p class="mx-1">UCAS: How to write a PS? </p>
+                </label>
+
+                <!-- Put this part before </body> tag -->
+                <input type="checkbox" id="my-modal" class="modal-toggle" />
+                <div class="modal w-screen">
+                <div class="modal-box max-w-5xl">
+                    <h3 class="font-bold text-lg mb-3">Official advice from UCAS</h3>
+                        <iframe class="w-full" height="549" src="https://www.youtube.com/embed/_8hFkMAjW-I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <p>There may be some Ads provided by YouTube</p>
+                    <div class="modal-action">
+                    <label for="my-modal" class="btn"
+                        @click="stopYoutube">
+                        Yay!
+                    </label>
+                    </div>
+                </div>
+                </div>
+
                 <div class="">
                     <img alt="background image"
                     class="vector -z-10 top-20 left-5 absolute w-[calc(37vw)]"
                     src="https://static.overlay-tech.com/assets/09df6e20-5a97-4f2d-ba4e-7a224edbab81.svg"
                     />
-                    <div class="z-10 top-0 relative flex flex-col space-y-5 my-10 justify-center" @click="saveChoice(); goDown();">
+                    <div class="z-10 top-0 relative flex flex-col space-y-5 my-6 justify-center" @click="saveChoice(); goDown();">
                         <UniMajTab :choice="userStatus.application.fiveChoices[0]" :choiceNo="0"
                             @click="goToPage(0)"/>
                         <UniMajTab :choice="userStatus.application.fiveChoices[1]" :choiceNo="1"
@@ -131,6 +152,9 @@ export default {
         this.$store.dispatch('getUniList')
     },
     methods: {
+        stopYouTube() {
+            document.getElementById('myVideoId').contentWindow.postMessage(`{'event':'command','func':'stopVideo','args':''}`, '*'); 
+        },
         goToPage(page){
             this.transitionHandle = false;
             setTimeout(() => {
