@@ -5,7 +5,7 @@
     <!-- logo -->
     <img src="/src/assets/psai_logo.png" alt="logo" width=150  class="">
 
-    <div class="tabSwitch" v-show="user">
+    <div class="tabSwitch hidden md:flex" v-show="user">
         <div class="tabs tabs-boxed">
         <a class="tab" :class="{'tab-active': this.$store.state.activeTab==='researchView'}"
             @click="this.$store.state.activeTab='researchView';

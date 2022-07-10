@@ -27,7 +27,7 @@
                         <div class="modal w-screen">
                             <div class="modal-box max-w-5xl">
                                 <h3 class="font-bold text-lg mb-3">Official advice from UCAS</h3>
-                                <iframe class="w-full" height="549" src="https://www.youtube.com/embed/_8hFkMAjW-I"
+                                <iframe class="w-full" height="449" src="https://www.youtube.com/embed/_8hFkMAjW-I"
                                     title="YouTube video player" frameborder="0"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                     allowfullscreen></iframe>
