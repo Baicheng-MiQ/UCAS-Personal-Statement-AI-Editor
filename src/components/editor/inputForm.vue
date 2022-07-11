@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col px-4
+    <div class="flex flex-col px-4 relative
                 focus-within:shadow-md">
 
         <div class="px-3 pt-4 mb-1 border-b-2 text-gray-800 font-bold sticky top-0 z-10 bg-white backdrop-filter backdrop-blur-sm bg-opacity-40"> 
@@ -19,13 +19,14 @@
 
         <Transition enter-active-class="animate__animated animate__fadeInDown animate__faster" 
                     leave-active-class="animate__animated animate__fadeOutDown animate__faster">
-        <div class="fullscreen z-50 fixed top-0 left-0 w-screen h-screen bg-white bg-opacity-90" v-show="underFullscreen && showFullscreenButton" >
-            <div class="fixed top-0 left-0 w-screen h-screen" @click="closeFullScreen"></div>
-            <div class="bg-white rounded-2xl p-16 pb-2 shadow-2xl mx-24 fixed top-16 bottom-0 my-0 z-50 overflow-scroll">
-                <RichTextC v-model="content" class="min-h-full" @input="onInput" @keydown.esc="closeFullScreen"/>
-                <TextInfoBar :saveStatus="saveStatus" :showFullscreenButton="showFullscreenButton" @toggleFullscreen="toggleFullscreen"/>
+            <div class="absolute z-40 top-0 left-0 w-[calc(100vw-2.5rem)] h-[calc(100vh-5rem)] bg-white bg-opacity-90" v-show="underFullscreen && showFullscreenButton" >
+                <div class="fixed h-full -z-10 top-0 left-0 w-full" @click="closeFullScreen"></div>
+                <div class="bg-white h-full min-h-full rounded-2xl p-16 pb-2 shadow-2xl ml-10 mr-20 top-16 bottom-0 my-0 z-50 overflow-scroll">
+                    <RichTextC v-model="content" class="mb-10" @input="onInput" @keydown.esc="closeFullScreen"/>
+                    <TextInfoBar :saveStatus="saveStatus" :showFullscreenButton="showFullscreenButton" @toggleFullscreen="toggleFullscreen"
+                        class="fixed bottom-4 bg-blue-500/10 rounded-full backdrop-blur-sm backdrop-filter shadow-lg p-1"/>
+                </div>
             </div>
-        </div>
         </Transition>
     </div>
 
