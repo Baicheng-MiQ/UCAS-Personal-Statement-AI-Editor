@@ -14,7 +14,7 @@
                             <li v-for="(item, index) in searchResults" :key="index"
                                 class="text-2xl px-4 py-3 
                                     hover:bg-gray-200 hover:cursor-pointer"
-                                @click="this.choice.uniName=item; inputFlag=true; autoComplete=false; this.$emit('saveChoice')">
+                                @click="this.choice.uniName=item; inputFlag=true; autoComplete=false; this.$emit('saveChoice'); grabPSlink()">
                                 {{item}}
                             </li>
                         </ul>
@@ -32,8 +32,8 @@
 
                 <button class="btn btn-ghost border-2 bg-gradient-to-r from-blue-50 to-blue-100 border-red-600 shadow-xl capitalize text-xl max-w-xs w-fit h-fit p-2 " 
                 v-else disabled>
-                    <p class=""><span class="font-light">Official Advice from</span>
-                    <br>this university</p>
+                    <p class="font-light"><span class="">Official Advice from</span>
+                    <br>{{choice.uniName}}</p>
                     <br> <span class="font-light">not available</span>
                 </button>
 
@@ -68,6 +68,7 @@ export default {
         return {
             inputFlag: false,
             autoComplete: false,
+            psLink: '',
             psLinkLoading: false,
         }
     },
@@ -102,32 +103,41 @@ export default {
 
     methods: {
         openMiniPage(link) {
-            window.open(link, '_blank', 'left=100,top=100,width=720,height=1280');
+            window.open(link, '_blank', 'left=100,top=100,width=720,height=1280').focus();
         },
         saveChoice() {
             this.$emit('saveChoice');
-            window.scrollTo(0, 0);
         },
         sleep (time) {
             return new Promise((resolve) => setTimeout(resolve, time));
         },
+
         isOneOfUnis(uni) {
-            return this.uniList.includes(uni);
+            var isOne = this.uniList.includes(uni);
+            return isOne;
         },
-        async openPSlink() {
-            this.psLinkLoading = true;
+        async grabPSlink(){
             if(this.choice.uniName && this.isOneOfUnis(this.choice.uniName)) {
+                this.psLinkLoading = true;
                 var thisUniRef = doc(db, 'unis', this.choice.uniName);
                 getDoc(thisUniRef).then((doc) => {
                     this.psLinkLoading = false;
                     if(doc.exists) {
-                        this.openMiniPage(doc.data().uniPS);
+                        this.psLink = doc.data().uniPS;
                     } else {
-                        alert('No official advice found for this university.')
+                        // do nothing
                     }
                 });
             } else {
-                return ''
+                this.psLinkLoading = false;
+            }
+        },
+        async openPSlink() {
+            if (this.psLink){
+                this.openMiniPage(this.psLink)
+            } else {
+                this.grabPSlink();
+                this.openMiniPage(this.psLink)
             }
         },
 
@@ -145,10 +155,15 @@ export default {
                 // "notes": "This is a test note", 
                 // "major": "Computer Science" }
         },
-        choiceNo: {
-            type: Number,
-            default: 0,
+    },
+    watch: {
+        choice() {
+            this.grabPSlink();
         },
+
+    },
+    mounted() {
+        this.grabPSlink();
     },
     unmounted() {
         if (this.inputFlag) {
