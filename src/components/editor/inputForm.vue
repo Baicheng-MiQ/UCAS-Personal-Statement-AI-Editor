@@ -22,7 +22,7 @@
             <div class="absolute z-40 top-0 left-0 w-[calc(100vw-2.5rem)] h-[calc(100vh-5rem)] bg-white bg-opacity-90" v-show="underFullscreen && showFullscreenButton" >
                 <div class="fixed h-full -z-10 top-0 left-0 w-full" @click="closeFullScreen"></div>
                 <div class="bg-white h-full min-h-full rounded-2xl p-16 pb-2 shadow-2xl ml-10 mr-20 top-16 bottom-0 my-0 z-50 overflow-scroll">
-                    <RichTextC v-model="content" class="mb-10" @input="onInput" @keydown.esc="closeFullScreen"/>
+                    <RichTextC v-model="content" class="mb-20" @keydown.esc="closeFullScreen"/>
                     <TextInfoBar :saveStatus="saveStatus" :showFullscreenButton="showFullscreenButton" @toggleFullscreen="toggleFullscreen"
                         class="fixed bottom-4 bg-blue-500/10 rounded-full backdrop-blur-sm backdrop-filter shadow-lg p-1"/>
                 </div>
