@@ -1,7 +1,27 @@
 <template>
 <div class="flex flex-row p-1 lg:px-24 shadow-sm border-b-2 border-gray-200 h-16 items-center justify-between
             bg-gradient-to-br from-pink-50 via-indigo-50 to-blue-50 opacity-90">
-
+    <div class="dropdown md:hidden" >
+        <label tabindex="0" class="btn btn-ghost px-2 bg-gray-300"> <menuButton/> </label>
+        <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+        <li> <a :class="{'font-bold': this.$store.state.activeTab==='researchView'}"
+            @click="this.$store.state.activeTab='researchView';
+                    this.$router.push('/research');">
+            1. Research </a> </li>
+        <li><a :class="{'font-bold': this.$store.state.activeTab==='brainstormView'}" 
+            @click="this.$store.state.activeTab='brainstormView';
+                    this.$router.push('/brainstorm')">
+            2. Brainstorm </a> </li>
+        <li> <a :class="{'font-bold': this.$store.state.activeTab==='constructView'}"
+            @click="this.$store.state.activeTab='constructView';
+                    this.$router.push('/construct')">
+            3. Construct </a></li>
+        <li> <a :class="{'font-bold': this.$store.state.activeTab==='finaliseView'}"
+            @click="this.$store.state.activeTab='finaliseView';
+                    this.$router.push('/finalise')">
+            4. Finalise </a></li>
+        </ul>
+    </div>
     <!-- logo -->
     <img src="/src/assets/psai_logo.png" alt="logo" width=150  class="">
 

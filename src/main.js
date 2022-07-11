@@ -8,6 +8,7 @@ import Notifications from '@kyvg/vue3-notification'
 import { CarbonIconsVue } from '@carbon/icons-vue'
 import Play from '@carbon/icons-vue/es/play--outline/20'
 import EditorIcon from '@carbon/icons-vue/es/watson-health/text-annotation-toggle/32.js'
+import MenuButton from '@carbon/icons-vue/es/menu/24.js'
 
 // require styles
 import './index.css'
@@ -15,6 +16,7 @@ import './index.css'
 createApp(App).use(router).use(store).use(Notifications).use(CarbonIconsVue, {
     components: {
         Play,
-        EditorIcon
+        EditorIcon,
+        MenuButton
     }
 }).mount('#app')
