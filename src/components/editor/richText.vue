@@ -57,12 +57,12 @@ export default {
         // this.$emit('update:modelValue', this.editor.getHTML())
 
         // JSON
-        // this.$emit('update:modelValue', this.editor.getJSON())
+        this.$emit('update:modelValue', this.editor.getJSON())
 
         // JSON, get old and new value
-        const oldValue = this.modelValue
-        const newValue = this.editor.getJSON()
-        this.$emit('input', newValue, oldValue)
+        // const oldValue = this.modelValue
+        // const newValue = this.editor.getJSON()
+        // this.$emit('input', newValue, oldValue)
 
       }
     })

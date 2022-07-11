@@ -8,7 +8,7 @@
 
         <div class="lg:overflow-auto lg:h-full">
             <majorInputC/>
-            <RichTextC v-model="content" class="mr-4" @input="onInput"/>
+            <RichTextC v-model="content" class="mr-4"/>
         </div>
 
         <!-- ================================ -->
@@ -52,6 +52,7 @@ export default {
             height: window.innerHeight,
             saveStatus: 'Saved.',
             underFullscreen: false,
+            numberOfChanges: 0,
             
         }
     },
@@ -87,6 +88,7 @@ export default {
             this.saveStatus = '';
             this.content = newValue;
             this.debouncedWatch(newValue, oldValue);
+
         },
 
         toggleFullscreen() {
@@ -101,6 +103,12 @@ export default {
             this.width = window.innerWidth;
             this.height = window.innerHeight;
         },
+    },
+
+    watch: {
+        content(newValue, oldValue) {
+            this.onInput(newValue, oldValue);
+        }
     },
     
     created() {
