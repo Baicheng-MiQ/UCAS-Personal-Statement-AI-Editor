@@ -69,7 +69,7 @@
                     <transition enterActiveClass="animate__animated animate__fadeInLeft"
                         leaveActiveClass="animate__animated animate__fadeOutRight">
                         <div class="right h-full p-3 lg:w-2/3" ref="choiceBox" v-show="transitionHandle">
-                            <ChoiceDetail :choice="userStatus.application.fiveChoices[selectedTab]"
+                            <ChoiceDetail id="researchDetail" :choice="userStatus.application.fiveChoices[selectedTab]"
                                 :choiceNo="selectedTab" @saveChoice="saveChoice" />
 
                         </div>
@@ -189,7 +189,9 @@ export default {
         },
         goDown() {
             console.log('go down');
-            window.scrollTo(0, 10000);
+            window.focus();
+            document.getElementById('researchDetail').scrollIntoView();
+
         },
     }
 
