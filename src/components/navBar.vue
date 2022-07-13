@@ -1,7 +1,7 @@
 <template>
 <div class="flex flex-row p-1 lg:px-24 shadow-sm border-b-2 border-gray-200 h-16 items-center justify-between
             bg-gradient-to-br from-pink-50 via-indigo-50 to-blue-50 opacity-90">
-    <div class="dropdown md:hidden" v-show="user">
+    <div class="dropdown md:hidden" >
         <label tabindex="0" class="btn btn-ghost px-2 bg-gray-300"> <menuButton/> </label>
         <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
         <li> <a :class="{'font-bold': this.$store.state.activeTab==='researchView'}"
