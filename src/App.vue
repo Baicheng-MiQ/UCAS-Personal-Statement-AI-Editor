@@ -14,7 +14,11 @@
     <p class="w-1/3 text-center text-white">This may take a few seconds, please don't close this page.</p>
   </div>
 
-  <router-view/>
+  <router-view v-slot="{ Component }">
+  <Transition enter-active-class="animate__animated animate__fadeInRight" leave-active-class="animate__animated animate__fadeOutLeft animate__faster">
+                    <component :is="Component" />
+  </Transition>
+  </router-view>
   
 
   <!-- https://github.com/kyvg/vue3-notification -->
