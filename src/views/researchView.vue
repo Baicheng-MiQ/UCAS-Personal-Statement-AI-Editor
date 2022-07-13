@@ -7,7 +7,7 @@
 
                 <div class="left flex flex-col lg:flex-row lg:w-11/12 space-x-3">
                     <div class="h-full lg:w-1/3 p-5 overflow-scroll">
-                        <h1 class="text-3xl">
+                        <h1 id="bigHeading" class="text-3xl">
                             <span
                                 class="font-black text-6xl text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-green-600">
                                 Research <br>
@@ -77,7 +77,7 @@
                 </div>
 
                 <div class="h-full lg:w-1/12 flex-col justify-end hidden lg:flex">
-                    <label for="my-drawer-4" class="drawer-button btn btn-ghost h-fit mb-10 p-2 mr-1">quick <br>PS editor<EditorIcon class="ml-1 w-20 h-20" /></label>
+                    <label for="my-drawer-4" class="drawer-button btn btn-ghost h-fit mb-10 p-2 mr-1">or, just start writing<EditorIcon class="ml-1 w-20 h-20" /></label>
                 </div>
             </div>
         </div>
@@ -186,6 +186,8 @@ export default {
         saveChoice() {
             console.log('save choice')
             this.$store.dispatch('dbUpdateUserStatus', this.userStatus);
+            document.getElementById('bigHeading').scrollIntoView();
+
         },
         goDown() {
             console.log('go down');
