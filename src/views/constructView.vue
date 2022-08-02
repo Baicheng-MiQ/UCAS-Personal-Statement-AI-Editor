@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col relative m-6 p-6">
+    <div class="flex flex-col relative m-6 lg:mx-20 p-6">
 
         <h1 id="bigHeading" class="text-3xl">
             <span
