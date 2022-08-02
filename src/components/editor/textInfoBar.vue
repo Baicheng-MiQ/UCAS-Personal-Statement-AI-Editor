@@ -15,9 +15,9 @@
 <div class="flex flex-row">
     <p class="my-auto mx-2">{{saveStatus}}</p>
     <div class="py-1 px-2 my-auto bg-gray-100 text-sm rounded-full text-gray-800">
-        <span :class="{'text-red-500 font-black text-lg': lineCount>47}">{{lineCount}} of 47 Lines</span>
+        <span :class="{'text-red-500 font-bold': lineCount>47}">{{lineCount}} of 47 Lines</span>
         <span class="text-gray-500"> | </span>
-        <span :class="{'text-red-500 font-black text-lg': charCount>4000}">{{charCount}} of 4000 characters</span>
+        <span :class="{'text-red-500 font-bold': charCount>4000}">{{charCount}} of 4000 characters</span>
     </div>
 </div>
 </div>
