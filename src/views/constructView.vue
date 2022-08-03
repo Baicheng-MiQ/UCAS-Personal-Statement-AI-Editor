@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col relative m-6 lg:mx-20 p-6">
+    <div class="flex flex-col relative m-6 lg:mx-20 lg:p-6">
 
         <h1 id="bigHeading" class="text-3xl">
             <span
@@ -21,6 +21,7 @@
 
 <script>
 import InputFormC from "../components/construct/constructInputForm.vue";
+import axios from "axios";
 
 export default {
     name: 'ConstructView',
@@ -35,6 +36,32 @@ export default {
     computed: {
 
     },
+
+    mounted(){
+        // warm up cloud run
+        if (!this.$store.state.userIDtoken)
+        {this.$store.dispatch('getUserIDtoken')
+        .then(()=>{
+        axios.post("https://ps-htbbh2ws5a-uc.a.run.app/para-type",
+            {
+                userToken: this.$store.state.userIDtoken,
+                major: this.$store.state.major.join(", "),
+                statement: (Math.random() + 1).toString(36).substring(2),
+            }
+            )
+        }
+        )
+        } else {
+            axios.post("https://ps-htbbh2ws5a-uc.a.run.app/para-type",
+                {
+                    userToken: this.$store.state.userIDtoken,
+                    major: this.$store.state.major.join(", "),
+                    statement: (Math.random() + 1).toString(36).substring(2),
+                }
+                )
+        }
+    },
+
     methods: {
 
     },

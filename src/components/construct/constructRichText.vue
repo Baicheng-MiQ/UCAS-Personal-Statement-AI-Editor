@@ -81,7 +81,6 @@ export default {
 
   methods: {
     focusMe() {
-      console.log('focusMe');
       this.editor.commands.focus()
     },
     hello() {
