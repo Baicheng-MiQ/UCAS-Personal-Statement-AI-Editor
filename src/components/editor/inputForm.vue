@@ -87,7 +87,7 @@ export default {
     methods: {
         onInput(newValue, oldValue) {
             this.saveStatus = '';
-            this.content = newValue;
+            // this.content = newValue;
             this.debouncedWatch(newValue, oldValue);
 
         },

@@ -44,7 +44,7 @@ export default {
         }),
         CharacterCount.configure({
           // Limit the character count:
-          limit: 800000,
+          limit: 18000,
         }),
         History.configure({
           // Limit the history:

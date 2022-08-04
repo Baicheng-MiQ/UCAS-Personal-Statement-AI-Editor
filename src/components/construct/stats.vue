@@ -7,7 +7,7 @@
                 <span class="m-0">Machine Learning</span>
             </p>
             <div class="state text-gray-700 w-full overflow-hidden">
-                <div class="unableCheck" v-if="this.pureTextPara.length<170">
+                <div class="unableCheck" v-if="this.pureTextPara.length<170 && !this.isChecked">
                     <div class="tooltip tooltip-bottom" data-tip="More than 170 characters.">
                         <TextWrapIcon class="-translate-x-1" />
                         <p class="text-left">
@@ -29,8 +29,11 @@
                     </button>
                 </div>
 
-                <div class="checked" v-else-if="this.isChecked===true" @click="this.checkParagraph">
-                    <statResult class="" :para="this.para" :checkResult="this.result"/>
+                <div class="checked" v-else-if="this.isChecked===true">
+                    <statResult class="" :para="pureTextPara" :checkResult="this.result"
+                        @recheckParaType="askParaType"
+                        @recheckParaHeading="askParaHeading"
+                        @recheckSentenceIssue="askSentenceIssue"/>
                 </div>
             </div>
         </div>
@@ -82,12 +85,7 @@ export default {
     },
     data(){
         return{
-            isChecked: false,
-            result: {
-                "paraType": null,
-                "paraHeading": null,
-                "sentenceIssue": null,
-            },
+            startedCheck: false,
         }
     },
     props: {
@@ -99,6 +97,28 @@ export default {
     mounted(){
     },
     computed: {
+        result() {
+            if (this.para.content[0].meta){
+                return this.para.content[0].meta
+            }
+            else{
+                return {
+                    "paraType": {"lastCheckValue": null, "checkResult": null},
+                    "paraHeading": {"lastCheckValue": null, "checkResult": null},
+                    "sentenceIssue": {"lastCheckValue": null, "checkResult": null},
+                }
+            }
+        },
+        isChecked() {
+            if (this.result.paraType.checkResult === null && 
+                this.result.paraHeading.checkResult === null &&
+                this.result.sentenceIssue.checkResult === null && !this.startedCheck){
+                return false
+            }
+            else{
+                return true
+            }
+        },
         pureTextPara(){
             if (this.para.content) {
                 return this.para.content[0].text;
@@ -137,7 +157,6 @@ export default {
             }
             return total_lines;
         },
-
         apiPayload() {
             return {
                 userToken: this.$store.state.userIDtoken,
@@ -150,54 +169,57 @@ export default {
     methods: {
         async askParaType(){
             try {
-                this.result.paraType = null;
+                this.para.content[0].meta.paraType = {"lastCheckValue": null, "checkResult": null};
                 const paraType = await axios.post('https://ps-htbbh2ws5a-uc.a.run.app/para-type', this.apiPayload);
-                this.result.paraType = paraType.data.tag;
+                this.para.content[0].meta.paraType.lastCheckValue = paraType.data.statement;
+                this.para.content[0].meta.paraType.checkResult = paraType.data.tag;
             } catch (error) {
                 this.$store.commit('notify', {
                     type: 'error',
-                    message: 'Something went wrong. Please try again.',
+                    message: 'Something went wrong. Please try again.' + error,
                 });
             };
         },
 
         async askParaHeading(){
             try {
-                this.result.paraHeading = null;
+                this.para.content[0].meta.paraHeading = {"lastCheckValue": null, "checkResult": null};
                 const paraHeading = await axios.post('https://ps-htbbh2ws5a-uc.a.run.app/para-heading', this.apiPayload);
-                this.result.paraHeading = paraHeading.data.heading;
+                this.para.content[0].meta.paraHeading.lastCheckValue = paraHeading.data.statement;
+                this.para.content[0].meta.paraHeading.checkResult = paraHeading.data.heading;
             } catch (error) {
                 this.$store.commit('notify', {
                     type: 'error',
-                    message: 'Something went wrong. Please try again.',
+                    message: 'Something went wrong. Please try again' + error,
                 });
             };
         },
 
         async askSentenceIssue(){
             try {
-                this.result.sentenceIssue = null;
+                this.para.content[0].meta.sentenceIssue = {"lastCheckValue": null, "checkResult": null};
                 const sentenceIssue = await axios.post('https://ps-htbbh2ws5a-uc.a.run.app/sentence-check', this.apiPayload);
-                this.result.sentenceIssue = sentenceIssue.data.sentenceResults;
+                this.para.content[0].meta.sentenceIssue.lastCheckValue = sentenceIssue.data.statement;
+                this.para.content[0].meta.sentenceIssue.checkResult = sentenceIssue.data.sentenceResults;
             } catch (error) {
                 this.$store.commit('notify', {
                     type: 'error',
-                    message: 'Something went wrong. Please try again.',
+                    message: 'Something went wrong. Please try again.' + error,
                 });
             };
         },
 
 
         async checkParagraph(){
-            this.isChecked = true;
-            this.result.paraType = null;
-            this.result.paraHeading = null;
-            this.result.sentenceIssue = null;
-
+            this.startedCheck = true;
+            this.para.content[0].meta = {
+                    "paraType": {"lastCheckValue": null, "checkResult": null},
+                    "paraHeading": {"lastCheckValue": null, "checkResult": null},
+                    "sentenceIssue": {"lastCheckValue": null, "checkResult": null},
+                };
             await this.askParaType();
             await this.askParaHeading();
             await this.askSentenceIssue();
-
         }
     }
 }

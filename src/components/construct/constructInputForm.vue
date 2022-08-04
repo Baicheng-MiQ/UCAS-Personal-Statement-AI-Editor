@@ -134,7 +134,6 @@ export default {
     methods: {
         onInput(newValue, oldValue) {
             this.saveStatus = '';
-            this.content = newValue;
             this.debouncedWatch(newValue, oldValue);
         },
         insertEmptyParagraphAfter(index) {
@@ -181,8 +180,6 @@ export default {
     },
     
     created() {
-
-        // console.log(this.$store.state.userDetail);
         this.debouncedWatch = debounce((newValue, oldValue) => {
             if (oldValue===''){
                 return;

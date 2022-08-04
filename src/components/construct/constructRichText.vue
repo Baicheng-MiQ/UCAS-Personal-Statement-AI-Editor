@@ -13,6 +13,8 @@ import CharacterCount from '@tiptap/extension-character-count'
 
 // https://tiptap.dev/installation/vue3
 
+
+
 export default {
   name: 'RichTextC',
 
@@ -57,7 +59,10 @@ export default {
         // this.$emit('update:modelValue', this.editor.getHTML())
 
         // JSON
-        this.$emit('update:modelValue', this.editor.getJSON())
+        const editorObj = this.editor.getJSON().content;
+        this.modelValue.content[0].type = editorObj[0].type;
+        this.modelValue.content[0].text = editorObj[0].text;
+        this.$emit('update:modelValue', this.modelValue)
 
         // JSON, get old and new value
         // const oldValue = this.modelValue
@@ -78,13 +83,13 @@ export default {
     },
   },
 
+  computed: {
+  },
+
 
   methods: {
     focusMe() {
       this.editor.commands.focus()
-    },
-    hello() {
-      console.log('hello');
     },
   },
 
