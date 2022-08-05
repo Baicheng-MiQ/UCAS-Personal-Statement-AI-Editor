@@ -32,13 +32,16 @@
                     </button>
                 </div>
 
-                <div class="checked" v-else>
+                <div class="checked w-full" v-else>
                     <statResult class="" :para="pureTextPara" :checkResult="this.result"
                         @recheckParaType="askParaType"
                         @recheckParaHeading="askParaHeading"
                         @recheckSentenceIssue="askSentenceIssue"/>
                     
-                    <StatResultLearnMore :checkResult="this.result" v-model="this.para"/>
+                    <StatResultLearnMore :checkResult="this.result" v-model="this.para"
+                        @recheckParaType="askParaType"
+                        @recheckParaHeading="askParaHeading"
+                        @recheckSentenceIssue="askSentenceIssue"/>
                 </div>
             </div>
         </div>
@@ -186,8 +189,20 @@ export default {
         
     },
     methods: {
+        validateCheckBody(){
+            if (this.apiPayload.statement.length < 170) {
+                throw new Error("Paragraph is too short. Please write at least 170 characters.")
+            }
+            if (this.apiPayload.statement.length > 5000) {
+                throw new Error("Paragraph is too long. Please write at most 5000 characters.")
+            }
+            if (this.apiPayload.major.length === 0) {
+                throw new Error("Please select at least one major at the top of the page.")
+            }
+        },
         async askParaType(){
             try {
+                this.validateCheckBody();
                 this.para.content[0].meta.paraType = {"lastCheckValue": null, "checkResult": null};
                 const paraType = await axios.post('https://ps-htbbh2ws5a-uc.a.run.app/para-type', this.apiPayload);
                 this.para.content[0].meta.paraType.lastCheckValue = paraType.data.statement;
@@ -195,6 +210,7 @@ export default {
             } catch (error) {
                 this.$store.commit('notify', {
                     type: 'error',
+                    title: 'Error',
                     message: 'Something went wrong. Please try again.' + error,
                 });
                 this.para.content[0].meta.paraType.lastCheckValue = "Error...";
@@ -204,6 +220,7 @@ export default {
 
         async askParaHeading(){
             try {
+                this.validateCheckBody();
                 this.para.content[0].meta.paraHeading = {"lastCheckValue": null, "checkResult": null};
                 const paraHeading = await axios.post('https://ps-htbbh2ws5a-uc.a.run.app/para-heading', this.apiPayload);
                 this.para.content[0].meta.paraHeading.lastCheckValue = paraHeading.data.statement;
@@ -211,6 +228,7 @@ export default {
             } catch (error) {
                 this.$store.commit('notify', {
                     type: 'error',
+                    title: 'Error',
                     message: 'Something went wrong. Please try again' + error,
                 });
                 this.para.content[0].meta.paraHeading.lastCheckValue = "Error...";
@@ -220,6 +238,7 @@ export default {
 
         async askSentenceIssue(){
             try {
+                this.validateCheckBody();
                 this.para.content[0].meta.sentenceIssue = {"lastCheckValue": null, "checkResult": null};
                 const sentenceIssue = await axios.post('https://ps-htbbh2ws5a-uc.a.run.app/sentence-check', this.apiPayload);
                 this.para.content[0].meta.sentenceIssue.lastCheckValue = sentenceIssue.data.statement;
@@ -227,6 +246,7 @@ export default {
             } catch (error) {
                 this.$store.commit('notify', {
                     type: 'error',
+                    title: 'Error',
                     message: 'Something went wrong. Please try again.' + error,
                 });
                 this.para.content[0].meta.sentenceIssue.lastCheckValue = "Error...";
@@ -236,6 +256,7 @@ export default {
 
 
         async checkParagraph(){
+            this.validateCheckBody();
             this.startedCheck = true;
             this.para.content[0].meta = {
                     "paraType": {"lastCheckValue": null, "checkResult": null},

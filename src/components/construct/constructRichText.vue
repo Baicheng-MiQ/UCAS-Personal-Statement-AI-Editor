@@ -46,7 +46,7 @@ export default {
         }),
         CharacterCount.configure({
           // Limit the character count:
-          limit: 800000,
+          limit: 8000,
         }),
         History.configure({
           // Limit the history:
@@ -59,12 +59,15 @@ export default {
         // this.$emit('update:modelValue', this.editor.getHTML())
 
         // JSON
-        const editorObj = this.editor.getJSON().content;
-        // this style causes problem with reactivity
-        this.modelValue.content[0].type = editorObj[0].type;
-        this.modelValue.content[0].text = editorObj[0].text;
-
-        this.$emit('update:modelValue', this.modelValue)
+        const editorObj = this.editor.getJSON();
+        if (editorObj.content && this.modelValue.content)
+        {  // this style causes problem with reactivity
+          this.modelValue.content[0].type = editorObj.content[0].type;
+          this.modelValue.content[0].text = editorObj.content[0].text;
+          this.$emit('update:modelValue', this.modelValue)
+        } else {
+          this.$emit('update:modelValue', editorObj)
+        }
 
         // JSON, get old and new value
         // const oldValue = this.modelValue
@@ -81,7 +84,10 @@ export default {
     modelValue: {
       // string or object
       type: Object,
-      default: {},
+      default: {
+        "type": "text",
+        "text": ""
+      },
     },
   },
 
@@ -98,19 +104,20 @@ export default {
 
 
   watch: {
-    modelValue:{
-      handler(value, oldValue){
-      // HTML
-      // const isSame = this.editor.getHTML() === value
+    modelValue: {
+      handler(value, oldValue) {
+        // HTML
+        // const isSame = this.editor.getHTML() === value
 
-      // JSON
-      const isSame = JSON.stringify(this.editor.getJSON()) === JSON.stringify(value)
-
-      if (isSame) {
-        return
-      };
-
-      this.editor.commands.setContent(value, false)
+        // JSON
+        const editorValue = this.editor.getJSON()
+        if (editorValue.content && value.content) {
+          if (value.content[0].text != editorValue.content[0].text) {
+            this.editor.commands.setContent(value, false);
+          }
+        } else {
+          this.editor.commands.setContent(value, false);
+        }
       }, deep: true,
     }
   },

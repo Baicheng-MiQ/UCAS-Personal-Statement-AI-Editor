@@ -251,7 +251,7 @@ export default createStore({
             await getAuth().currentUser.getIdToken(true)
             .then((idToken) => {
                 state.commit('setUserIDtoken', idToken);
-                console.log(idToken);
+                console.log('user token loaded.');
             })
             .catch((error) => {
                 this.commit('notify', {
