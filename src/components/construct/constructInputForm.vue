@@ -65,7 +65,9 @@
                                 </div>
                             </div>
                         </div>
-                        <Stats class="w-2/3 max-w-md min-w-[250px]" :para="content.content[index]"/>
+
+                        <Stats class="w-2/3 max-w-md min-w-[250px]" v-model="content.content[index]"/>
+
                     </div>
                     <div class="divider mt-12"></div>
                 </div>

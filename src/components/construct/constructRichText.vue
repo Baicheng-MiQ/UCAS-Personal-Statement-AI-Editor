@@ -60,8 +60,10 @@ export default {
 
         // JSON
         const editorObj = this.editor.getJSON().content;
+        // this style causes problem with reactivity
         this.modelValue.content[0].type = editorObj[0].type;
         this.modelValue.content[0].text = editorObj[0].text;
+
         this.$emit('update:modelValue', this.modelValue)
 
         // JSON, get old and new value
@@ -96,7 +98,8 @@ export default {
 
 
   watch: {
-    modelValue(value) {
+    modelValue:{
+      handler(value, oldValue){
       // HTML
       // const isSame = this.editor.getHTML() === value
 
@@ -105,9 +108,10 @@ export default {
 
       if (isSame) {
         return
-      }
+      };
 
       this.editor.commands.setContent(value, false)
+      }, deep: true,
     }
   },
 
@@ -122,6 +126,8 @@ export default {
 <style>
 .ProseMirror {
   border: 0;
+  padding-top: auto;
+  padding-bottom: auto;
 }
 
 .ProseMirror:focus {

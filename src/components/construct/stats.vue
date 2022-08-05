@@ -16,11 +16,14 @@
                     </div>
                 </div>
 
-                <div class="unCheck" v-else-if="this.isChecked===false">
+                <div class="unCheck" v-else-if="!this.isChecked&&this.pureTextPara.length>=170">
                     <!-- button to check the paragraph -->
                     <button
                         class="btn btn-ghost border-2 border-black shadow-md shadow-blue-500 btn-lg flex flex-col justify-center w-44
                             hover:bg-gray-100 hover:border-indigo-700 hover:shadow-xl"
+                        :class="{
+                            'btn-disabled': !this.apiPayload.userToken
+                        }"
                         @click="checkParagraph">
                         <img src="../../assets/logo_left.png" alt="" class="w-10 h-10 my-1">
                         <p class="">
@@ -29,11 +32,13 @@
                     </button>
                 </div>
 
-                <div class="checked" v-else-if="this.isChecked===true">
+                <div class="checked" v-else>
                     <statResult class="" :para="pureTextPara" :checkResult="this.result"
                         @recheckParaType="askParaType"
                         @recheckParaHeading="askParaHeading"
                         @recheckSentenceIssue="askSentenceIssue"/>
+                    
+                    <StatResultLearnMore :checkResult="this.result" v-model="this.para"/>
                 </div>
             </div>
         </div>
@@ -66,17 +71,20 @@
 </template>
 
 <script>
-import statResult from './statResult.vue'
+import statResult from './statResultPreview.vue'
+import StatResultLearnMore from './statResultLearnMore.vue'
 import InfoIcon from '@carbon/icons-vue/es/information/16.js'
 import MachineLearningIcon from '@carbon/icons-vue/es/machine-learning-model/16.js'
 import TextWrapIcon from '@carbon/icons-vue/es/text--wrap/32.js'
 import CheckIcon from '@carbon/icons-vue/es/watson--machine-learning/32.js'
 import axios from 'axios'
 
+
 export default {
     name: 'Stats',
     components: {
         statResult,
+        StatResultLearnMore,
         InfoIcon,
         MachineLearningIcon,
         TextWrapIcon,
@@ -89,7 +97,7 @@ export default {
         }
     },
     props: {
-        para: {
+        modelValue: {
             type: Object,
             required: false,
         },
@@ -97,8 +105,19 @@ export default {
     mounted(){
     },
     computed: {
+        para: {
+            get(){
+                return this.modelValue
+            },
+            set(value){
+                this.$emit('update:modelValue', this.modelValue);
+            }
+        },
         result() {
-            if (this.para.content[0].meta){
+            if (this.para.content && this.para.content[0] && this.para.content[0].meta 
+                && this.para.content[0].meta.paraType
+                && this.para.content[0].meta.paraHeading
+                && this.para.content[0].meta.sentenceIssue) {
                 return this.para.content[0].meta
             }
             else{
@@ -178,6 +197,8 @@ export default {
                     type: 'error',
                     message: 'Something went wrong. Please try again.' + error,
                 });
+                this.para.content[0].meta.paraType.lastCheckValue = "Error...";
+                this.para.content[0].meta.paraType.checkResult = "Error...";
             };
         },
 
@@ -192,6 +213,8 @@ export default {
                     type: 'error',
                     message: 'Something went wrong. Please try again' + error,
                 });
+                this.para.content[0].meta.paraHeading.lastCheckValue = "Error...";
+                this.para.content[0].meta.paraHeading.checkResult = "Error...";
             };
         },
 
@@ -206,6 +229,8 @@ export default {
                     type: 'error',
                     message: 'Something went wrong. Please try again.' + error,
                 });
+                this.para.content[0].meta.sentenceIssue.lastCheckValue = "Error...";
+                this.para.content[0].meta.sentenceIssue.checkResult = "Error...";
             };
         },
 
@@ -221,7 +246,19 @@ export default {
             await this.askParaHeading();
             await this.askSentenceIssue();
         }
-    }
+    },
+    watch: {
+        pureTextPara: {
+            handler(newVal, oldVal) {
+                this.startedCheck = false;
+            },
+            deep: true,
+        },
+        para(){
+            this.$emit('update:modelValue', this.para);
+        }
+
+    },
 }
 </script>
 
