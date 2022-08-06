@@ -22,6 +22,8 @@ export default {
     EditorContent
   },
 
+  emits: ['update:modelValue'],
+
   data() {
     return {
       editor: null

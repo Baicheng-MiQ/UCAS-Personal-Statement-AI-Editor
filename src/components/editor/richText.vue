@@ -15,6 +15,7 @@ import CharacterCount from '@tiptap/extension-character-count'
 
 export default {
   name: 'RichTextC',
+  emits: ['update:modelValue'],
 
   components: {
     EditorContent

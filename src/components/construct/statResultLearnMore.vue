@@ -1,15 +1,15 @@
 <template>
     <!-- a right arrow, click to learn more -->
     <!-- LEARN MORE! -->
-    <label class="stat p-1 mr-0 ml-auto btn modal-button btn-ghost h-fit" for="learnMore">
+    <label class="stat p-1 mr-0 ml-auto btn modal-button btn-ghost h-fit" :for="randomUniqueID">
         <rightArrowIcon class="mr-0 ml-auto" />
         <h6 class="stat-desc mr-1 ml-auto">More</h6>
     </label>
 
-    <input type="checkbox" id="learnMore" class="modal-toggle" />
+    <input type="checkbox" :id="randomUniqueID" class="modal-toggle" />
     <div class="modal modal-bottom sm:modal-middle">
         <label for="" class="modal-box sm:w-11/12 sm:max-w-[100rem] max-h-[90vh]">
-            <label for="learnMore" class="btn btn-sm btn-circle absolute right-4 top-4">✕</label>
+            <label :for="randomUniqueID" class="btn btn-sm btn-circle absolute right-4 top-4">✕</label>
 
             <!-- ===MAIN STARTS=== -->
             
@@ -127,6 +127,7 @@ import richText from "./constructRichText.vue";
 
 export default {
     name: 'LearnMoreModal',
+    emits: ['recheckParaType', 'recheckParaHeading', 'recheckSentenceIssue','update:modelValue'],
     components: {
         rightArrowIcon,
         quoteIcon,
@@ -157,6 +158,9 @@ export default {
         },
     },
     computed: {
+        randomUniqueID() {
+            return Math.random().toString(36).substr(2, 9)
+        },
         para: {
             get() {
                 return this.modelValue
@@ -179,17 +183,19 @@ export default {
         },
         numOfSentenceIssue() {
             var issueCounter = 0;
-            for (var i = 0; i < this.checkResult.sentenceIssue.checkResult.length; i++) {
-                // count number of elements in array checkResult.sentenceIssue.checkResult[i].ner_reses 
-                // where ner_reses[i].entity_group is in ['PER', 'LOC', 'ORG']
-                issueCounter += this.checkResult.sentenceIssue.checkResult[i].ner_reses.filter(function (ner_res) {
-                    return ner_res.entity_group in ['PER', 'LOC', 'ORG'];
-                }).length;
-                // count number of key value pairs in object checkResult.sentenceIssue.checkResult[i].flags
-                issueCounter += Object.keys(this.checkResult.sentenceIssue.checkResult[i].flags).length;
-                // count number of elements in array checkResult.sentenceIssue.checkResult[i].grammar_reses
-                issueCounter += this.checkResult.sentenceIssue.checkResult[i].grammar_reses.length;
-            }
+            if (this.checkResult.sentenceIssue.checkResult && this.checkResult.sentenceIssue.checkResult!="Error..."){
+                for (var i = 0; i < this.checkResult.sentenceIssue.checkResult.length; i++) {
+                    // count number of elements in array checkResult.sentenceIssue.checkResult[i].ner_reses 
+                    // where ner_reses[i].entity_group is in ['PER', 'LOC', 'ORG']
+                    issueCounter += this.checkResult.sentenceIssue.checkResult[i].ner_reses.filter(function (ner_res) {
+                        return ner_res.entity_group in ['PER', 'LOC', 'ORG'];
+                    }).length;
+                    // count number of key value pairs in object checkResult.sentenceIssue.checkResult[i].flags
+                    issueCounter += Object.keys(this.checkResult.sentenceIssue.checkResult[i].flags).length;
+                    // count number of elements in array checkResult.sentenceIssue.checkResult[i].grammar_reses
+                    issueCounter += this.checkResult.sentenceIssue.checkResult[i].grammar_reses.length;
+                }
+            };
             return issueCounter;
 
         },

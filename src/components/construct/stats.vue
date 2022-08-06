@@ -94,6 +94,7 @@ export default {
         CheckIcon
 
     },
+    emits: ['recheckParaType', 'recheckParaHeading', 'recheckSentenceIssue', 'update:modelValue'],
     data(){
         return{
             startedCheck: false,

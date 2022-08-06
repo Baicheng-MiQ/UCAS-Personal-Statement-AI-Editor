@@ -71,6 +71,7 @@
 import refreshIcon from "@carbon/icons-vue/es/restart/24.js"
 export default {
     name: 'StatResult',
+    emits: ['recheckParaType', 'recheckParaHeading', 'recheckSentenceIssue'],
     components: {
     refreshIcon,
 },
@@ -103,16 +104,19 @@ export default {
         },
         numOfSentenceIssue() {
             var issueCounter = 0;
-            for (var i = 0; i < this.checkResult.sentenceIssue.checkResult.length; i++) {
-                // count number of elements in array checkResult.sentenceIssue.checkResult[i].ner_reses 
-                // where ner_reses[i].entity_group is in ['PER', 'LOC', 'ORG']
-                issueCounter += this.checkResult.sentenceIssue.checkResult[i].ner_reses.filter(function (ner_res) {
-                    return ner_res.entity_group in ['PER', 'LOC', 'ORG'];
-                }).length;
-                // count number of key value pairs in object checkResult.sentenceIssue.checkResult[i].flags
-                issueCounter += Object.keys(this.checkResult.sentenceIssue.checkResult[i].flags).length;
-                // count number of elements in array checkResult.sentenceIssue.checkResult[i].grammar_reses
-                issueCounter += this.checkResult.sentenceIssue.checkResult[i].grammar_reses.length;
+            if (this.checkResult.sentenceIssue.checkResult && this.checkResult.sentenceIssue.checkResult!="Error..."){
+                for (var i = 0; i < this.checkResult.sentenceIssue.checkResult.length; i++) {
+                    // count number of elements in array checkResult.sentenceIssue.checkResult[i].ner_reses 
+                    // where ner_reses[i].entity_group is in ['PER', 'LOC', 'ORG']
+
+                    issueCounter += this.checkResult.sentenceIssue.checkResult[i].ner_reses.filter(function (ner_res) {
+                        return ner_res.entity_group in ['PER', 'LOC', 'ORG'];
+                    }).length;
+                    // count number of key value pairs in object checkResult.sentenceIssue.checkResult[i].flags
+                    issueCounter += Object.keys(this.checkResult.sentenceIssue.checkResult[i].flags).length;
+                    // count number of elements in array checkResult.sentenceIssue.checkResult[i].grammar_reses
+                    issueCounter += this.checkResult.sentenceIssue.checkResult[i].grammar_reses.length;
+                    }
             }
             return issueCounter;
 
