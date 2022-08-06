@@ -8,20 +8,23 @@
 
     <input type="checkbox" :id="randomUniqueID" class="modal-toggle" />
     <div class="modal modal-bottom sm:modal-middle">
-        <label for="" class="modal-box sm:w-11/12 sm:max-w-[100rem] max-h-[90vh]">
-            <label :for="randomUniqueID" class="btn btn-sm btn-circle absolute right-4 top-4">✕</label>
+        <label for="" class="modal-box sm:w-11/12 sm:max-w-[100rem] h-[90vh] py-0">
+            <label :for="randomUniqueID" class="btn btn-sm opacity-50 btn-circle z-50 absolute right-4 top-4">✕</label>
 
             <!-- ===MAIN STARTS=== -->
             
             <div class="flex flex-col sm:flex-row sm:space-x-10">
                 <!-- ===LEFT===  -->
-                <div class="sm:w-1/2 sm:mt-20 h-fit flex flex-col border-b-2 border-blue-200">
-                    <quoteIcon class="h text-blue-400" />
-                    <richText class="font-serif italic cursor-text my-6 h-full sm:text-xl lg:text-2xl" v-model="this.para" />
+                <div class="sm:w-1/2 sm:h-[90vh] sm:overflow-scroll flex flex-col">
+                    <div class="flex flex-col h-fit py-10 space-y-5 my-auto ">
+                        <quoteIcon class=" text-blue-400" />
+                        <richText class="font-serif italic 
+                            border-b-2 border-gray-300 cursor-text h-full sm:text-lg lg:text-xl" v-model="this.para" />
+                    </div>
                 </div>
                 <!-- ===RIGHT===  -->
-                <div class="sm:w-1/2">
-                    <div class="flex flex-col space-y-4 py-4 w-full">
+                <div class="sm:w-1/2 sm:h-[90vh] sm:overflow-scroll">
+                    <div class="flex flex-col space-y-4 py-10 w-full">
                         <!-- tags -->
                         <div class="w-full">
 
@@ -64,10 +67,6 @@
                         <div class="sent w-full">
                             <div v-if="checkResult.sentenceIssue.checkResult"
                                 class="flex flex-row space-x-2 w-full overflow-auto">
-                                <div hidden v-for="(paraSent, index) in checkResult.sentenceIssue.checkResult"
-                                    :key="index">
-                                    <div class="font-bold py-3 capitalize"> {{ paraSent.sentence }} </div>
-                                </div>
 
                                 <div class="flex flex-col space-y-4 w-full">
                                     <!-- num of issue -->
@@ -88,16 +87,11 @@
                                         <div class="stat-desc">issues in {{ this.numOfSentence }} sentences</div>
                                     </div>
                                     <!-- issue list -->
-                                    <div class="flex flex-col">
+                                    <div class="flex flex-col space-y-5">
                                         <div v-for="(paraSent, index) in checkResult.sentenceIssue.checkResult"
                                             :key="index">
-                                            <div class="font-bold py-3 capitalize"> {{ paraSent.sentence }} </div>
-                                            <div class="font-bold py-3 capitalize"> {{ paraSent.flags }} </div>
-                                            <div class="font-bold py-3 capitalize"> {{ paraSent.ner_reses }} </div>
-                                            <div class="font-bold py-3 capitalize"> {{ paraSent.grammar_reses }} </div>
-
+                                                <StatResultLM_Sentence :paraSent="paraSent"/>
                                         </div>
-
                                     </div>
                                     
                                 </div>
@@ -111,8 +105,7 @@
             </div>
 
             <!-- ===MAIN ENDS=== -->
-            <div class="modal-action">
-            </div>
+
         </label>
     </div>
 
@@ -123,6 +116,7 @@ import rightArrowIcon from "@carbon/icons-vue/es/arrow--right/32.js"
 import quoteIcon from "@carbon/icons-vue/es/quotes/32.js"
 import refreshIcon from "@carbon/icons-vue/es/restart/24.js"
 
+import StatResultLM_Sentence from "./statResultLM_Sentence.vue"
 import richText from "./constructRichText.vue";
 
 export default {
@@ -132,7 +126,8 @@ export default {
         rightArrowIcon,
         quoteIcon,
         refreshIcon,
-        richText
+        richText,
+        StatResultLM_Sentence
     },
     // very bad practice below, but I don't know how to do it better
     // duplicated code as in statResult.vue
@@ -187,11 +182,9 @@ export default {
                 for (var i = 0; i < this.checkResult.sentenceIssue.checkResult.length; i++) {
                     // count number of elements in array checkResult.sentenceIssue.checkResult[i].ner_reses 
                     // where ner_reses[i].entity_group is in ['PER', 'LOC', 'ORG']
-                    issueCounter += this.checkResult.sentenceIssue.checkResult[i].ner_reses.filter(function (ner_res) {
-                        return ner_res.entity_group in ['PER', 'LOC', 'ORG'];
-                    }).length;
+                    issueCounter += this.checkResult.sentenceIssue.checkResult[i].ner_reses.length;
                     // count number of key value pairs in object checkResult.sentenceIssue.checkResult[i].flags
-                    issueCounter += Object.keys(this.checkResult.sentenceIssue.checkResult[i].flags).length;
+                    issueCounter += this.checkResult.sentenceIssue.checkResult[i].flags.length;
                     // count number of elements in array checkResult.sentenceIssue.checkResult[i].grammar_reses
                     issueCounter += this.checkResult.sentenceIssue.checkResult[i].grammar_reses.length;
                 }
@@ -238,4 +231,14 @@ export default {
 </script>
 
 <style>
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
 </style>

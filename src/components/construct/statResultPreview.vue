@@ -52,7 +52,7 @@
                                 @click="this.$emit('recheckSentenceIssue')" class="h-5 cursor-pointer" />
                         </div>
                         <div class="stat-value" :class="{
-                            'text-red-600': this.numOfSentenceIssue > 0,
+                            'text-red-600': this.numOfSentenceIssue > 0 || this.numOfSentenceIssue === 'Error...',
                             'text-green-600': this.numOfSentenceIssue === 0
                         }">
                             {{ this.numOfSentenceIssue }}</div>
@@ -108,16 +108,13 @@ export default {
                 for (var i = 0; i < this.checkResult.sentenceIssue.checkResult.length; i++) {
                     // count number of elements in array checkResult.sentenceIssue.checkResult[i].ner_reses 
                     // where ner_reses[i].entity_group is in ['PER', 'LOC', 'ORG']
-
-                    issueCounter += this.checkResult.sentenceIssue.checkResult[i].ner_reses.filter(function (ner_res) {
-                        return ner_res.entity_group in ['PER', 'LOC', 'ORG'];
-                    }).length;
+                    issueCounter += this.checkResult.sentenceIssue.checkResult[i].ner_reses.length;
                     // count number of key value pairs in object checkResult.sentenceIssue.checkResult[i].flags
-                    issueCounter += Object.keys(this.checkResult.sentenceIssue.checkResult[i].flags).length;
+                    issueCounter += this.checkResult.sentenceIssue.checkResult[i].flags.length;
                     // count number of elements in array checkResult.sentenceIssue.checkResult[i].grammar_reses
                     issueCounter += this.checkResult.sentenceIssue.checkResult[i].grammar_reses.length;
-                    }
-            }
+                }
+            };
             return issueCounter;
 
         },

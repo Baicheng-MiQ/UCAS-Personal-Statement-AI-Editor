@@ -204,6 +204,7 @@ export default {
         async askParaType(){
             try {
                 this.validateCheckBody();
+                this.startedCheck = true;
                 this.para.content[0].meta.paraType = {"lastCheckValue": null, "checkResult": null};
                 const paraType = await axios.post('https://ps-htbbh2ws5a-uc.a.run.app/para-type', this.apiPayload);
                 this.para.content[0].meta.paraType.lastCheckValue = paraType.data.statement;
@@ -222,6 +223,7 @@ export default {
         async askParaHeading(){
             try {
                 this.validateCheckBody();
+                this.startedCheck = true;
                 this.para.content[0].meta.paraHeading = {"lastCheckValue": null, "checkResult": null};
                 const paraHeading = await axios.post('https://ps-htbbh2ws5a-uc.a.run.app/para-heading', this.apiPayload);
                 this.para.content[0].meta.paraHeading.lastCheckValue = paraHeading.data.statement;
@@ -240,6 +242,7 @@ export default {
         async askSentenceIssue(){
             try {
                 this.validateCheckBody();
+                this.startedCheck = true;
                 this.para.content[0].meta.sentenceIssue = {"lastCheckValue": null, "checkResult": null};
                 const sentenceIssue = await axios.post('https://ps-htbbh2ws5a-uc.a.run.app/sentence-check', this.apiPayload);
                 this.para.content[0].meta.sentenceIssue.lastCheckValue = sentenceIssue.data.statement;
