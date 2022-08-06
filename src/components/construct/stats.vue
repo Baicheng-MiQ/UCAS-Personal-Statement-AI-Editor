@@ -215,7 +215,7 @@ export default {
                     message: 'Something went wrong. Please try again.' + error,
                 });
                 this.para.content[0].meta.paraType.lastCheckValue = "Error...";
-                this.para.content[0].meta.paraType.checkResult = "Error...";
+                this.para.content[0].meta.paraType.checkResult = ["Error..."];
             };
         },
 
@@ -251,7 +251,15 @@ export default {
                     message: 'Something went wrong. Please try again.' + error,
                 });
                 this.para.content[0].meta.sentenceIssue.lastCheckValue = "Error...";
-                this.para.content[0].meta.sentenceIssue.checkResult = "Error...";
+                this.para.content[0].meta.sentenceIssue.checkResult = [
+                    {
+                        "sentence": "Error...",
+                        "pure_reses": {},
+                        "ner_reses": [],
+                        "grammar_reses": [],
+                        "flags": []
+                    }
+                ];
             };
         },
 
