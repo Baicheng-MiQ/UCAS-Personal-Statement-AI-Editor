@@ -3,74 +3,79 @@
         <div class="lg:overflow-auto lg:h-full">
             <majorInputC/>
             <div class="paragraphs flex flex-col my-2 space-y-6">
-                <div class="paragraph flex flex-col" 
-                    v-for="(item, index) in content.content" :key="index" >
-                    <div class="flex flex-row space-x-5 ">
-                        <div class="left p-6 bg-white bg-opacity-80 backdrop-blur-md flex flex-col rounded-xl w-full
-                            border-2 border-gray-100 focus-within:border-blue-600"
-                            @mousedown="this.$refs['ta'+index][0].focusMe()">
-                            <!-- ======== -->
-                            <p class="w-fit border-b-2">
-                                <span class="text-gray-400">{{index+1}}</span>
-                                <span class="text-gray-400">/</span>
-                                <span class="text-gray-400">{{content.content.length}}</span>
-                            </p>
-                            <richText class="font-serif mt-1 h-full lg:text-lg"
-                                v-model="content.content[index]"
-                                :ref="'ta' + index"
-                                :id="'ta' + index"
-                                @focusin="focusedRichText=index;"
-                                @keydown.enter="insertEmptyParagraphAfter(index);"/>
-
-                            <!-- ======== -->
-                            <div class="flex flex-row space-x-3 mt-2
-                                text-gray-500">
-                                <!-- toolbox -->
-                                <div class="tooltip tooltip-bottom" data-tip="Delete">
-                                    <a href="#really" class="p-0 m-0 disabled:text-gray-300"
-                                        @click="toBeDeleted=index"> 
-                                        <deleteIcon/>
-                                    </a>
+                <draggable class="dragArea list-group w-full" :list="content.content">
+                    <div class="paragraph flex flex-col" 
+                        v-for="(item, index) in content.content" :key="index" >
+                        <div class="flex flex-row space-x-5 ">
+                            <div class="left p-6 bg-white bg-opacity-80 backdrop-blur-md flex flex-col rounded-xl w-full
+                                border-2 border-gray-100 focus-within:border-blue-600"
+                                @mousedown="this.$refs['ta'+index][0].focusMe()">
+                                <!-- ======== -->
+                                <div class="flex flex-row">
+                                    <dragIcon class="cursor-move text-gray-400 -translate-x-2"/>
+                                    <p class="w-fit border-b-2">
+                                        <span class="text-gray-400">{{index+1}}</span>
+                                        <span class="text-gray-400">/</span>
+                                        <span class="text-gray-400">{{content.content.length}}</span>
+                                    </p>
                                 </div>
-                                <div class="modal" id="really">
-                                <div class="modal-box">
-                                    <h3 class="font-bold text-lg">Do you want to delete this paragraph?</h3>
-                                    <p class="py-4"> This action cannot be undone.</p>
-                                    <div class="modal-action">
+                                <richText class="font-serif mt-1 h-full lg:text-lg"
+                                    v-model="content.content[index]"
+                                    :ref="'ta' + index"
+                                    :id="'ta' + index"
+                                    @focusin="focusedRichText=index;"
+                                    @keydown.enter="insertEmptyParagraphAfter(index);"/>
 
-                                        <a :href="'#ta'+toBeDeleted" class="btn"
-                                            @click="toBeDeleted=-1">
-                                            Cancel
-                                        </a>
-                                        
-                                        <a :href="'#ta'+toBeDeleted" class="btn btn-error"
-                                            @click="deleteParagraph(this.toBeDeleted)">
-                                            Confirm
+                                <!-- ======== -->
+                                <div class="flex flex-row space-x-3 mt-2
+                                    text-gray-500">
+                                    <!-- toolbox -->
+                                    <div class="tooltip tooltip-bottom" data-tip="Delete">
+                                        <a href="#really" class="p-0 m-0 disabled:text-gray-300"
+                                            @click="toBeDeleted=index"> 
+                                            <deleteIcon/>
                                         </a>
                                     </div>
-                                </div>
-                                </div>
-                                <div class="tooltip tooltip-bottom" data-tip="Move Up">
-                                    <button class="move-up disabled:text-gray-300" @click="moveParagraphUp(index)"
-                                    :disabled="index===0">
-                                        <moveUpIcon/>
-                                    </button>
-                                </div>
+                                    <div class="modal" id="really">
+                                    <div class="modal-box">
+                                        <h3 class="font-bold text-lg">Do you want to delete this paragraph?</h3>
+                                        <p class="py-4"> This action cannot be undone.</p>
+                                        <div class="modal-action">
 
-                                <div class="tooltip tooltip-bottom" data-tip="Move Down">
-                                    <button class="move-down disabled:text-gray-300" @click="moveParagraphDown(index)"
-                                    :disabled="index===(content.content.length-1)">
-                                        <moveDownIcon/>
-                                    </button>
+                                            <a :href="'#ta'+toBeDeleted" class="btn"
+                                                @click="toBeDeleted=-1">
+                                                Cancel
+                                            </a>
+                                            
+                                            <a :href="'#ta'+toBeDeleted" class="btn btn-error"
+                                                @click="deleteParagraph(this.toBeDeleted)">
+                                                Confirm
+                                            </a>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="tooltip tooltip-bottom" data-tip="Move Up">
+                                        <button class="move-up disabled:text-gray-300" @click="moveParagraphUp(index)"
+                                        :disabled="index===0">
+                                            <moveUpIcon/>
+                                        </button>
+                                    </div>
+
+                                    <div class="tooltip tooltip-bottom" data-tip="Move Down">
+                                        <button class="move-down disabled:text-gray-300" @click="moveParagraphDown(index)"
+                                        :disabled="index===(content.content.length-1)">
+                                            <moveDownIcon/>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
+
+                            <Stats class="w-2/3 max-w-md min-w-[250px]" v-model="content.content[index]"/>
+
                         </div>
-
-                        <Stats class="w-2/3 max-w-md min-w-[250px]" v-model="content.content[index]"/>
-
+                        <div class="divider mt-12"></div>
                     </div>
-                    <div class="divider mt-12"></div>
-                </div>
+                </draggable>    
             </div>
         </div>
 
@@ -85,6 +90,8 @@
 </template>
 
 <script>
+import { VueDraggableNext } from 'vue-draggable-next'
+
 
 import MajorInputC from "../editor/majorInput.vue";
 import debounce from "lodash.debounce";
@@ -95,6 +102,7 @@ import Stats from "./stats.vue"
 import deleteIcon from "@carbon/icons-vue/es/row--delete/20.js"
 import moveUpIcon from "@carbon/icons-vue/es/row--collapse/20.js"
 import moveDownIcon from "@carbon/icons-vue/es/row--expand/20.js"
+import dragIcon from "@carbon/icons-vue/es/draggable/24.js"
 
 var emptyParagraph = {
     "type": "paragraph"
@@ -107,9 +115,11 @@ export default {
     MajorInputC,
     TextInfoBar,
     Stats,
+    draggable: VueDraggableNext,
     deleteIcon,
     moveUpIcon,
     moveDownIcon,
+    dragIcon
 
     }, 
     data(){

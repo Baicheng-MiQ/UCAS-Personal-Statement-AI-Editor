@@ -1,6 +1,6 @@
 <template>
   <!-- nav bar -->
-  <nav class="sticky lg:top-0 z-40 backdrop-blur-sm">
+  <nav class="sticky lg:top-0 z-0 backdrop-blur-sm">
     <navBarC/>
   </nav>
 
