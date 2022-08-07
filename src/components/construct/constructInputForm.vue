@@ -1,13 +1,13 @@
 <template>
-    <div class="flex flex-col relative">
-        <div class="lg:overflow-auto lg:h-full ">
+    <div class="flex flex-col relative w-full ">
+        <div class="lg:overflow-auto lg:h-full">
             <majorInputC/>
             <div class="paragraphs flex flex-col my-2 space-y-6">
-                <div class="paragraph flex flex-col " 
+                <div class="paragraph flex flex-col" 
                     v-for="(item, index) in content.content" :key="index" >
-                    <div class="flex flex-row space-x-5">
-                        <div class="left p-6 bg-gray-50 flex flex-col rounded-xl w-full
-                            border-2 border-white focus-within:border-blue-600"
+                    <div class="flex flex-row space-x-5 ">
+                        <div class="left p-6 bg-white bg-opacity-80 backdrop-blur-md flex flex-col rounded-xl w-full
+                            border-2 border-gray-100 focus-within:border-blue-600"
                             @mousedown="this.$refs['ta'+index][0].focusMe()">
                             <!-- ======== -->
                             <p class="w-fit border-b-2">

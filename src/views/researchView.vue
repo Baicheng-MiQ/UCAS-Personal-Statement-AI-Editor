@@ -77,7 +77,7 @@
                 </div>
 
                 <div class="h-full lg:w-1/12 flex-col justify-end hidden lg:flex">
-                    <label for="my-drawer-4" class="drawer-button btn btn-ghost h-fit mb-10 p-2 mr-1">or, just start writing<EditorIcon class="ml-1 w-20 h-20" /></label>
+                    <label for="my-drawer-4" class="drawer-button btn btn-ghost h-fit mb-10 p-2 mr-1">Quick Editor<EditorIcon class="ml-1 w-20 h-20" /></label>
                 </div>
             </div>
         </div>
@@ -186,7 +186,6 @@ export default {
         saveChoice() {
             console.log('save choice')
             this.$store.dispatch('dbUpdateUserStatus', this.userStatus);
-            document.getElementById('bigHeading').scrollIntoView();
 
         },
         goDown() {

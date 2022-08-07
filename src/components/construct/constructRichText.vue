@@ -37,14 +37,19 @@ export default {
         Document,
         Paragraph.configure({
           HTMLAttributes: {
-            class: 'text-gray-7=800 font-serif text-base leading-7 m-2',
+            class: 'text-gray-800 font-serif text-base leading-7 m-2',
             },
           }
         ),
         Text,
         Placeholder.configure({
           // Use a placeholder:
-          placeholder: 'Type your personal statement here...',
+          includeChildren: true,
+          placeholder: 'Write something …',
+          showOnlyCurrent: false,
+            showOnlyWhenEditable: false,
+
+
         }),
         CharacterCount.configure({
           // Limit the character count:

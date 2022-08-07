@@ -83,7 +83,8 @@ export default {
 
 
   watch: {
-    modelValue(value) {
+    modelValue: {
+      handler(value, oldValue){
       // HTML
       // const isSame = this.editor.getHTML() === value
 
@@ -95,6 +96,7 @@ export default {
       }
 
       this.editor.commands.setContent(value, false)
+      }, deep: true
     }
   },
 
