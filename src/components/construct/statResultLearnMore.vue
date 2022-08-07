@@ -6,9 +6,9 @@
         <h6 class="stat-desc mr-1 ml-auto">More</h6>
     </label>
 
-    <input type="checkbox" :id="randomUniqueID" class="modal-toggle" />
+    <input type="checkbox" :id="randomUniqueID" class="modal-toggle " />
     <div class="modal modal-bottom sm:modal-middle">
-        <label for="" class="modal-box sm:w-11/12 sm:max-w-[100rem] h-[90vh] py-0">
+        <label for="" class="modal-box sm:w-11/12 sm:max-w-[100rem] h-[90vh] py-0 mt-16">
             <label :for="randomUniqueID" class="btn btn-sm opacity-50 btn-circle z-50 absolute right-4 top-4">✕</label>
 
             <!-- ===MAIN STARTS=== -->

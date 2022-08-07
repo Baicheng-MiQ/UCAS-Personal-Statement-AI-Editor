@@ -8,18 +8,18 @@
             @click="this.$store.state.activeTab='researchView';
                     this.$router.push('/research');">
             1. Research </a> </li>
-        <li><a :class="{'font-bold': this.$store.state.activeTab==='brainstormView'}" 
+        <!-- <li><a :class="{'font-bold': this.$store.state.activeTab==='brainstormView'}" 
             @click="this.$store.state.activeTab='brainstormView';
                     this.$router.push('/brainstorm')">
-            2. Brainstorm </a> </li>
+            2. Brainstorm </a> </li> -->
         <li> <a :class="{'font-bold': this.$store.state.activeTab==='constructView'}"
             @click="this.$store.state.activeTab='constructView';
                     this.$router.push('/construct')">
-            3. Construct </a></li>
+            2. Construct </a></li>
         <li> <a :class="{'font-bold': this.$store.state.activeTab==='finaliseView'}"
             @click="this.$store.state.activeTab='finaliseView';
                     this.$router.push('/finalise')">
-            4. Finalise </a></li>
+            3. Finalise </a></li>
         </ul>
     </div>
     <!-- logo -->
@@ -31,18 +31,18 @@
             @click="this.$store.state.activeTab='researchView';
                     this.$router.push('/research');">
             1. Research </a> 
-        <a class="tab" :class="{'tab-active': this.$store.state.activeTab==='brainstormView'}" 
+        <!-- <a class="tab" :class="{'tab-active': this.$store.state.activeTab==='brainstormView'}" 
             @click="this.$store.state.activeTab='brainstormView';
                     this.$router.push('/brainstorm')">
-            2. Brainstorm </a> 
+            2. Brainstorm </a>  -->
         <a class="tab" :class="{'tab-active': this.$store.state.activeTab==='constructView'}"
             @click="this.$store.state.activeTab='constructView';
                     this.$router.push('/construct')">
-            3. Construct </a>
+            2. Construct </a>
         <a class="tab" :class="{'tab-active': this.$store.state.activeTab==='finaliseView'}"
             @click="this.$store.state.activeTab='finaliseView';
                     this.$router.push('/finalise')">
-            4. Finalise </a>
+            3. Finalise </a>
         </div>
     </div>
 

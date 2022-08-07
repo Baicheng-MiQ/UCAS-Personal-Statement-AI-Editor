@@ -89,7 +89,6 @@ export default {
       const payload = {
         userToken: "this.$store.state.userIDtoken",
         major: 'this.$store.state.major.join(",")',
-        statement: this.$store.getters.pureContent,
         statement_obj: this.$store.state.content,
       };
       console.log(payload);

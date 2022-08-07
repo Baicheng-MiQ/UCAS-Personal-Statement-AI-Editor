@@ -12,7 +12,7 @@
                                 @mousedown="this.$refs['ta'+index][0].focusMe()">
                                 <!-- ======== -->
                                 <div class="flex flex-row">
-                                    <dragIcon class="cursor-move text-gray-400 -translate-x-2"/>
+                                    <dragIcon class="cursor-grab text-gray-400 -translate-x-2 "/>
                                     <p class="w-fit border-b-2">
                                         <span class="text-gray-400">{{index+1}}</span>
                                         <span class="text-gray-400">/</span>
