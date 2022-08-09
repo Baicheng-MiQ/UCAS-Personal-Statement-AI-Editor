@@ -1,7 +1,7 @@
 <template>
-  <div class="flex flex-col p-2 ">
+  <div class="flex flex-col p-4 border-2 mx-5 my-3 rounded-2xl">
       <p class="pt-2 text-base text-gray-400">Sentence</p>
-      <h1 class="py-4 text-lg lg:text-2xl font-serif"> {{ paraSent.sentence }} </h1>
+      <h1 class="py-4 text-lg lg:text-xl font-serif"> {{ paraSent.sentence }} </h1>
       <div class="font-bold py-3" v-for="(note, index) in paraSent.flags" :key="index"> 
         <ParaFlagBlock :flag="note"/>
       </div>

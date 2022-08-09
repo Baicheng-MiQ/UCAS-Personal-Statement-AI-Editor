@@ -12,19 +12,23 @@
             <label :for="randomUniqueID" class="btn btn-sm opacity-50 btn-circle z-50 absolute right-4 top-4">✕</label>
 
             <!-- ===MAIN STARTS=== -->
-            
+
             <div class="flex flex-col sm:flex-row sm:space-x-10">
                 <!-- ===LEFT===  -->
                 <div class="sm:w-1/2 sm:h-[90vh] sm:overflow-scroll flex flex-col">
                     <div class="flex flex-col h-fit py-10 space-y-5 my-auto ">
                         <quoteIcon class=" text-blue-400" />
-                        <richText class="font-serif italic 
+                        <richText class="font-serif 
                             border-b-2 border-gray-300 cursor-text h-full sm:text-lg lg:text-xl" v-model="this.para" />
                     </div>
                 </div>
                 <!-- ===RIGHT===  -->
                 <div class="sm:w-1/2 sm:h-[90vh] sm:overflow-scroll">
                     <div class="flex flex-col space-y-4 py-10 w-full">
+                        <p class="flex flex-row items-end text-gray-500 text-base">
+                            <machineLearningIcon class="mt-[3px] mr-1 h-6" />
+                            <span class="m-0">Machine Learning</span>
+                        </p>
                         <!-- tags -->
                         <div class="w-full">
 
@@ -37,7 +41,8 @@
                                 </div>
                                 <refreshIcon v-show="this.hasParaChangedAfterCheck.includes('paraType') ||
                                 this.checkResult.paraType.checkResult === null ||
-                                this.checkResult.paraType.checkResult === 'Error...'" @click="this.$emit('recheckParaType')"
+                                this.checkResult.paraType.checkResult === 'Error...'"
+                                    @click="this.$emit('recheckParaType')"
                                     class="cursor-pointer w-6 h-6 text-gray-400" />
 
                             </div>
@@ -61,6 +66,43 @@
                             </h1>
                         </div>
 
+                        <!-- para comment -->
+                        <div class="card bg-base-100 shadow-xl m-3 border-2 border-gray-50">
+                            <div v-if="checkResult.paraComment.checkResult"
+                                class=" card-body flex flex-col justify-between ">
+                                <div class="flex flex-row space-x-2 align-middle">
+                                    <div class="indicator ">
+                                        <span class="scale-75 scale-x-[0.7] indicator-item indicator-bottom bg-green-500 border-2 border-white badge badge-secondary
+                                            -translate-x-[1px] -translate-y-[1px]"></span>
+                                        <div class="avatar">
+                                            <div class="w-16 rounded-full p-1 border-2 border-blue-400">
+                                                <img class="rounded-full"
+                                                    :src="`https://avatars.dicebear.com/api/micah/${checkResult.paraComment.checkResult.slice(-31, -1).replace(/[^a-z]+/gi, '')}.png?mouth[]=laughing&b=%23b8edff`" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h2 class="font-bold text-lg my-auto">PSAI Expert</h2>
+                                    <div>
+                                        <refreshIcon v-show="this.hasParaChangedAfterCheck.includes('paraComment') ||
+                                        this.checkResult.paraComment.checkResult === null ||
+                                        this.checkResult.paraComment.checkResult === 'Error...'"
+                                            @click="this.$emit('recheckParaComment')"
+                                            class="cursor-pointer w-6 h-6 mt-3.5 my-auto text-gray-400 p-px" />
+                                    </div>
+                                </div>
+
+                                <h1 class="">{{ checkResult.paraComment.checkResult }} </h1>
+                                <p class="text-2xs font-extralight mt-2 text-gray-400"> Note: For reference only, AI never thinks about the
+                                    meaning of this comment. As this AI is trained to always provide both advantages and
+                                    disadvantages of paragraphs, you don't have to overly worry about the downsides it
+                                    suggest if it you don't find it helpful. </p>
+                            </div>
+                            <h1 v-else class="animate-pulse w-fit p-10 text-lg font-bold">
+                                PSAI is Typing...
+                            </h1>
+                        </div>
+
+
                         <div class="divider"></div>
 
                         <!-- sentence -->
@@ -68,9 +110,9 @@
                             <div v-if="checkResult.sentenceIssue.checkResult"
                                 class="flex flex-row space-x-2 w-full overflow-auto">
 
-                                <div class="flex flex-col space-y-4 w-full">
+                                <div class="flex flex-col space-y-0 w-full">
                                     <!-- num of issue -->
-                                    <div class="stat m-0 p-0">
+                                    <div class="stat mx-5 p-0">
                                         <div class="stat-title flex flex-row">
                                             Found
                                             <refreshIcon v-show="this.hasParaChangedAfterCheck.includes('sentenceIssue') ||
@@ -79,21 +121,23 @@
                                                 @click="this.$emit('recheckSentenceIssue')"
                                                 class="h-5 cursor-pointer" />
                                         </div>
-                                        <div class="stat-value" :class="{
-                                            'text-red-600': this.numOfSentenceIssue > 0,
-                                            'text-green-600': this.numOfSentenceIssue === 0
-                                        }">
-                                            {{ this.numOfSentenceIssue }}</div>
-                                        <div class="stat-desc">issues in {{ this.numOfSentence }} sentences</div>
-                                    </div>
-                                    <!-- issue list -->
-                                    <div class="flex flex-col space-y-5">
-                                        <div v-for="(paraSent, index) in checkResult.sentenceIssue.checkResult"
-                                            :key="index">
-                                                <StatResultLM_Sentence :paraSent="paraSent"/>
+                                        <div class="flex flex-row items-end">
+                                            <div class="stat-value" :class="{
+                                                'text-red-600': this.numOfSentenceIssue > 0,
+                                                'text-green-600': this.numOfSentenceIssue === 0
+                                            }">
+                                                {{ this.numOfSentenceIssue }}</div>
+                                            <div class="stat-desc mb-1">issues in {{ this.numOfSentence }} sentences</div>
                                         </div>
                                     </div>
-                                    
+                                    <!-- issue list -->
+                                    <div class="flex flex-col space-y-2">
+                                        <div v-for="(paraSent, index) in checkResult.sentenceIssue.checkResult"
+                                            :key="index">
+                                            <StatResultLM_Sentence :paraSent="paraSent" />
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                             <div v-else class="animate-pulse w-fit px-2 text-lg">
@@ -115,17 +159,20 @@
 import rightArrowIcon from "@carbon/icons-vue/es/arrow--right/32.js"
 import quoteIcon from "@carbon/icons-vue/es/quotes/32.js"
 import refreshIcon from "@carbon/icons-vue/es/restart/24.js"
+import machineLearningIcon from '@carbon/icons-vue/es/machine-learning-model/24.js'
+ 
 
 import StatResultLM_Sentence from "./statResultLM_Sentence.vue"
 import richText from "./constructRichText.vue";
 
 export default {
     name: 'LearnMoreModal',
-    emits: ['recheckParaType', 'recheckParaHeading', 'recheckSentenceIssue','update:modelValue'],
+    emits: ['recheckParaType', 'recheckParaHeading', 'recheckParaComment', 'recheckSentenceIssue','update:modelValue'],
     components: {
         rightArrowIcon,
         quoteIcon,
         refreshIcon,
+        machineLearningIcon,
         richText,
         StatResultLM_Sentence
     },
@@ -199,6 +246,9 @@ export default {
             }
             if (this.checkResult.paraHeading.lastCheckValue != this.pureTextPara) {
                 thisChanged.push('paraHeading');
+            }
+            if (this.checkResult.paraComment.lastCheckValue != this.pureTextPara) {
+                thisChanged.push('paraComment');
             }
             if (this.checkResult.sentenceIssue.lastCheckValue != this.pureTextPara) {
                 thisChanged.push('sentenceIssue');

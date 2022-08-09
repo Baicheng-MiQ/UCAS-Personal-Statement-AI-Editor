@@ -12,7 +12,18 @@
                     Paragraph by paragraph, sentence by sentence.
                     <img alt="background image" class="vector -z-10 top-20 right-5 fixed w-[calc(37vw)]"
                         src="https://static.overlay-tech.com/assets/09df6e20-5a97-4f2d-ba4e-7a224edbab81.svg" />
+
                 </h1>
+
+                <div class="flex flex-col" v-show="this.$store.getters.pureContent.length<5">
+                    <button class="btn w-fit mx-auto mt-6 btn-primary border-2 bg-gradient-to-r from-blue-600 to-blue-800 border-blue-600 shadow-xl hover:scale-110">
+                        <a target="popup"
+                        onclick="window.open('https://www.ucas.com/undergraduate/applying-university/writing-personal-statement/personal-statement-the-killer-opening',
+                            '_blank', 'width=768,height=1024')"> HOW TO START A PERSONAL STATEMENT?
+                        </a>
+                     </button>
+                     <h1 class="text-lg font-bold my-5 mx-auto"> OR </h1>
+                </div>
 
                 <div class="flex flex-row">
                     <InputFormC />
@@ -61,6 +72,7 @@ export default {
     },
 
     mounted() {
+
         // warm up cloud run
         if (!this.$store.state.userIDtoken) {
             this.$store.dispatch('getUserIDtoken')
@@ -68,7 +80,7 @@ export default {
                 axios.post("https://ps-htbbh2ws5a-uc.a.run.app/para-type",
                     {
                         userToken: this.$store.state.userIDtoken,
-                        major: this.$store.state.major.join(", "),
+                        major: "TEST ",
                         statement: (Math.random() + 1).toString(36).substring(2),
                     }
                 )

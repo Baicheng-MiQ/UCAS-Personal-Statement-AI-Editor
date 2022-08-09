@@ -41,6 +41,7 @@
                     <StatResultLearnMore :checkResult="this.result" v-model="this.para"
                         @recheckParaType="askParaType"
                         @recheckParaHeading="askParaHeading"
+                        @recheckParaComment="askParaComment"
                         @recheckSentenceIssue="askSentenceIssue"/>
                 </div>
             </div>
@@ -121,6 +122,7 @@ export default {
             if (this.para.content && this.para.content[0] && this.para.content[0].meta 
                 && this.para.content[0].meta.paraType
                 && this.para.content[0].meta.paraHeading
+                && this.para.content[0].meta.paraComment
                 && this.para.content[0].meta.sentenceIssue) {
                 return this.para.content[0].meta
             }
@@ -128,6 +130,7 @@ export default {
                 return {
                     "paraType": {"lastCheckValue": null, "checkResult": null},
                     "paraHeading": {"lastCheckValue": null, "checkResult": null},
+                    "paraComment": {"lastCheckValue": null, "checkResult": null},
                     "sentenceIssue": {"lastCheckValue": null, "checkResult": null},
                 }
             }
@@ -135,6 +138,7 @@ export default {
         isChecked() {
             if (this.result.paraType.checkResult === null && 
                 this.result.paraHeading.checkResult === null &&
+                this.result.paraComment.checkResult === null &&
                 this.result.sentenceIssue.checkResult === null && !this.startedCheck){
                 return false
             }
@@ -192,12 +196,24 @@ export default {
     methods: {
         validateCheckBody(){
             if (this.apiPayload.statement.length < 170) {
+                this.$store.commit('notify', {
+                    type: 'error',
+                    message: 'Paragraph is too short. Please write at least 170 characters.'
+                });
                 throw new Error("Paragraph is too short. Please write at least 170 characters.")
             }
             if (this.apiPayload.statement.length > 5000) {
-                throw new Error("Paragraph is too long. Please write at most 5000 characters.")
+                this.$store.commit('notify', {
+                    type: 'error',
+                    message: 'Paragraph is too long. Please write at most 5000 characters.'
+                });
+                throw new Error("Paragraph is too long. Please write at most 5000 characters.");
             }
             if (this.apiPayload.major.length === 0) {
+                this.$store.commit('notify', {
+                    type: 'error',
+                    message: 'Please select at least one major at the top of the page.'
+                });
                 throw new Error("Please select at least one major at the top of the page.")
             }
         },
@@ -238,6 +254,24 @@ export default {
                 this.para.content[0].meta.paraHeading.checkResult = "Error...";
             };
         },
+        async askParaComment(){
+            try {
+                this.validateCheckBody();
+                this.startedCheck = true;
+                this.para.content[0].meta.paraComment = {"lastCheckValue": null, "checkResult": null};
+                const paraComment = await axios.post('https://ps-htbbh2ws5a-uc.a.run.app/para-comment', this.apiPayload);
+                this.para.content[0].meta.paraComment.lastCheckValue = paraComment.data.statement;
+                this.para.content[0].meta.paraComment.checkResult = paraComment.data.comment;
+            } catch (error) {
+                this.$store.commit('notify', {
+                    type: 'error',
+                    title: 'Error',
+                    message: 'Something went wrong. Please try again' + error,
+                });
+                this.para.content[0].meta.paraComment.lastCheckValue = "Error...";
+                this.para.content[0].meta.paraComment.checkResult = "Error...";
+            };
+        },
 
         async askSentenceIssue(){
             try {
@@ -273,10 +307,12 @@ export default {
             this.para.content[0].meta = {
                     "paraType": {"lastCheckValue": null, "checkResult": null},
                     "paraHeading": {"lastCheckValue": null, "checkResult": null},
+                    "paraComment": {"lastCheckValue": null, "checkResult": null},
                     "sentenceIssue": {"lastCheckValue": null, "checkResult": null},
                 };
             await this.askParaType();
             await this.askParaHeading();
+            await this.askParaComment();
             await this.askSentenceIssue();
         }
     },

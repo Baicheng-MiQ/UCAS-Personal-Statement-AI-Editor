@@ -18,7 +18,7 @@
                 <div class="flex flex-row mx-2 mb-3 pr-2 bg-gray-50 rounded-full shadow-md focus-within:shadow-lg">
                     <input type="text" class="w-28 h-full m-0.5 px-2 py-1 font-bold bg-white rounded-full"
                         :class="{'hidden': !addingMajor}"
-                        maxlength="100" v-model="newMajor" @keyup.enter="addMajor"
+                        maxlength="100" v-model="newMajor" @keyup.enter="addMajor" @focusout="addMajor"
                         placeholder="New Major">
 
                     <!-- this button toggle add major input block -->

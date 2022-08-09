@@ -7,7 +7,8 @@
             <div @focusin="autoComplete=true" class="min-w-full overflow-visible" @focusout="sleep(300).then(()=>(autoComplete=false))">
 
                 <input type="text" v-model="choice.uniName" placeholder="Name of University"  @keydown.esc="autoComplete=false"
-                class="bg-transparent border-0 text-5xl font-black w-full" @input="inputFlag=true; autoComplete=true">
+                class="bg-transparent border-0 text-5xl font-black w-full" :class="{'border-b-2 border-blue-700': !choice.uniName}"
+                @input="inputFlag=true; autoComplete=true">
 
                         <ul v-show="autoComplete && searchResults.length"
                             class="z-50 absolute top-28 -left-2 bg-white rounded-lg border-2 shadow-sm divide-y">

@@ -3,15 +3,15 @@
         <!-- tags -->
         <div class="w-full">
             <div v-if="checkResult.paraType.checkResult"
-                class="flex flex-row whitespace-nowrap space-x-2 w-full overflow-auto">
+                class="flex flex-row whitespace-nowrap space-x-2 w-full overflow-x-auto">
                 <div v-for="(paraType, index) in checkResult.paraType.checkResult" :key="index">
                     <div class="badge badge-xl badge-info bg-blue-600 text-white font-bold py-3 capitalize">
                         {{ paraType }} </div>
                 </div>
                 <refreshIcon v-show="this.hasParaChangedAfterCheck.includes('paraType') || 
                     this.checkResult.paraType.checkResult === null || 
-                    this.checkResult.paraType.checkResult === 'Error...'"
-                    @click="this.$emit('recheckParaType')" class="cursor-pointer w-6 h-6 text-gray-400" />
+                    this.checkResult.paraType.checkResult === 'Error...'" @click="this.$emit('recheckParaType')"
+                    class="cursor-pointer w-6 h-6 text-gray-400" />
 
             </div>
             <div v-else class="animate-pulse badge badge-lg badge-info bg-blue-100"> ... </div>
@@ -25,7 +25,8 @@
                     <refreshIcon v-show="this.hasParaChangedAfterCheck.includes('paraHeading') ||
                         this.checkResult.paraHeading.checkResult === null ||
                         this.checkResult.paraHeading.checkResult === 'Error...'"
-                        @click="this.$emit('recheckParaHeading')" class="cursor-pointer w-6 h-6 text-gray-400 p-px border-2 rounded-full" />
+                        @click="this.$emit('recheckParaHeading')"
+                        class="cursor-pointer w-6 h-6 text-gray-400 p-px border-2 rounded-full" />
                 </div>
             </div>
             <h1 v-else class="animate-pulse w-fit">
@@ -33,11 +34,29 @@
             </h1>
         </div>
 
+        <!-- AI comment -->
+        <div class=" w-fit p-1" v-show="checkResult.paraComment.checkResult">
+            
+            <div class="flex flex-row space-x-2 align-middle">
+                <div class="indicator ">
+                    <span class="scale-75 scale-x-[0.7] indicator-item indicator-bottom bg-green-500 border-2 border-white badge badge-secondary
+                                            -translate-x-[1px] -translate-y-[1px]"></span>
+                    <div class="avatar" v-show="checkResult.paraComment.checkResult.slice(-31, -1)">
+                        <div class="w-16 rounded-full p-1 border-2 border-blue-400">
+                            <img class="rounded-full"
+                                :src="`https://avatars.dicebear.com/api/micah/${checkResult.paraComment.checkResult.slice(-31, -1).replace(/[^a-z]+/gi, '')}.png?mouth[]=laughing&b=%23b8edff`" />
+                        </div>
+                    </div>
+                </div>
+                <h2 class="font-bold text-lg my-auto">PSAI Expert Advice</h2>
+            </div>
+        </div>
+
         <div class="divider"></div>
 
         <!-- sentence -->
         <div class="sent w-full">
-            <div v-if="checkResult.sentenceIssue.checkResult" class="flex flex-row space-x-2 w-full overflow-auto">
+            <div v-if="checkResult.sentenceIssue.checkResult" class="flex flex-row space-x-2 w-full">
                 <div hidden v-for="(paraSent, index) in checkResult.sentenceIssue.checkResult" :key="index">
                     <div class="font-bold py-3 capitalize"> {{ paraSent.sentence }} </div>
                 </div>
