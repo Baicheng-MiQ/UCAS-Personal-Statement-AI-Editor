@@ -1,5 +1,5 @@
 <template>
-<div class="flex flex-row p-1 lg:px-24 shadow-sm border-b-2 border-gray-200 h-16 items-center justify-between
+<div class="flex flex-row pt-1 lg:px-24 shadow-sm border-b-2 border-gray-200 h-16 items-center justify-between
             bg-gradient-to-br from-pink-50 via-indigo-50 to-blue-50 opacity-90">
     <div class="dropdown md:hidden" >
         <label tabindex="0" class="btn btn-ghost px-2 bg-gray-300"> <menuButton/> </label>
@@ -27,21 +27,24 @@
 
     <div class="tabSwitch hidden md:flex" v-show="user">
         <div class="tabs tabs-boxed">
-        <a class="tab" :class="{'tab-active': this.$store.state.activeTab==='researchView'}"
+        <a class="btn btn-ghost" :class="{'border-blue-500 border-2 font-black': this.$store.state.activeTab==='researchView'}"
             @click="this.$store.state.activeTab='researchView';
                     this.$router.push('/research');">
+            <researchIcon/>
             1. Research </a> 
         <!-- <a class="tab" :class="{'tab-active': this.$store.state.activeTab==='brainstormView'}" 
             @click="this.$store.state.activeTab='brainstormView';
                     this.$router.push('/brainstorm')">
             2. Brainstorm </a>  -->
-        <a class="tab" :class="{'tab-active': this.$store.state.activeTab==='constructView'}"
+        <a class="btn btn-ghost" :class="{'border-blue-500 border-2 font-black': this.$store.state.activeTab==='constructView'}"
             @click="this.$store.state.activeTab='constructView';
                     this.$router.push('/construct')">
+            <constructIcon/>
             2. Construct </a>
-        <a class="tab" :class="{'tab-active': this.$store.state.activeTab==='finaliseView'}"
+        <a class="btn btn-ghost" :class="{'border-blue-500 border-2 font-black': this.$store.state.activeTab==='finaliseView'}"
             @click="this.$store.state.activeTab='finaliseView';
                     this.$router.push('/finalise')">
+            <finaliseIncon/>
             3. Finalise </a>
         </div>
     </div>
@@ -72,11 +75,16 @@
 </template>
 
 <script>
-import { useStore } from 'vuex';
+import researchIcon from "@carbon/icons-vue/es/search/32.js"
+import constructIcon from "@carbon/icons-vue/es/notebook/32.js"
+import finaliseIncon from "@carbon/icons-vue/es/checkmark/32.js"
 import { auth } from '../firebase/config';
 export default {
     name: 'navBarC',
     components: {
+        researchIcon,
+        constructIcon,
+        finaliseIncon
     },
     data() {
         return {
@@ -128,4 +136,5 @@ export default {
 
 <style>
 
+ 
 </style>

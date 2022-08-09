@@ -17,9 +17,9 @@
 
                 <div class="flex flex-col" v-show="this.$store.getters.pureContent.length<5">
                     <button class="btn w-fit mx-auto mt-6 btn-primary border-2 bg-gradient-to-r from-blue-600 to-blue-800 border-blue-600 shadow-xl hover:scale-110">
-                        <a target="popup"
+                        <a target="popup" class="flex flex-row items-center"
                         onclick="window.open('https://www.ucas.com/undergraduate/applying-university/writing-personal-statement/personal-statement-the-killer-opening',
-                            '_blank', 'width=768,height=1024')"> HOW TO START A PERSONAL STATEMENT?
+                            '_blank', 'width=768,height=1024')"> <docIcon/>HOW TO START A PERSONAL STATEMENT?
                         </a>
                      </button>
                      <h1 class="text-lg font-bold my-5 mx-auto"> OR </h1>
@@ -53,6 +53,8 @@
 import InputFormC from "../components/construct/constructInputForm.vue";
 import sideInputFormC from '../components/editor/inputForm.vue';
 
+import docIcon from "@carbon/icons-vue/es/document/32.js";
+
 
 import axios from "axios";
 
@@ -60,7 +62,8 @@ export default {
     name: 'ConstructView',
     components: {
         InputFormC,
-        sideInputFormC
+        sideInputFormC,
+        docIcon
     },
     data() {
         return {

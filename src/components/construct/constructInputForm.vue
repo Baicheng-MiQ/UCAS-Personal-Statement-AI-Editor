@@ -7,7 +7,7 @@
                 <majorInputC />
                 <button @click="pasteMultipleParagraphs"
                 class="btn w-fit "
-                :class="{'self-center lg:translate-x-9 h-20 flex flex-col btn-primary border-2 bg-gradient-to-r from-blue-600 to-blue-800 border-blue-600 shadow-xl hover:scale-110': this.pureContent.length<5,
+                :class="{'self-center btn-ghost border-black lg:translate-x-9 h-20 flex flex-col btn-primary border-2 hover:scale-110': this.pureContent.length<5,
                         'btn-ghost': this.pureContent.length>=5}"
                 >
                     <pasteIcon/> Paste
@@ -16,7 +16,7 @@
             <div class="paragraphs flex flex-col my-2 space-y-6">
                 <draggable class="dragArea list-group w-full" :list="content.content" handle=".handle">
                     <div class="paragraph flex flex-col" v-for="(item, index) in content.content" :key="index">
-                        <div class="flex flex-col md:flex-row md:space-x-5 ">
+                        <div class="flex flex-col space-y-3 md:space-y-0 md:flex-row md:space-x-5 ">
                             <div class="left p-6 bg-white bg-opacity-80 backdrop-blur-md flex flex-col rounded-xl md:w-full
                                 border-2 border-gray-100 focus-within:border-blue-600">
                                 <!-- ======== -->

@@ -20,6 +20,13 @@
                         <quoteIcon class=" text-blue-400" />
                         <richText class="font-serif 
                             border-b-2 border-gray-300 cursor-text h-full sm:text-lg lg:text-xl" v-model="this.para" />
+                        <div class="avatar flex flex-row items-end">
+                            <div class="w-8 rounded-full border-2 border-blue-400 mr-1">
+                                <img class="rounded-full"
+                                    :src="`https://avatars.dicebear.com/api/micah/${this.imageURL}.png?mouth[]=laughing&baseColor=mellow&b=%23b8edff`" />
+                            </div>
+                            <p class="text-gray-500">Liked</p>
+                        </div>
                     </div>
                 </div>
                 <!-- ===RIGHT===  -->

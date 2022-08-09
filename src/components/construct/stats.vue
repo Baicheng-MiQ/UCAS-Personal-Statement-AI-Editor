@@ -202,12 +202,12 @@ export default {
                 });
                 throw new Error("Paragraph is too short. Please write at least 170 characters.")
             }
-            if (this.apiPayload.statement.length > 5000) {
+            if (this.apiPayload.statement.length > 2000) {
                 this.$store.commit('notify', {
                     type: 'error',
-                    message: 'Paragraph is too long. Please write at most 5000 characters.'
+                    message: 'Paragraph is too long. Please write at most 2000 characters.'
                 });
-                throw new Error("Paragraph is too long. Please write at most 5000 characters.");
+                throw new Error("Paragraph is too long. Please write at most 2000 characters.");
             }
             if (this.apiPayload.major.length === 0) {
                 this.$store.commit('notify', {
