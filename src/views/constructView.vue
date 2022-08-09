@@ -1,7 +1,7 @@
 <template>
-    <div class="drawer drawer-end lg:h-[calc(100vh-4rem)]">
+    <div class="drawer drawer-end overflow-x-scroll lg:h-[calc(100vh-4rem)]">
         <input id="my-drawer-construct" type="checkbox" class="drawer-toggle" />
-        <div class="drawer-content">
+        <div class="drawer-content ">
             <div class="flex flex-col relative m-6 lg:mx-20 lg:p-6">
 
                 <h1 id="bigHeading" class="text-3xl">
@@ -10,7 +10,7 @@
                         Construct <br>
                     </span>
                     Paragraph by paragraph, sentence by sentence.
-                    <img alt="background image" class="vector -z-10 top-20 right-5 fixed w-[calc(37vw)]"
+                    <img alt="background image" class="vector -z-10 top-20 right-5 fixed w-[calc(37vw)] hidden md:flex"
                         src="https://static.overlay-tech.com/assets/09df6e20-5a97-4f2d-ba4e-7a224edbab81.svg" />
 
                 </h1>

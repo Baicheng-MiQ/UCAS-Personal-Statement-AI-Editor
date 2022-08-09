@@ -1,8 +1,8 @@
 <template>
     <div class="flex flex-col relative w-full ">
         <div class="lg:h-full">
-            <div class="flex"
-                :class="{'flex-row items-end justify-between': this.pureContent.length>=5,
+            <div class="flex flex-col"
+                :class="{'md:flex-row items-end justify-between': this.pureContent.length>=5,
                         'flex-col-reverse justify-center': this.pureContent.length<5}">
                 <majorInputC />
                 <button @click="pasteMultipleParagraphs"
@@ -16,8 +16,8 @@
             <div class="paragraphs flex flex-col my-2 space-y-6">
                 <draggable class="dragArea list-group w-full" :list="content.content" handle=".handle">
                     <div class="paragraph flex flex-col" v-for="(item, index) in content.content" :key="index">
-                        <div class="flex flex-row space-x-5 ">
-                            <div class="left p-6 bg-white bg-opacity-80 backdrop-blur-md flex flex-col rounded-xl w-full
+                        <div class="flex flex-col md:flex-row md:space-x-5 ">
+                            <div class="left p-6 bg-white bg-opacity-80 backdrop-blur-md flex flex-col rounded-xl md:w-full
                                 border-2 border-gray-100 focus-within:border-blue-600">
                                 <!-- ======== -->
                                 <div class="flex flex-row">
@@ -28,7 +28,7 @@
                                         <span class="text-gray-400">{{content.content.length}}</span>
                                     </p>
                                 </div>
-                                <richText class="font-serif mt-1 h-full lg:text-lg" v-model="content.content[index]"
+                                <richText class="font-serif mt-1 md:h-full lg:text-lg" v-model="content.content[index]"
                                     :ref="'ta' + index" :id="'ta' + index" @focusin="focusedRichText=index;"
                                     @mousedown="this.$refs['ta'+index][0].focusMe()"
                                     @keydown.enter="insertEmptyParagraphAfter(index);" />
@@ -63,7 +63,7 @@
                                 </div>
                             </div>
 
-                            <Stats class="w-2/3 max-w-md min-w-[250px]" v-model="content.content[index]" />
+                            <Stats class="md:w-2/3 md:max-w-md md:min-w-[250px]" v-model="content.content[index]" />
 
                         </div>
                         <div class="divider mt-6 h-fit">
@@ -167,22 +167,27 @@ export default {
         insertEmptyParagraphAfter(index) {
             this.content.content.splice(index + 1, 0, emptyParagraph);
             setTimeout(() => {
+                this.$refs['plus' + (index + 1)][0].focus();
                 this.$refs['ta' + (index + 1)][0].focusMe();
             }, 20);
 
         },
         deleteParagraph(index) {
             this.content.content.splice(index, 1);
-            this.$refs['ta'+index][0].focusMe();
             setTimeout(() => {
+                this.$refs['plus' + (index)][0].focus();
+                this.$refs['ta'+index][0].focusMe();
                 window.scrollBy({top:-50, behavior: 'smooth'});
             }, 2);
         },
         moveParagraphUp(index) {
             this.content.content.splice(index - 1, 0, this.content.content[index]);
             this.content.content.splice(index + 1, 1);
-            this.$refs['ta'+(index-1)][0].focusMe();
             setTimeout(() => {
+                if (index - 2 >= 0) {
+                    this.$refs['plus' + (index - 2)][0].focus();
+                }
+                this.$refs['ta'+(index-1)][0].focusMe();
                 window.scrollBy({top:-200, behavior: 'smooth'});
             }, 2);
         },
@@ -190,9 +195,10 @@ export default {
         moveParagraphDown(index) {
             this.content.content.splice(index + 2, 0, this.content.content[index]);
             this.content.content.splice(index, 1);
-            this.$refs['ta'+(index+1)][0].focusMe();
             // sleep 0.2 sec
             setTimeout(() => {
+                this.$refs['plus' + (index + 1)][0].focus();
+                this.$refs['ta'+(index+1)][0].focusMe();
                 window.scrollBy({top:200, behavior: 'smooth'});
             }, 2);
 

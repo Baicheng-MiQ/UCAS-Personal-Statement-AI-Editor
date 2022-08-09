@@ -44,7 +44,7 @@
                 </button>
             </div>
 
-            <textarea v-model="choice.notes" rows="10" placeholder="Notes: "
+            <textarea v-model="choice.notes" rows="10" placeholder="This university is looking for... "
                 class="p-5 text-lg border-black border-2" @input="inputFlag=true"/>
 
                 <button class="btn w-fit px-5" @click="saveChoice">

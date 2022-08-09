@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col space-y-4 py-4 w-full">
+    <div class="flex flex-col space-y-4 py-4 md:w-full">
         <!-- tags -->
         <div class="w-full">
             <div v-if="checkResult.paraType.checkResult"
@@ -41,10 +41,10 @@
                 <div class="indicator ">
                     <span class="scale-75 scale-x-[0.7] indicator-item indicator-bottom bg-green-500 border-2 border-white badge badge-secondary
                                             -translate-x-[1px] -translate-y-[1px]"></span>
-                    <div class="avatar" v-show="checkResult.paraComment.checkResult.slice(-31, -1)">
+                    <div class="avatar" v-show="checkResult.paraComment.checkResult">
                         <div class="w-16 rounded-full p-1 border-2 border-blue-400">
                             <img class="rounded-full"
-                                :src="`https://avatars.dicebear.com/api/micah/${checkResult.paraComment.checkResult.slice(-31, -1).replace(/[^a-z]+/gi, '')}.png?mouth[]=laughing&b=%23b8edff`" />
+                                :src="`https://avatars.dicebear.com/api/micah/${this.imageURL}.png?mouth[]=laughing&baseColor=mellow&b=%23b8edff`" />
                         </div>
                     </div>
                 </div>
@@ -150,6 +150,13 @@ export default {
             }
             return thisChanged;
         },
+        imageURL() {
+            if (this.checkResult.paraComment.checkResult) {
+                return this.checkResult.paraComment.checkResult.slice(-31, -1).replace(/[^a-z]+/gi, '');
+            } else {
+                return 'error';
+            }
+        }
     },
     methods: {
         updateLoadingMessage() {

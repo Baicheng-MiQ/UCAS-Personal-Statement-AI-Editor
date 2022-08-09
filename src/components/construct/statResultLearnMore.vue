@@ -77,7 +77,7 @@
                                         <div class="avatar">
                                             <div class="w-16 rounded-full p-1 border-2 border-blue-400">
                                                 <img class="rounded-full"
-                                                    :src="`https://avatars.dicebear.com/api/micah/${checkResult.paraComment.checkResult.slice(-31, -1).replace(/[^a-z]+/gi, '')}.png?mouth[]=laughing&b=%23b8edff`" />
+                                                    :src="`https://avatars.dicebear.com/api/micah/${this.imageURL}.png?mouth[]=laughing&baseColor=mellow&b=%23b8edff`" />
                                             </div>
                                         </div>
                                     </div>
@@ -94,8 +94,8 @@
                                 <h1 class="">{{ checkResult.paraComment.checkResult }} </h1>
                                 <p class="text-2xs font-extralight mt-2 text-gray-400"> Note: For reference only, AI never thinks about the
                                     meaning of this comment. As this AI is trained to always provide both advantages and
-                                    disadvantages of paragraphs, you don't have to overly worry about the downsides it
-                                    suggest if it you don't find it helpful. </p>
+                                    disadvantages of a paragraph, you don't have to overly worry about the downsides it
+                                    suggest if it you don't find them helpful. </p>
                             </div>
                             <h1 v-else class="animate-pulse w-fit p-10 text-lg font-bold">
                                 PSAI is Typing...
@@ -255,6 +255,13 @@ export default {
             }
             return thisChanged;
         },
+        imageURL() {
+            if (this.checkResult.paraComment.checkResult) {
+                return this.checkResult.paraComment.checkResult.slice(-31, -1).replace(/[^a-z]+/gi, '');
+            } else {
+                return 'error';
+            }
+        }
     },
     methods: {
         updateLoadingMessage() {

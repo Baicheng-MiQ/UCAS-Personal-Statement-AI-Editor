@@ -1,7 +1,7 @@
 <template>
     <div class="stats stats-vertical border-2 border-gray-50 shadow h-fit">
 
-        <div class="stat ai min-h-[10rem] w-full">
+        <div class="stat ai md:min-h-[10rem] md:w-full">
             <p class="flex flex-row align-baseline text-gray-500 text-sm">
                 <MachineLearningIcon class="mt-[3px] mr-1 h-4" />
                 <span class="m-0">Machine Learning</span>

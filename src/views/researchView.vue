@@ -12,7 +12,7 @@
                                 class="font-black text-6xl text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-green-600">
                                 Research <br>
                             </span>
-                            Know what unis are looking for.
+                            Know what are unis looking for.
                         </h1>
 
                         <!-- The button to open modal -->
