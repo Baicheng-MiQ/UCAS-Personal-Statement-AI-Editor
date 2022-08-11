@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col space-y-4 py-4 md:w-full">
+    <div class="flex flex-col space-y-4 py-4 w-full">
         <!-- tags -->
         <div class="w-full">
             <div v-if="checkResult.paraType.checkResult"
@@ -18,7 +18,7 @@
         </div>
 
         <!-- headings -->
-        <div class="text-2xl font-serif">
+        <div class="text-2xl font-serif w-full">
             <div v-if="checkResult.paraHeading.checkResult" class="flex flex-row justify-between ">
                 <h1>{{ checkResult.paraHeading.checkResult }} </h1>
                 <div>
@@ -35,7 +35,7 @@
         </div>
 
         <!-- AI comment -->
-        <div class=" w-fit p-1" v-show="checkResult.paraComment.checkResult">
+        <div class=" w-full p-1" v-show="checkResult.paraComment.checkResult">
             
             <div class="flex flex-row space-x-2 align-middle">
                 <div class="indicator ">

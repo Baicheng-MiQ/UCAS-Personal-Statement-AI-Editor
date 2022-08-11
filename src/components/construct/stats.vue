@@ -1,12 +1,12 @@
 <template>
-    <div class="stats stats-vertical border-2 border-gray-50 shadow h-fit">
+    <div class="flex flex-col items-start p-5 bg-white bg-opacity-70 rounded-xl shadow-lg border-2 border-gray-50 h-full">
 
-        <div class="stat ai md:min-h-[10rem] md:w-full">
+        <div class="min-h-[10rem] md:w-full">
             <p class="flex flex-row align-baseline text-gray-500 text-sm">
                 <MachineLearningIcon class="mt-[3px] mr-1 h-4" />
                 <span class="m-0">Machine Learning</span>
             </p>
-            <div class="state text-gray-700 w-full overflow-hidden">
+            <div class="state text-gray-700  mt-8 w-full h-full">
                 <div class="unableCheck" v-if="this.pureTextPara.length<170 && !this.isChecked">
                     <div class="tooltip tooltip-bottom" data-tip="More than 170 characters.">
                         <TextWrapIcon class="-translate-x-1" />
@@ -38,7 +38,7 @@
                         @recheckParaHeading="askParaHeading"
                         @recheckSentenceIssue="askSentenceIssue"/>
                     
-                    <StatResultLearnMore :checkResult="this.result" v-model="this.para"
+                    <StatResultLearnMore class="" :checkResult="this.result" v-model="this.para"
                         @recheckParaType="askParaType"
                         @recheckParaHeading="askParaHeading"
                         @recheckParaComment="askParaComment"
