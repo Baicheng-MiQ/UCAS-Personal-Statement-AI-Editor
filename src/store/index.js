@@ -61,21 +61,10 @@ export default createStore({
                 //         "fiveChoices": [
                 //             {
                 //                 "notes": "This is a test note",
-                //                 "links": {
-                //                     "uniPS": "https://www.ucl.ac.uk/prospective-students/writing-personal-statement",
-                //                     "majPS": "https://www.ucas.com/undergraduate/applying-university/personal-statement-advice-computer-science",
-                //                     "uniMainSite": "https://www.ucl.ac.uk/"
-                //                 },
-                //                 "major": "Computer Science",
                 //                 "uniName": "University College London"
                 //             }
                 //         ]
                 //     },
-                //     "personalInfo": {
-                //         "gapYear": true,
-                //         "international": true,
-                //         "workExp": true
-                //     }
                 // }
 
         // statement content
