@@ -79,6 +79,30 @@ export default createStore({
                     }
                     ]
                 },
+        // brainstorm data
+            brainstormData: {
+                "meta": {
+                    "expectedEntry": null,
+                    "international": false,
+                    "mature": false,
+                    "personalCircumstances": false,
+                },
+                "content": [
+                    {
+                        "meta": {
+                            "createdAt": null,
+                            "updatedAt": null,
+                            "contentID": null
+                        },
+                        "dateFrom": null,
+                        "dateTo": null,
+                        "type": null,
+                        "title": null,
+                        "content": [null],
+                    }
+                ]
+            },
+
             appReady: false,            
             }
         },
@@ -183,9 +207,14 @@ export default createStore({
             state.contentID = value;
         },
 
-        // aka user metadata (gap year, work exp...)
+        // aka user metadata
         setUserStatus (state, value) {
             state.userStatus = value;
+        },
+
+        // brainstorm data (two way binding)
+        setBrainstormData (state, value) {
+            state.brainstormData = value;
         },
 
 
@@ -328,6 +357,48 @@ export default createStore({
                 console.log('no user or content');
             }
         },
+
+        async dbGetUserBrainstorm (state) {
+            var brainstorm = await getDoc(doc(db, `user/${state.state.userDetail.uid}/brainstorm/0001`));
+            if (brainstorm.exists && typeof brainstorm.data() !== 'undefined') {
+                state.commit('setBrainstormData', brainstorm.data());
+            } else {
+                // new user: create new user brainstorm
+                const docRef = doc(db, 'user/0/brainstorm/0001');
+                const docSnap = await getDoc(docRef);
+                await setDoc(doc(db, "user", state.state.userDetail.uid, "brainstorm", "0001"), docSnap.data());
+                // and retry
+                brainstorm = await getDoc(doc(db, `user/${state.state.userDetail.uid}/brainstorm/0001`));
+                if (brainstorm.exists && typeof brainstorm.data() !== 'undefined') {
+                    state.commit('setBrainstormData', brainstorm.data());
+                } else {
+                    state.commit('notify', {
+                        type: 'error',
+                        title: 'We are sorry!',
+                        message: 'Please contact us for further assistance (store.320)'
+                    });
+                }
+            }
+        },
+
+        async dbUpdateUserBrainstorm (state) {
+            if (state.state.userDetail && typeof state.state.userDetail !== 'undefined') {
+            const docID = "0001";
+            const contentSnapshot = doc(db, 'user', state.state.userDetail.uid, 'brainstorm', docID)
+            const updateContent = await updateDoc(
+                contentSnapshot, state.state.brainstormData
+                )
+            } else {
+                state.commit('notify', {
+                    type: 'error',
+                    title: 'Unable to save changes',
+                    message: 'Please refresh the page or contact us for further assistance (store.320)'
+                });
+            }
+        },
+
+
+
 
         async getUniList(state){
             const docRefs = await getDoc(doc(db, `unis/all`));
