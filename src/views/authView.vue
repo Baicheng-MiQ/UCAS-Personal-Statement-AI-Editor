@@ -10,7 +10,7 @@
                     font-bold mx-auto py-2 px-4 rounded-full shadow-md
                     focus:shadow-outline"
         @click="signIn">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" class="rounded-full bg-white p-1 my-auto" alt="">
+        <img src="../assets/Google__G__Logo.svg" class="rounded-full bg-white p-1 my-auto" alt="">
         <p class="my-auto ml-2">Sign in with Google</p>
     </button>
 </div>

@@ -87,20 +87,7 @@ export default createStore({
                     "mature": false,
                     "personalCircumstances": false,
                 },
-                "content": [
-                    {
-                        "meta": {
-                            "createdAt": null,
-                            "updatedAt": null,
-                            "contentID": null
-                        },
-                        "dateFrom": null,
-                        "dateTo": null,
-                        "type": null,
-                        "title": null,
-                        "content": [null],
-                    }
-                ]
+                "content": []
             },
 
             appReady: false,            
