@@ -128,6 +128,7 @@ export default {
                 this.$store.commit('logBackUser', user);
                 this.$store.dispatch('dbGetUserStatus');
                 this.$store.dispatch('dbGetUserStatement');
+                this.$store.dispatch('dbGetUserBrainstorm')
                 }
         });
     },
