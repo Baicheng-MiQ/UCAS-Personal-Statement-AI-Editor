@@ -6,17 +6,18 @@
     </div>
     <div class="flex flex-col">
         <p>{{brainstormData.meta}}</p>
-        <p>{{this.isEditing}} {{this.editingIdea}}</p>
-        <p v-show="this.isEditing && this.editingIdea!=null">editing: 
-            <ideaEditor :idea="brainstormData.content[this.editingIdea]" :ideaIndex="this.editingIdea"/>
-        </p>
+        <p>{{this.editingIdea}}</p>
+
+        <ideaEditor v-if="this.editingIdea || this.editingIdea===0" :idea="brainstormData.content[this.editingIdea]" :ideaIndex="this.editingIdea"/>
         <button @click="addSampleIdea">
             add a sample idea
         </button>
         <!-- iterate through brainstormData.content and feed content to ideaCard:idea -->
-        <div class="flex flex-col space-y-3">
-            <ideaCard class="mx-auto" v-for="(idea, index) in brainstormData.content" :key="index" :idea="idea"
-            @editIdea="editIdea(index)"/>
+        <div class="flex flex-col space-y-3" v-for="(idea, index) in brainstormData.content" :key="index">
+            <label class="modal-button" :for="index">
+                <ideaCard class="mx-auto" :idea="idea" @editIdea="editIdea(index)"/>
+            </label>
+            <input type="checkbox" :id="index" class="modal-toggle " />
         </div>
 
     </div>
@@ -64,7 +65,6 @@ export default {
         return {
             thisNewEntry: NEW_ENTRY,
             tempIdea: SAMPLE_ENTRY,
-            isEditing: false,
             editingIdea: null,
         }
     },
@@ -91,7 +91,6 @@ export default {
             this.updateBrainstorm();
         },
         editIdea(index) {
-            this.isEditing = true;
             this.editingIdea = index;
         },
         saveIdea(idea) {

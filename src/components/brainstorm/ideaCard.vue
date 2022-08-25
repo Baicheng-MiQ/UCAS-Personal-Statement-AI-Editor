@@ -1,5 +1,5 @@
 <template>
-<div class="card w-96 shadow-2xl text-white
+<div class="card w-96 shadow-2xl text-white z-0
     hover:scale-105 hover:shadow-blue-600 transition-all image-full">
     <figure class="w-full h-full bg-gradient-to-r from-blue-600 to-sky-600"></figure>
     <div class="card-body">
@@ -17,7 +17,7 @@
                     {{content}}
                 </li>
             </ul>
-            <arrow class="w-1/5 mt-auto hover:scale-125 transition-all cursor-pointer"
+            <arrow v-show="this.showArrow" class="w-1/5 mt-auto hover:scale-125 transition-all cursor-pointer"
                 @click="this.$emit('editIdea')"/>
         </div>
 
@@ -38,6 +38,11 @@ export default {
         idea: {
             type: Object,
             required: true,
+        },
+        showArrow: {
+            type: Boolean,
+            required: false,
+            default: true,
         },
     },
 }

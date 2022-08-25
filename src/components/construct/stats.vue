@@ -33,12 +33,12 @@
                 </div>
 
                 <div class="checked w-full" v-else>
-                    <statResult class="" :para="pureTextPara" :checkResult="this.result"
+                    <statResult :para="pureTextPara" :checkResult="this.result"
                         @recheckParaType="askParaType"
                         @recheckParaHeading="askParaHeading"
                         @recheckSentenceIssue="askSentenceIssue"/>
                     
-                    <StatResultLearnMore class="" :checkResult="this.result" v-model="this.para"
+                    <StatResultLearnMore :checkResult="this.result" v-model="this.para"
                         @recheckParaType="askParaType"
                         @recheckParaHeading="askParaHeading"
                         @recheckParaComment="askParaComment"
