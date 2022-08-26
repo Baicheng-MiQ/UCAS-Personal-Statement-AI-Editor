@@ -2,22 +2,30 @@
 <div class="card w-96 shadow-2xl text-white z-0
     hover:scale-105 hover:shadow-blue-600 transition-all image-full">
     <figure class="w-full h-full bg-gradient-to-r from-blue-600 to-sky-600"></figure>
-    <div class="card-body">
+    <div class="card-body ">
+        <span class="badge m-0">{{idea.type}}</span>
+
         <h2 class="card-title">{{idea.title}}</h2>
 
         <!-- idea.dateFrom - idea.dateTo convert from yyyy-mm-dd to dd-mm-yyyy format-->
         <p class="card-text">{{idea.dateFrom}} ~ {{idea.dateTo}}</p>
 
-        <span class="badge">{{idea.type}}</span>
 
         <div class="flex flex-row">
-            <!-- iterate elements in idea.content as bulletpoints -->
-            <ul class="list-unstyled w-4/5">
-                <li v-for="(content, index) in idea.content" :key="index">
-                    {{content}}
-                </li>
-            </ul>
-            <arrow v-show="this.showArrow" class="w-1/5 mt-auto hover:scale-125 transition-all cursor-pointer"
+            <div class="collapse  w-4/5">
+                <input type="checkbox" style="padding: 0rem; min-height:0rem" v-model="this.thisShowMore"/>
+                <div v-if="!this.thisShowMore" class="collapse-title p-0 min-h-0 "><p class="font-bold">MORE</p></div>
+                <div v-else class="collapse-title p-0 min-h-0 "><p class="font-bold">LESS</p></div>
+                <!-- iterate elements in idea.content as bulletpoints -->
+                <ul class="collapse-content list-disc p-0">
+                    <div class="divider"></div> 
+                    <li v-for="(content, index) in idea.content" :key="index">
+                        {{content}}
+                    </li>
+                </ul>
+            </div>
+
+            <arrow v-show="this.showArrow" class="w-1/5 mt-auto ml-auto hover:scale-125 transition-all cursor-pointer"
                 @click="this.$emit('editIdea')"/>
         </div>
 
@@ -44,7 +52,17 @@ export default {
             required: false,
             default: true,
         },
+        showMore: {
+            type: Boolean,
+            required: false,
+            default: false,
+        },
     },
+    data() {
+        return {
+            thisShowMore: this.showMore,
+        }
+    }
 }
 </script>
 

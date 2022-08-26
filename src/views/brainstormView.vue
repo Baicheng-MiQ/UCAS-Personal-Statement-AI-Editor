@@ -13,8 +13,8 @@
             add a sample idea
         </button>
         <!-- iterate through brainstormData.content and feed content to ideaCard:idea -->
-        <div class="flex flex-col space-y-3" v-for="(idea, index) in brainstormData.content" :key="index">
-            <label class="modal-button" :for="index">
+        <div class="flex flex-col" v-for="(idea, index) in brainstormData.content" :key="index">
+            <label class="modal-button mb-5" :for="index">
                 <ideaCard class="mx-auto" :idea="idea" @editIdea="editIdea(index)"/>
             </label>
             <input type="checkbox" :id="index" class="modal-toggle " />
