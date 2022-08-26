@@ -10,12 +10,16 @@
             <label :for="this.ideaIndex" class="btn btn-sm opacity-50 btn-circle z-50 absolute right-4 top-4">✕</label>
             <div class="flex flex-row h-full">
                 <div class="left w-1/2 flex justify-center bg-cyan-400">
-                    <ideaCard class="mx-auto my-auto" :idea="idea" :showArrow="false"/>
+                    <!-- ====LEFT===== -->
+                    <ideaCard class="mx-auto my-auto" :idea="idea" :showArrow="false" :showMore="true"/>
                 </div>
                 <div class="right w-1/2 p-10">
+                    <!-- ====RIGHT===== -->
                     <h1 class="text-6xl">Idea</h1>
+                    <form action="">
+                        
+                    </form>
                     <p class="text-2xl font-bold">{{idea}}</p>
-
                 </div>
             </div>
 
@@ -26,7 +30,6 @@
 <script>
 import ideaCard from './ideaCard.vue';
 import rightArrowIcon from "@carbon/icons-vue/es/arrow--right/32.js"
-import { watch } from '@vue/runtime-core';
 export default {
     name: 'ideaEditor',
     components: {
