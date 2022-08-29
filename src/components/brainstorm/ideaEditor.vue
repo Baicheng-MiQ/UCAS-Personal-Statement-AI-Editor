@@ -9,19 +9,54 @@
         <label for="" class="modal-box sm:w-11/12 sm:max-w-[100rem] h-[70vh] sm:h-[90vh] p-0 mt-16">
             <label :for="this.ideaIndex" class="btn btn-sm opacity-50 btn-circle z-50 absolute right-4 top-4">✕</label>
             <div class="flex flex-row h-full">
-                <div class="left w-1/2 flex justify-center bg-cyan-400">
+
+                <div class="left w-1/2 flex justify-center bg-sky-200">
                     <!-- ====LEFT===== -->
-                    <ideaCard class="mx-auto my-auto" :idea="idea" :showArrow="false" :showMore="true"/>
+                    <ideaCard class="mx-auto my-auto" :idea="activeIdea" :showArrow="false" :showMore="true"/>
                 </div>
+
                 <div class="right w-1/2 p-10">
                     <!-- ====RIGHT===== -->
                     <h1 class="text-6xl">Idea</h1>
-                    <form action="">
-                        
-                    </form>
-                    <p class="text-2xl font-bold">{{idea}}</p>
+                    <div >
+                        <div class="flex flex-col">
+                            <label for="title">Title</label>
+                            <input type="text" name="title" id="title" v-model="activeIdea.title">
+                        </div>
+                        <div class="flex flex-col">
+                            <label for="dateFrom">Date From</label>
+                            <input type="date" name="dateFrom" id="dateFrom" v-model="activeIdea.dateFrom">
+                        </div>
+                        <div class="flex flex-col">
+                            <label for="dateTo">Date To</label>
+                            <input type="date" name="dateTo" id="dateTo" v-model="activeIdea.dateTo">
+                        </div>
+                        <div class="flex flex-col">
+                            <label for="type">Type</label>
+                            <input type="text" name="type" id="type" v-model="activeIdea.type">
+                        </div>
+                        <div class="flex flex-col">
+                            <label for="content">Content</label>
+                            <!-- iterate activeIdea.content as text input -->
+                            <!-- and at right side of each input box, there is a delete button to call a method -->
+                            <div class="flex flex-row" v-for="(content, index) in activeIdea.content" :key="index">
+                                <input type="text" name="content" id="content" v-model="activeIdea.content[index]">
+                                <button @click="deleteContent(index)">delete</button>
+                            </div>
+                            <button @click="addContent">add</button>
+                            <button> do nothing</button>
+                        </div>
+                        <!-- save or discard -->
+                        <div class="flex flex-row">
+                            <button @click="this.save">save</button>
+                            <button @click="this.discard">discard</button>
+                        </div>
+                    </div>
+                    <p class="mt-20">{{activeIdea}}</p>
                 </div>
             </div>
+
+
 
         </label>
     </div>
@@ -46,10 +81,10 @@ export default {
             required: true,
         },
     },
-    // emits: ['saveIdea'],
+    emits: ['saveIdea'],
     data() {
         return {
-            activeIdea: this.idea,
+            activeIdea: {...this.idea},
             // 
             // { "meta": 
             //     { "createdAt": "2018-01-01", 
@@ -70,6 +105,23 @@ export default {
                 this.activeIdea = newVal;
             },
             deep: true,
+        },
+    },
+    methods: {
+        save() {
+            this.$emit('saveIdea', this.activeIdea);
+        },
+        discard() {
+            this.activeIdea = {...this.idea};
+            // then close the modal
+            // emulating a click on the label
+            document.getElementById(this.ideaIndex).click();
+        },
+        addContent() {
+            this.activeIdea.content.push('');
+        },
+        deleteContent(index) {
+            this.activeIdea.content.splice(index, 1);
         },
     },
 }

@@ -8,13 +8,16 @@
         <p>{{brainstormData.meta}}</p>
         <p>{{this.editingIdea}}</p>
 
-        <ideaEditor v-if="this.editingIdea || this.editingIdea===0" :idea="brainstormData.content[this.editingIdea]" :ideaIndex="this.editingIdea"/>
+        <ideaEditor v-if="this.editingIdea || this.editingIdea===0" 
+            :idea="brainstormData.content[this.editingIdea]" 
+            :ideaIndex="this.editingIdea"
+            @saveIdea="saveIdea"/>
         <button @click="addSampleIdea">
             add a sample idea
         </button>
         <!-- iterate through brainstormData.content and feed content to ideaCard:idea -->
-        <div class="flex flex-col" v-for="(idea, index) in brainstormData.content" :key="index">
-            <label class="modal-button mb-5" :for="index">
+        <div class="flex flex-col mx-auto" v-for="(idea, index) in brainstormData.content" :key="index">
+            <label class="modal-button mb-5 w-fit" :for="index">
                 <ideaCard class="mx-auto" :idea="idea" @editIdea="editIdea(index)"/>
             </label>
             <input type="checkbox" :id="index" class="modal-toggle " />
@@ -94,9 +97,8 @@ export default {
             this.editingIdea = index;
         },
         saveIdea(idea) {
-            // this.brainstormData.content[this.editingIdea] = idea;
-            // this.isEditing = false;
-            // this.updateBrainstorm();
+            this.brainstormData.content[this.editingIdea] = idea;
+            this.updateBrainstorm();
             console.log(idea);
         },
     },
