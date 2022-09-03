@@ -1,13 +1,16 @@
 <template>
 <div class="card w-96 shadow-2xl text-white z-0
-    hover:scale-105 hover:shadow-blue-600 transition-all image-full">
+     hover:shadow-blue-600 transition-all image-full">
     <figure class="w-full h-full bg-gradient-to-r from-blue-700 to-sky-500"></figure>
     <div class="card-body p-0">
         <div class="flex flex-row m-5">
             <div>
                 <span class="badge m-0 mb-2 bg-white text-blue-700 font-bold border-0">{{idea.type}}</span>
                 <h2 class="card-title">{{idea.title}}</h2>
-                <p class="card-text">{{idea.dateFrom}} to {{idea.dateTo}}</p>
+                <p class="card-text mt-1 space-x-3">
+                    <span class="bg-blue-500 rounded-lg px-1" v-if="idea.dateFrom">{{idea.dateFrom}}</span>  
+                    <span class="bg-blue-500 rounded-lg px-1" v-if="idea.dateTo">{{idea.dateTo}}</span>
+                </p>
             </div>
             <arrow v-show="this.showArrow" class="w-1/5 my-auto ml-auto hover:scale-125 transition-all cursor-pointer"
                 @click="this.$emit('editIdea')"/>

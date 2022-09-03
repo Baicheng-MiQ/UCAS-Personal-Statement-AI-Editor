@@ -19,11 +19,18 @@
                     <!-- ====RIGHT===== -->
                     <h1 class="text-6xl">Idea</h1>
                     <div class="mt-4 space-y-4">
-                        <div class="flex flex-col">
+                        <div class="flex flex-col" 
+                        :class="{'text-red-500':
+                        v$.activeIdea.$silentErrors.some(element => 
+                        {if (element.$propertyPath==='activeIdea.title') {return true} return false})}">
                             <label for="title">Title</label>
                             <input type="text" name="title" id="title" v-model="activeIdea.title"
                             class="input input-bordered">
+                            <div class="input-errors" v-for="error of v$.activeIdea.$silentErrors" :key="error.$uid">
+                                <div class="error-msg" v-if="error.$propertyPath==='activeIdea.title'">{{ error.$message }}</div>
+                            </div>
                         </div>
+
                         <div class="flex flex-row space-x-3">
                             <div class="flex flex-col w-1/2">
                                 <label for="dateFrom">Date From</label>
@@ -38,8 +45,18 @@
                         </div>
                         <div class="flex flex-col">
                             <label for="type">Type</label>
-                            <input type="text" name="type" id="type" v-model="activeIdea.type"
+                            <select name="type" id="type" v-model="activeIdea.type"
                             class="input input-bordered">
+                                <!-- About Course, Current Studies, Activities, Books, Hobbies, Future Plans, Work Experience -->
+                                <option value="About Course">About Course</option>
+                                <option value="Current Studies">Current Studies</option>
+                                <option value="Activities">Activities</option>
+                                <option value="Books">Books</option>
+                                <option value="Hobbies">Hobbies</option>
+                                <option value="Future Plans">Future Plans</option>
+                                <option value="Work Experience">Work Experience</option>
+                                <option value="Other">Other</option>
+                            </select>
                         </div>
                         <div class="flex flex-col">
                             <label for="content">Content</label>
@@ -57,14 +74,15 @@
                                 + 
                             </button>
                         </div>
+
                         <!-- save or discard -->
                         <div class="flex flex-row space-x-3">
                             <button @click="this.save"
-                            class="btn btn-success">save</button>
+                            class="btn btn-success" :class="{'btn-disabled': v$.$invalid}">save</button>
                             <button @click="this.discard"
                             class="btn btn-ghost">discard</button>
                         </div>
-                    </div>
+                    </div> 
                 </div>
             </div>
 
@@ -75,6 +93,8 @@
 </template>
 
 <script>
+import useVuelidate from '@vuelidate/core'
+import { required, minLength, maxLength, between, helpers } from '@vuelidate/validators'
 import ideaCard from './ideaCard.vue';
 import rightArrowIcon from "@carbon/icons-vue/es/arrow--right/32.js"
 import deleteIcon from "@carbon/icons-vue/es/trash-can/16.js"
@@ -96,6 +116,9 @@ export default {
         },
     },
     emits: ['saveIdea'],
+    setup(){
+        return {v$: useVuelidate()}
+    },
     data() {
         return {
             activeIdea: {...this.idea},
@@ -111,7 +134,51 @@ export default {
             //   "dateFrom": "2018-01-01" }
         }
     },
+    validations() {
+        return {
+            activeIdea: {
+                title: {
+                    required,
+                    minLength: minLength(1),
+                    maxLength: maxLength(100),
+                },
+                // dateFrom: {
+                //     required,
+                // },
+                // dateTo: {
+                //     required,
+                // },
+            }
+        }
+    },
     computed: {
+    },
+    mounted() {
+        // if it is a newly created idea: 
+        if (this.activeIdea.meta.createdAt===null) {
+            this.activeIdea.meta.createdAt = new Date().toISOString().split('T')[0]
+        };
+        if (this.activeIdea.meta.updatedAt===null) {
+            this.activeIdea.meta.updatedAt = new Date().toISOString().split('T')[0]
+        };
+        if (this.activeIdea.meta.contentID===null) {
+            this.activeIdea.meta.contentID = Math.floor(Math.random() * 1000000000)
+        };
+        if (this.activeIdea.dateFrom===null) {
+            this.activeIdea.dateFrom = new Date().toISOString().split('T')[0]
+        };
+        if (this.activeIdea.dateTo===null) {
+            this.activeIdea.dateTo = new Date().toISOString().split('T')[0]
+        };
+        if (this.activeIdea.type===null) {
+            this.activeIdea.type = ""
+        };
+        if (this.activeIdea.title===null) {
+            this.activeIdea.title = ""
+        };
+        if (this.activeIdea.content[0]===null) {
+            this.activeIdea.content = [""]
+        };
     },
     watch: {
         idea: {
