@@ -30,8 +30,7 @@ I'm still working on this project, but I'm happy to share my progress with you. 
   - TailwindCSS
   - Vite
   - TipTap (Editor)
-- Firebase
-  - I'm considering adding the back-end as containers to this repo.
+- Firebase (BaaS) + FastAPI
 
 ## Project setup
 ```
