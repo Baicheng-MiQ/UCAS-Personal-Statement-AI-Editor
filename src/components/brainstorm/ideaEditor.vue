@@ -76,12 +76,20 @@
                         </div>
 
                         <!-- save or discard -->
-                        <div class="flex flex-row space-x-3">
+                        <div class="flex flex-row space-x- w-full">
                             <button @click="this.save"
                             class="btn btn-success" :class="{'btn-disabled': v$.$invalid}">save</button>
                             <button @click="this.discard"
                             class="btn btn-ghost">discard</button>
+                            <button class="btn btn-error ml-auto mr-5" v-if="!confirming_delete" @click="this.confirming_delete=true">
+                                delete
+                            </button>
+                            <div v-else class="ml-auto flex flex-row">
+                                <button @click="this.deleteIdea" class="btn btn-error">confirm</button>
+                                <button @click="this.confirming_delete = false" class="btn btn-ghost">cancel</button>
+                            </div>
                         </div>
+
                     </div> 
                 </div>
             </div>
@@ -115,13 +123,14 @@ export default {
             required: true,
         },
     },
-    emits: ['saveIdea'],
+    emits: ['saveIdea', 'deleteIdea'],
     setup(){
         return {v$: useVuelidate()}
     },
     data() {
         return {
-            activeIdea: {...this.idea},
+            activeIdea: JSON.parse(JSON.stringify(this.idea)),
+            confirming_delete: false,
             // 
             // { "meta": 
             //     { "createdAt": "2018-01-01", 
@@ -189,6 +198,13 @@ export default {
         },
     },
     methods: {
+        addContent() {
+            this.activeIdea.content.push('');
+        },
+        deleteContent(index) {
+            this.activeIdea.content.splice(index, 1);
+        },
+
         save() {
             this.$emit('saveIdea', this.activeIdea);
             document.getElementById(this.ideaIndex).click();
@@ -199,11 +215,11 @@ export default {
             // emulating a click on the label
             document.getElementById(this.ideaIndex).click();
         },
-        addContent() {
-            this.activeIdea.content.push('');
-        },
-        deleteContent(index) {
-            this.activeIdea.content.splice(index, 1);
+        deleteIdea() {
+            document.getElementById(this.ideaIndex).click();
+            this.$emit('deleteIdea', this.ideaIndex);
+            // then close the modal
+            // emulating a click on the label
         },
     },
 }

@@ -18,7 +18,7 @@
 
         <div class="collapse bg-white p-5 text-black">
             <input type="checkbox" style="padding: 0rem; min-height:0rem" v-model="this.thisShowMore"/>
-            <div v-if="!this.thisShowMore" class="collapse-title p-0 min-h-0 "><p class="font-bold text-sm text-gray-600 underline underline-offset-2">Expand</p></div>
+            <div v-if="!this.thisShowMore" class="collapse-title p-0 min-h-0 "><p class="font-bold text-sm text-gray-600 border-2 rounded-full w-fit px-1">Expand</p></div>
             <div v-else v-show="this.showArrow" class="collapse-title p-0 min-h-0 "><p class="text-gray-600 mb-2 text-sm">Hide</p></div>
             <!-- iterate elements in idea.content as bulletpoints -->
             <ul class="collapse-content list-disc p-0 pb-0 w-full">
