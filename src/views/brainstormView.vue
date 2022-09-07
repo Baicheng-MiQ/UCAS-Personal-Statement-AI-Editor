@@ -18,7 +18,7 @@
         <ideaEditor v-if="this.editingIdea || this.editingIdea===0" 
             :idea="brainstormData.content[this.editingIdea]" 
             :ideaIndex="this.editingIdea"
-            @saveIdea="saveIdea"
+            @saveIdea="saveIdea(idea)"
             @deleteIdea="deleteIdea(index)"/>
 
 
@@ -108,9 +108,11 @@ export default {
             this.thisNewEntry = NEW_ENTRY;
             this.addingNewIdea = true;
         },
-        saveAddedIdea() {
+        saveAddedIdea(idea) {
             this.addingNewIdea = false;
-            this.brainstormData.content.push(this.thisNewEntry);
+            this.brainstormData.content.push(idea);
+            console.log(idea);
+            console.log(this.brainstormData);
             this.updateBrainstorm();
         },
         // addSampleIdea() {
