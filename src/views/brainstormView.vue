@@ -13,13 +13,13 @@
             :idea="this.thisNewEntry"
             :ideaIndex="this.expectNewIdeaIndex"
             @saveIdea="saveAddedIdea"
-            @deleteIdea="deleteIdea(index)"/>
+            @deleteIdea="deleteIdea"/>
         <!-- this one is for editing existing idea -->
         <ideaEditor v-if="this.editingIdea || this.editingIdea===0" 
             :idea="brainstormData.content[this.editingIdea]" 
             :ideaIndex="this.editingIdea"
-            @saveIdea="saveIdea(idea)"
-            @deleteIdea="deleteIdea(index)"/>
+            @saveIdea="saveIdea"
+            @deleteIdea="deleteIdea"/>
 
 
         <button @click="addSampleIdea">
@@ -128,10 +128,12 @@ export default {
             console.log(idea);
         },
         deleteIdea(index) {
+            console.log(this.brainstormData.content);
             if (index ===this.expectNewIdeaIndex) {
                 this.addingNewIdea = false;
             } else {
                 this.brainstormData.content.splice(index, 1);
+                console.log(this.brainstormData.content);
                 this.updateBrainstorm();
             }
         }

@@ -24,7 +24,7 @@
                         v$.activeIdea.$silentErrors.some(element => 
                         {if (element.$propertyPath==='activeIdea.title') {return true} return false})}">
                             <label for="title">Title</label>
-                            <input type="text" name="title" id="title" v-model="activeIdea.title"
+                            <input type="text" name="title" id="title" v-model="activeIdea.title" placeholder="I ..."
                             class="input input-bordered">
                             <div class="input-errors" v-for="error of v$.activeIdea.$silentErrors" :key="error.$uid">
                                 <div class="error-msg" v-if="error.$propertyPath==='activeIdea.title'">{{ error.$message }}</div>
@@ -45,7 +45,7 @@
                         </div>
                         <div class="flex flex-col">
                             <label for="type">Type</label>
-                            <select name="type" id="type" v-model="activeIdea.type"
+                            <select name="type" id="type" v-model="activeIdea.type" 
                             class="input input-bordered">
                                 <!-- About Course, Current Studies, Activities, Books, Hobbies, Future Plans, Work Experience -->
                                 <option value="About Course">About Course</option>
@@ -63,7 +63,7 @@
                             <!-- iterate activeIdea.content as text input -->
                             <!-- and at right side of each input box, there is a delete button to call a method -->
                             <div class="flex flex-row mb-2" v-for="(content, index) in activeIdea.content" :key="index">
-                                <input type="text" name="content" id="content" v-model="activeIdea.content[index]"
+                                <input type="text" name="content" id="content" v-model="activeIdea.content[index]" placeholder="Because ..."
                                 class="input input-bordered w-full">
                                 <button @click="deleteContent(index)">
                                     <deleteIcon class="w-4 h-4 ml-1" />
@@ -180,7 +180,7 @@ export default {
             this.activeIdea.dateTo = new Date().toISOString().split('T')[0]
         };
         if (this.activeIdea.type===null) {
-            this.activeIdea.type = ""
+            this.activeIdea.type = "About Course"
         };
         if (this.activeIdea.title===null) {
             this.activeIdea.title = ""
