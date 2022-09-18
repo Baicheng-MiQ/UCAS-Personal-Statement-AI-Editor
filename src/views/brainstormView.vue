@@ -5,7 +5,7 @@
         </h1>
     </div>
     <div class="flex flex-col">
-        <p>{{brainstormData.meta}}</p>
+        <!-- <p>{{brainstormData.meta}}</p> -->
         <p>{{this.editingIdea}}</p>
 
         <!-- this one is for adding new idea -->
@@ -22,9 +22,9 @@
             @deleteIdea="deleteIdea"/>
 
 
-        <button @click="addSampleIdea">
+        <!-- <button @click="addSampleIdea">
             add a sample idea
-        </button>
+        </button> -->
         <button @click="addIdea">
             <label @click="addIdea" :for="this.expectNewIdeaIndex"> add </label>
             <input type="checkbox" :id="this.expectNewIdeaIndex" class="modal-toggle">

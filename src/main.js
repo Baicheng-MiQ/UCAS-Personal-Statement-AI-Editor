@@ -13,6 +13,7 @@ import MenuButton from '@carbon/icons-vue/es/menu/24.js'
 // require styles
 import './index.css'
 
+
 createApp(App).use(router).use(store).use(Notifications).use(CarbonIconsVue, {
     components: {
         Play,

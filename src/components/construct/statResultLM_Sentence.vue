@@ -11,6 +11,7 @@
       <div class="font-bold py-3" v-for="(note, index) in paraSent.grammar_reses" :key="index">
         <GrammarBlock :grammar="note"/>
       </div>
+      
       <!-- Well done! -->
       <div class="card lg:card-side bg-base-100 shadow-md" 
       v-show="paraSent.flags.length+paraSent.ner_reses.length+paraSent.grammar_reses.length===0">

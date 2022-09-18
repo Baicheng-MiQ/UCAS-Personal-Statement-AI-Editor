@@ -39,8 +39,11 @@
                                     <!-- toolbox -->
                                     <div class="tooltip tooltip-bottom" data-tip="Delete">
                                         <button class="p-0 m-0 disabled:text-gray-300" @click="toBeDeleted=index;this.$refs['ta'+index][0].focusMe()"
-                                            :disabled="content.content.length==1">
-                                            <a href="#really">
+                                            :disabled="content.content.length===1" >
+                                            <a href="#really" v-if="content.content.length>1">
+                                                <deleteIcon />
+                                            </a>
+                                            <a href="#" v-else class="cursor-not-allowed">
                                                 <deleteIcon />
                                             </a>
                                         </button>

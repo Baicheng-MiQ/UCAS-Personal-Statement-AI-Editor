@@ -147,8 +147,12 @@
 
                                 </div>
                             </div>
-                            <div v-else class="animate-pulse w-fit px-2 text-lg">
-                                {{ this.loadingMessage }}
+                            <!-- v-else -->
+                            <div v-else class="rounded-2xl m-5 p-4 border-2 border-gray-200 flex flex-col items-center">
+                                <img src="../../assets/logo_left.png" alt="" width="100">
+                                <div class="animate-pulse w-fit px-2 text-lg text-center">
+                                    {{ this.loadingMessage }}
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -51,6 +51,9 @@
 
 <script>
 import axios from "axios";
+import axiosRetry from 'axios-retry';
+
+axiosRetry(axios, { retries: 3 });
 import GrammarBlock from "./grammarBlock.vue";
 export default {
   name: "grammarResultC",

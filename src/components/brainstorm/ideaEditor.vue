@@ -45,7 +45,7 @@
                         </div>
                         <div class="flex flex-col">
                             <label for="type">Type</label>
-                            <select name="type" id="type" v-model="activeIdea.type" 
+                            <select name="type" id="type" v-model="activeIdea.type" placeholder="About Course"
                             class="input input-bordered">
                                 <!-- About Course, Current Studies, Activities, Books, Hobbies, Future Plans, Work Experience -->
                                 <option value="About Course">About Course</option>
@@ -222,6 +222,12 @@ export default {
             // emulating a click on the label
         },
     },
+    unmounted(){
+        // flush everything
+        this.activeIdea = null;
+        this.confirming_delete = null;
+
+    }
 }
 </script>
 

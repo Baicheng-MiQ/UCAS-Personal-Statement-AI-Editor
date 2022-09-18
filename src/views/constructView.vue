@@ -57,6 +57,9 @@ import docIcon from "@carbon/icons-vue/es/document/32.js";
 
 
 import axios from "axios";
+import axiosRetry from 'axios-retry';
+
+axiosRetry(axios, { retries: 3 });
 
 export default {
     name: 'ConstructView',

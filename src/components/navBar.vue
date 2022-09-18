@@ -32,10 +32,10 @@
                     this.$router.push('/research');">
             <researchIcon/>
             1. Research </a> 
-        <a class="btn btn-ghost" :class="{'border-blue-500 border-2 font-black': this.$store.state.activeTab==='brainstormView'}" 
+        <!-- <a class="btn btn-ghost" :class="{'border-blue-500 border-2 font-black': this.$store.state.activeTab==='brainstormView'}" 
             @click="this.$store.state.activeTab='brainstormView';
                     this.$router.push('/brainstorm')">
-            test. Brainstorm </a> 
+            test. Brainstorm </a>  -->
         <a class="btn btn-ghost" :class="{'border-blue-500 border-2 font-black': this.$store.state.activeTab==='constructView'}"
             @click="this.$store.state.activeTab='constructView';
                     this.$router.push('/construct')">
