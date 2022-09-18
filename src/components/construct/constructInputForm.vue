@@ -211,8 +211,8 @@ export default {
             var paragraphs = text.split('\n');
             
             paragraphs.forEach(paragraph => {
-                if (paragraph != '') {
-                    
+                if (paragraph != '' && paragraph != ' ' && paragraph != '\r') {
+                    console.log(paragraph);
                     this.content.content.push({
                         "type": "paragraph",
                     "content": [
