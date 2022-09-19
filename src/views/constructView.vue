@@ -2,7 +2,7 @@
     <div class="drawer drawer-end overflow-x-scroll lg:h-[calc(100vh-4rem)]">
         <input id="my-drawer-construct" type="checkbox" class="drawer-toggle" />
         <div class="drawer-content ">
-            <div class="flex flex-col relative m-6 lg:mx-20 lg:p-6">
+            <div class="flex flex-col relative m-2 lg:mx-10 lg:p-3">
 
                 <h1 id="bigHeading" class="text-3xl">
                     <span
