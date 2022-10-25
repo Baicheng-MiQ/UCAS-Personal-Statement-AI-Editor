@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import AuthView from "/src/views/authView.vue";
+import userStatusCheckView from "/src/views/userStatusCheckView.vue";
 import ResearchView from "/src/views/researchView.vue";
 import BrainstormView from "/src/views/brainstormView.vue";
 import ConstructView from "/src/views/constructView.vue";
@@ -15,12 +16,17 @@ const routes = [
         
     },
     {
+        path: "/userStatusCheck",
+        component: userStatusCheckView,
+    },
+    {
         path: "/research",
         component: ResearchView,
         beforeEnter: (to, from, next) => {
             if (!store.state.userDetail) {
                 next("/");
             } else {
+                console.log(store.state.userDetail);
                 store.commit("switchTab", "researchView");
                 next();
             }

@@ -3,6 +3,7 @@ import { notify } from "@kyvg/vue3-notification";
 import { app, auth, db } from '../firebase/config.js';
 import { GoogleAuthProvider, getAuth, signInWithPopup, signInWithEmailAndPassword } from 'firebase/auth';
 import { collection, doc, addDoc, getDoc, onSnapshot, updateDoc, serverTimestamp, orderBy, limit, query, getDocs, setDoc } from "firebase/firestore"; 
+import router from '../router/index.js';
 
 // Initialize firebase Auth
 const provider = new GoogleAuthProvider();
@@ -140,9 +141,26 @@ export default createStore({
                 // This gives you a Google Access Token. You can use it to access the Google API.
                 const credential = GoogleAuthProvider.credentialFromResult(result);
                 const token = credential.accessToken;
-                // The signed-in user info.
+
+                // check whether user in beta program list
                 const user = result.user;
-                state.userDetail = user;
+                // query whether userID is a document ID in betaUsers collection
+                const betaUserRef = doc(db, "betaUsers", user.uid);
+                getDoc(betaUserRef).then((doc) => {
+                    if (doc.exists()) {
+                        // if user is in beta program, set user status
+                        state.userDetail = user;
+                        router.push('/construct');
+                    } else {
+                        // if user is not in beta program
+                        router.push('/userStatusCheck');
+                        this.commit('signOut');
+                        // router to /userStatusCheck page
+                    }
+                }).catch((error) => {
+                    console.log("Error getting document:", error);
+                });
+                // The signed-in user info.
             }).catch((error) => {
                 this.commit('notify', {
                     type: 'error',
