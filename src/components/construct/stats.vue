@@ -30,6 +30,10 @@
                             Check
                         </p>
                     </button>
+                    <div class="my-3 text-sm text-gray-400">
+                        <p v-if="majors">{{majors}}</p>
+                        <p v-else class="text-red-500"> Please input your major </p>
+                    </div>
                 </div>
 
                 <div class="checked w-full" v-else>
@@ -49,7 +53,7 @@
 
 
         <!-- === stats === -->
-        <div class="flex flex-row justify-start space-x-5 h-fit 
+        <div class="flex flex-row mt-auto space-x-5 h-fit bottom-0
             text-sm p-3 px-6">
             <div class="stat p-0 w-fit">
                 <div class="stat-title">Characters</div>
@@ -137,6 +141,10 @@ export default {
                     "sentenceIssue": {"lastCheckValue": null, "checkResult": null},
                 }
             }
+        },
+        majors(){
+            // get from vuex state
+            return this.$store.state.major.join(', ');
         },
         isChecked() {
             if (this.result.paraType.checkResult === null && 

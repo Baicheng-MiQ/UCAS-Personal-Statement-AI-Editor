@@ -14,18 +14,8 @@
                 </button>
             </div>
             <div class="flex flex-row">
-                <div class="flex  m-3">
-                    <p>{{content.content[0].content[0].text}}</p>
-                    <ul class="menu bg-base-100 w-40 rounded-box border-2">
-                        <li v-for="(key, index) in content.content" :key="index">
-                            <a href="#"></a>
-                        </li>
-                        <li><a>Item 1</a></li>
-                        <li><a>Item 2</a></li>
-                        <li><a>Item 3</a></li>
-                    </ul>
-                </div>
-                <div class="paragraphs flex flex-col my-2 space-y-6 xl:ml-64">
+
+                <div class="paragraphs flex flex-col w-full my-2 space-y-6 xl:mx-32">
     
                     <!-- <draggable class="dragArea list-group w-full" :list="content.content" handle=".handle"> -->
                         <div class="paragraph flex flex-col" v-for="(item, index) in content.content" :key="index">
