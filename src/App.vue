@@ -44,11 +44,11 @@ export default {
   methods: {
   },
   watch: {
-    user() {
-      if (!this.user) {
-        this.$router.push('/');
-      }
-    },
+    // user() {
+    //   if (!this.user) {
+    //     this.$router.push('/');
+    //   }
+    // },
   },
 }
 

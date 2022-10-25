@@ -117,6 +117,7 @@ export default {
         signOut () {
             // call vuex signOut mutaion
             this.$store.commit('signOut');
+            this.$router.push('/');
         },
     },
 
